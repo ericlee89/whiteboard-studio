@@ -1,0 +1,37 @@
+{
+  "dockerBuildExecuted": false,
+  "composeUpExecuted": false,
+  "actualPostgreSQL16Tested": false,
+  "reason": "No Docker/Podman binary, daemon socket or container startup capabilities in this execution environment.",
+  "productionBuild": "passed",
+  "composeOfficialSchema": "passed",
+  "dockerfileAST": "passed; not a Docker build",
+  "shellSyntax": "passed",
+  "deploymentConfigTests": 6,
+  "typecheck": "passed",
+  "doctor": "passed",
+  "productionSmoke": {
+    "dockerEngineAvailable": false,
+    "actualPostgresContainerTested": false,
+    "databaseFixture": "PGlite PostgreSQL-wire adapter; not PostgreSQL 16",
+    "productionBuild": true,
+    "productionEntrypointStarted": true,
+    "studioLoaded": true,
+    "overlapRejected": true,
+    "cancelled": true,
+    "rendered": true,
+    "playback": {
+      "time": 1.445614,
+      "width": 1920,
+      "height": 1080,
+      "duration": 11.754362,
+      "error": null
+    },
+    "downloaded": true,
+    "projectPersistedAfterRestart": true,
+    "pageErrors": [],
+    "completed": true
+  },
+  "videoDecode": "passed",
+  "containerAcceptanceCommand": "docker compose --env-file .env.docker exec app node scripts/docker/smoke-render.cjs"
+}

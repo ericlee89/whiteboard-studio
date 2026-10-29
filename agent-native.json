@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "mode": "local-files",
+  "apps": {
+    "whiteboard-studio": {
+      "mode": "local-files",
+      "roots": [{"name":"episodes","path":"data/episodes","extensions":[".json",".md"]}]
+    }
+  },
+  "onboarding": {
+    "firstRun": {"development":"off","production":"connect-and-integrations"}
+  },
+  "doctor": {
+    "failOnBuild": false
+  }
+}

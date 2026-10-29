@@ -1,0 +1,22 @@
+{
+  "completed": true,
+  "environment": "linux",
+  "realMimoTested": false,
+  "audio": "synthetic sine-wave fixture; not real speech",
+  "rootEnvLoaded": true,
+  "inheritedKeyInitiallyAbsent": true,
+  "request": {
+    "path": "/v1/chat/completions",
+    "authorized": true,
+    "model": "mimo-v2.5-tts",
+    "voice": "冰糖",
+    "assistantNarration": true
+  },
+  "jobContainsEnvOrPlaintextKey": false,
+  "state": "done",
+  "duration": 7.721029,
+  "video": "h264",
+  "audioCodec": "aac",
+  "decode": "passed",
+  "unitTestsPassed": 10
+}

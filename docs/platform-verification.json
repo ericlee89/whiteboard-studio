@@ -1,0 +1,64 @@
+{
+  "sourceBaseVersion": 7,
+  "validation": {
+    "nodeProductionBuild": true,
+    "vercelGatewayBuild": true,
+    "typecheck": true,
+    "doctor": true,
+    "gatewayProtocolTests": 10,
+    "httpPathMiddlewareAndRangeTests": 22,
+    "dockerConfigurationTests": 6,
+    "shellSyntax": true,
+    "vercelUploadBoundary": true,
+    "composeStructureParse": true
+  },
+  "browserSmoke": {
+    "actualVercelDeployment": false,
+    "actualDockerRun": false,
+    "database": "disposable native PGlite development database",
+    "gateway": "self-signed local TLS fixture; HTTP upstream is test-only",
+    "backendStarted": true,
+    "directBackendDenied": true,
+    "anonymousDenied": true,
+    "accountLoginThroughGateway": true,
+    "authenticatedLanding": true,
+    "savedThroughGateway": true,
+    "overlapRejected": true,
+    "cancelled": true,
+    "rendered": true,
+    "downloaded": true,
+    "mediaRange": true,
+    "playback": {
+      "time": 1.442149,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    "coversAndSubtitles": true,
+    "projectReadback": true,
+    "pageErrors": [],
+    "completed": true
+  },
+  "limits": {
+    "actualVercelDeployment": true,
+    "actualDockerImageBuildOrRun": false,
+    "actualVpsDnsAndTls": false,
+    "nativeWindowsTest": false,
+    "database": "Native local PGlite for browser acceptance, not the production PostgreSQL container",
+    "actualVercelFullApplicationFlow": false,
+    "note": "Only the gateway is deployed. The original browserSmoke is local acceptance evidence; no VPS backend was supplied."
+  },
+  "cloudGatewayRelease": {
+    "projectId": "prj_QtoiQZnmAWQwTtnV05bnPLOH8TCx",
+    "deploymentId": "dpl_4trUD3BVDiyMpor1vNj1Wfuo7h5M",
+    "url": "https://whiteboard-studio-kappa.vercel.app",
+    "target": "production",
+    "state": "READY",
+    "sourceSha256": "81936cf51b7359900ead108cfee11932a3d153e017abb4c81adbf3ed05b69367",
+    "httpStatus": 503,
+    "expectedResponse": "GATEWAY_NOT_CONFIGURED",
+    "backendConfigured": false,
+    "fullCloudAppVerified": false,
+    "moduleCompatibility": "Dynamic import tested with require(ESM) disabled"
+  }
+}

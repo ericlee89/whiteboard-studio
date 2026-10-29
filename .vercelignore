@@ -1,0 +1,11 @@
+# Only the zero-dependency gateway is uploaded to Vercel.
+*
+!vercel.json
+!package.json
+!scripts/
+scripts/*
+!scripts/deploy/
+scripts/deploy/*
+!scripts/deploy/build-vercel.cjs
+!scripts/deploy/vercel-gateway.cjs
+!scripts/deploy/deployment-config.mjs

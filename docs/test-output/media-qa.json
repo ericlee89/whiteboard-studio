@@ -1,0 +1,26 @@
+{
+  "duration": 25.021029,
+  "width": 1920,
+  "height": 1080,
+  "fps": "30",
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "meanVolume": "-28.8 dB",
+  "decode": "passed",
+  "subtitleCount": 10,
+  "subtitleTimeline": "passed",
+  "covers": {
+    "封面-3x4.png": [
+      1080,
+      1440
+    ],
+    "封面-4x3.png": [
+      1440,
+      1080
+    ],
+    "封面-9x16.png": [
+      1080,
+      1920
+    ]
+  }
+}

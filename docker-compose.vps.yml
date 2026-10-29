@@ -1,0 +1,33 @@
+# Use with the base file; .env.docker remains the single source of credentials.
+services:
+  app:
+    environment:
+      STUDIO_DEPLOYMENT_MODE: "${STUDIO_DEPLOYMENT_MODE:?Select vps or vercel-backend}"
+      LOCAL_SINGLE_USER: "0"
+      AUTH_DISABLED: "0"
+      APP_URL: "${APP_URL:?Set the public HTTPS app URL}"
+      STUDIO_GATEWAY_SECRET: "${STUDIO_GATEWAY_SECRET:-}"
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      STUDIO_SERVER_DOMAIN: "${STUDIO_SERVER_DOMAIN:?Set the VPS domain without https://}"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  caddy-data:
+  caddy-config:

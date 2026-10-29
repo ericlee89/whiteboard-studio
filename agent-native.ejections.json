@@ -1,0 +1,2731 @@
+{
+  "manifestVersion": 1,
+  "ejections": {
+    "toolkit/app-settings": {
+      "unit": "toolkit/app-settings",
+      "source": {
+        "package": "@agent-native/toolkit",
+        "version": "0.221.0",
+        "manifestDigest": "4be05ce9cc4029e2b3772a5276259c4b835c7e957abe4d6cf2340b4ddeda3001"
+      },
+      "targets": [
+        {
+          "path": "app/components/agent-native/toolkit/agentkit.ts",
+          "source": "src/agentkit.ts",
+          "hash": "1321529637f654c67e2e33ac8da29c40b2db33b90fc5fb0a915c1ae4d5e66c04"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app-shell/TemplateLibraryGrid.tsx",
+          "source": "src/app-shell/TemplateLibraryGrid.tsx",
+          "hash": "9cc6128a849d9d360d95fd28ee146be569b362f5bcd16cc164adb16bb695f4c0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/PrimitiveButton.tsx",
+          "source": "src/app/PrimitiveButton.tsx",
+          "hash": "8a3d3bc4a17bda74555dcefcedaed33893c3749eb8b4bbf574f27f3780ddf9f8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AgentJobsTab.tsx",
+          "source": "src/app/agent-page/AgentJobsTab.tsx",
+          "hash": "a0dcba0ab120e0c11578f9fbe4a775e3f8953644c240c3d33b501a7f63d75e53"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AgentTabFrame.tsx",
+          "source": "src/app/agent-page/AgentTabFrame.tsx",
+          "hash": "c26fff74f293e3008177256e93fa015d953b07752c07f4c205d66e2c2bfd1748"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AgentWorkspaceContent.tsx",
+          "source": "src/app/agent-page/AgentWorkspaceContent.tsx",
+          "hash": "f3390c75110f93b74a5bf4efa5c70ce2766eedb624dd4bd31a93abad3a0b9b3f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AutomationDetailsDialog.tsx",
+          "source": "src/app/agent-page/AutomationDetailsDialog.tsx",
+          "hash": "9362c49dc1e050ef9bbd5193297e05de0a682581aed3ae7eb5c9878f8528b6c0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AutomationEditorDialog.tsx",
+          "source": "src/app/agent-page/AutomationEditorDialog.tsx",
+          "hash": "083c2a63fc1c6547fe4235160a3abc2a7efc6f697d0e5bb14bbdbf518c4a77dc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AutomationEditorTriggerFields.tsx",
+          "source": "src/app/agent-page/AutomationEditorTriggerFields.tsx",
+          "hash": "74480908a10143fce780260740c83d566b7275da130bf938c2334928fbce9f65"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AutomationScheduleDialog.tsx",
+          "source": "src/app/agent-page/AutomationScheduleDialog.tsx",
+          "hash": "e54275e073553aac7aa2fd8665e28104a4e1d631e3155ef7843e31d7086cc7c1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AutomationScheduleFields.tsx",
+          "source": "src/app/agent-page/AutomationScheduleFields.tsx",
+          "hash": "e64cf54597a5db143a2929f9ac5c6e4fcb6d25db397fabaf91b2a068afaaabdb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/AutomationSharingFields.tsx",
+          "source": "src/app/agent-page/AutomationSharingFields.tsx",
+          "hash": "d83edce663424891c55f610242506b7825f4a41b22eebb8332fe093dd4c4adf6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/ScheduledTriggerNotice.tsx",
+          "source": "src/app/agent-page/ScheduledTriggerNotice.tsx",
+          "hash": "a7dd62aa142367ec335f4245c8c4dd3234219621ff9acdf895bcde5f02773494"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/TimezoneSelect.tsx",
+          "source": "src/app/agent-page/TimezoneSelect.tsx",
+          "hash": "b43f18fc72983342d7b132a94651e5427cea170dc67098abba0b71116275ee75"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/automation-schedule-fields.ts",
+          "source": "src/app/agent-page/automation-schedule-fields.ts",
+          "hash": "304244031f4b111931dd474eb2677eb10bb4bc2cfe0101c261f0740473c7506e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/automation-schedule.ts",
+          "source": "src/app/agent-page/automation-schedule.ts",
+          "hash": "ebfae5c559f3ca6a6f06575eb3271879b7b4dcb294d2039edae96f68f4172125"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/scheduled-trigger-state.ts",
+          "source": "src/app/agent-page/scheduled-trigger-state.ts",
+          "hash": "49831cf39f4377f268b02e85fe26cb89deae6e8ab411da668cd465edb25d2985"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/types.ts",
+          "source": "src/app/agent-page/types.ts",
+          "hash": "c35f96d2fad76347eed173b33937951f7efa72200fd22e7abda292b2dfaf428d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agent-page/use-jobs.ts",
+          "source": "src/app/agent-page/use-jobs.ts",
+          "hash": "2f6f0096cc872600a9cb73d16568f3bf0b4c68f1d12c25bcc73b0fde6c512741"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/approval-card.tsx",
+          "source": "src/app/agentkit/react/approval-card.tsx",
+          "hash": "5ce11955c3d9289b16972f40c1ddbd4db8aa840f02cce91df12995c7a1a9cdcd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/chat.tsx",
+          "source": "src/app/agentkit/react/chat.tsx",
+          "hash": "69cfab52200313f71c3bba18c7456853166e2f8f0e50f9cd6670b7aa63cb2701"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/components.tsx",
+          "source": "src/app/agentkit/react/components.tsx",
+          "hash": "3d807947a99dbd7f11b14b787aff34d1c5ad452350ddde9018db2d79eb1caaa4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/composer-submission.ts",
+          "source": "src/app/agentkit/react/composer-submission.ts",
+          "hash": "5a077b9ad92bbfb29e5488e98616bbf2d7e916d8a50cb8874e8b79b6d10523e7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/context.tsx",
+          "source": "src/app/agentkit/react/context.tsx",
+          "hash": "38e160e90b440f1da9e5d35315ad88b47b5ed9ca3ae72f8908f660fbdcea637b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/data-chart-layout.ts",
+          "source": "src/app/agentkit/react/data-chart-layout.ts",
+          "hash": "51da07ee27e7f6ba709dce06fcacbc007614b93595c71f4e0dda530ec30c690b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/idle-mount.ts",
+          "source": "src/app/agentkit/react/idle-mount.ts",
+          "hash": "4c09791cc76e9bb07f6dcf15543cdb2236282fd5a83dd01dad361a91b3399401"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/index.ts",
+          "source": "src/app/agentkit/react/index.ts",
+          "hash": "8c7d82fc27825f26036d82c12393b6bdd13cf2c54d26d2808b11d72c40bb432b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/message-content-order.ts",
+          "source": "src/app/agentkit/react/message-content-order.ts",
+          "hash": "b210c6fdf79958733536f5766c03fe7db082806781bef4db291602e67408c422"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/pending-submissions.ts",
+          "source": "src/app/agentkit/react/pending-submissions.ts",
+          "hash": "15e371c3ab07eac7f95c903c0dd5aea04437688201480583327472aac07b51a0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/queue-error-copy.ts",
+          "source": "src/app/agentkit/react/queue-error-copy.ts",
+          "hash": "032930baeb2a6ae60de6b0b237c44fd1d4531b75debf9bf47b762b0234796308"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/root.tsx",
+          "source": "src/app/agentkit/react/root.tsx",
+          "hash": "61eeb8f314d156057e29e57648919cb5f8e43eb4a3028ea3d32fbd2b791dce3c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/stop-button.tsx",
+          "source": "src/app/agentkit/react/stop-button.tsx",
+          "hash": "073b300071a500b254c981eefbb515bc9f4001721afcb53be78d4e97c136ea9c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/streaming-text.tsx",
+          "source": "src/app/agentkit/react/streaming-text.tsx",
+          "hash": "24e651c6f0e9ad5bb70a640a8db4171d2106fe5d1a434ae0f03505ac86fc4755"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/transcript-glide.ts",
+          "source": "src/app/agentkit/react/transcript-glide.ts",
+          "hash": "8989ecfb886fde3c74a519a5ece32c3c7a60a781ff43a9f6ecd03bc1ade743ed"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/transcript-layout.ts",
+          "source": "src/app/agentkit/react/transcript-layout.ts",
+          "hash": "020b58486eca7e0da5a1fb71c07c2eca49d202555d7f5d3fe6a66b5d5549dbf8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/viewed-threads.ts",
+          "source": "src/app/agentkit/react/viewed-threads.ts",
+          "hash": "a4b1056c78e0f89fd21d68280a6f0346a9df9ef070a95822bee8f247c7a372c2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/voice-transcripts.ts",
+          "source": "src/app/agentkit/react/voice-transcripts.ts",
+          "hash": "2a14ee67fa178b61f806072c1e9795bde73b95aa685ad779fdbbfcb76e2938c9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/agentkit/react/work-steps.ts",
+          "source": "src/app/agentkit/react/work-steps.ts",
+          "hash": "4d882816fea5a777db903200ae9c1612909020c085bda3c44b2f4e79ceb7bebf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/changelog/Changelog.tsx",
+          "source": "src/app/changelog/Changelog.tsx",
+          "hash": "ae47f4a72c578f0b4c4c066ccd59c72656b4609119333c670533e941c4d919c1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/changelog/index.ts",
+          "source": "src/app/changelog/index.ts",
+          "hash": "f61a2bbcd00fc5e5bf7e02896a8e0825434d8b66d9a0378e270a248276564403"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentAskPopover.tsx",
+          "source": "src/app/chat/AgentAskPopover.tsx",
+          "hash": "67c9fc29bb51c257f6634bf98b129fb96857e24f064b3182a04a69a8be51a6fa"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentChatHome.tsx",
+          "source": "src/app/chat/AgentChatHome.tsx",
+          "hash": "94f5038ac694bd308c27d060b268ad4419412f58f97e31ff00858204b1beb39e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentKitAssistantChat.tsx",
+          "source": "src/app/chat/AgentKitAssistantChat.tsx",
+          "hash": "9133deefbaa2357d04ca136d38f44285f5486576561aaa05026a83693eeb5abb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentNativeEmbedded.tsx",
+          "source": "src/app/chat/AgentNativeEmbedded.tsx",
+          "hash": "6a1f41efb1c599e6db830e3dc7d0c4b17f0ee6f5e19a15e6b56db2380140813a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentPanel.tsx",
+          "source": "src/app/chat/AgentPanel.tsx",
+          "hash": "8401284772a7b2cd543bded33faa51bff7d467fb9af1c48a8d670f066e80e965"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentPanelThreadTabs.tsx",
+          "source": "src/app/chat/AgentPanelThreadTabs.tsx",
+          "hash": "6eccb70c7e96507801f0b49e6d0632c73042f2be883754c0069a2f7553e00130"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentSidebar.tsx",
+          "source": "src/app/chat/AgentSidebar.tsx",
+          "hash": "69a36f0b2f44da70df6b0075e04f6fae449f88063bb7dc5f3aa5d6c3fdc26944"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentSidebarPanel.tsx",
+          "source": "src/app/chat/AgentSidebarPanel.tsx",
+          "hash": "ecfeef5df1a5395671030f0b30419f86403a3ddb5dc216e8c64bfe735baa7270"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/AgentTaskCard.tsx",
+          "source": "src/app/chat/AgentTaskCard.tsx",
+          "hash": "d68f86f153e8f46a29c05c98570c3a812b923ac4259f5cbd2c76bb783836c5df"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/BuilderReferralInviteRow.tsx",
+          "source": "src/app/chat/BuilderReferralInviteRow.tsx",
+          "hash": "44fb37e8df9bd56bdd8e1e981a958071cc24f38dc9e359c976f57b6230a182eb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/ConnectBuilderCard.tsx",
+          "source": "src/app/chat/ConnectBuilderCard.tsx",
+          "hash": "820731da5b2dbd24a0985a966e1ffc320f27f15f3b1a060070e14a729aa31ffc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/FileStorageSetupPopover.tsx",
+          "source": "src/app/chat/FileStorageSetupPopover.tsx",
+          "hash": "a8f3b18cfcfb413b4203ab53b565e8d636ff34dfa398b15af46e107ae6274dbc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/HighlightedCodeBlock.tsx",
+          "source": "src/app/chat/HighlightedCodeBlock.tsx",
+          "hash": "bf7c5cae0fad1d30e88c6f63c01f804e76d73da244affed88cf679c0abdc5253"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/KeepTabOpenNotice.tsx",
+          "source": "src/app/chat/KeepTabOpenNotice.tsx",
+          "hash": "68ca8b0446afc237a8380c82ae2509fc805d57c72d090e4bfd14974f62957003"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/MultiTabAssistantChat.tsx",
+          "source": "src/app/chat/MultiTabAssistantChat.tsx",
+          "hash": "1ce9ec1780e54bd5e0e93a4d81d21005263bb7bb161755f844883c441d27d839"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/RunStuckBanner.tsx",
+          "source": "src/app/chat/RunStuckBanner.tsx",
+          "hash": "6377eda0c750d04bad2706a3184692310df2a4e8aa7b119efacf7e2674e38399"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agent-chat-presence.ts",
+          "source": "src/app/chat/agent-chat-presence.ts",
+          "hash": "61a49e2d7f695795afe72f7d36ca40596c8f4c1f29ee273857cae31d220a2002"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agent-sidebar-context.ts",
+          "source": "src/app/chat/agent-sidebar-context.ts",
+          "hash": "1f5b7328f38f8cd5c53f731ffabb337c819f2773a16b9467511c563089ea57f5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agent-sidebar-events.ts",
+          "source": "src/app/chat/agent-sidebar-events.ts",
+          "hash": "fe97ae9c75499a41dfb0c67961ec08bc6a11ce2f9ca71bcb7a5aa07587a0c85e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agent-sidebar-url-sync.tsx",
+          "source": "src/app/chat/agent-sidebar-url-sync.tsx",
+          "hash": "c09e43c4edf5400eb1ba0cfd9162149051b129f1490084c6072e6f8090cb3b9e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/action-widget.tsx",
+          "source": "src/app/chat/agentkit-chat/action-widget.tsx",
+          "hash": "db99829ed479798bafb4981a714f8eb8eafcaa5bc1c63e8653c27eff66a43942"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/approval-card.tsx",
+          "source": "src/app/chat/agentkit-chat/approval-card.tsx",
+          "hash": "9bdbf704a3f473630570eb92d4ef9050f5d81f26f236226092fa22b414fc1140"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/connections.ts",
+          "source": "src/app/chat/agentkit-chat/connections.ts",
+          "hash": "fd3040416a4b77dcb594b8c219dcab3703f2e84e34b6eace263297ddfb3c0eab"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/guided-questions.tsx",
+          "source": "src/app/chat/agentkit-chat/guided-questions.tsx",
+          "hash": "44d24e4f2eeedfbb466c43ce1058a9c4464e746d256d277abba9429d8736a1d4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/history.tsx",
+          "source": "src/app/chat/agentkit-chat/history.tsx",
+          "hash": "594f849759b512a146a70ed0cda7f89979db014801d4adec056a7124c3a09bef"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/index.ts",
+          "source": "src/app/chat/agentkit-chat/index.ts",
+          "hash": "78f7d760f485e6d201857d239b6cfd22e34c8b7ab8d79409f3c3ab4d23ead466"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/parity-renderers.tsx",
+          "source": "src/app/chat/agentkit-chat/parity-renderers.tsx",
+          "hash": "5ce2ad145124db1311837ebfe354041ce14e04233441536a196724b932974965"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/questions.ts",
+          "source": "src/app/chat/agentkit-chat/questions.ts",
+          "hash": "3fdd0f0eb46c9bce180f037d386e0c6dbac179c06389117daef400874b9f0cc9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/root.tsx",
+          "source": "src/app/chat/agentkit-chat/root.tsx",
+          "hash": "85f7e7ab0a3e3c98c5bb845ad73014d99a7f1da5ae97b6a7f56450965fd1bb5d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/suggestions.ts",
+          "source": "src/app/chat/agentkit-chat/suggestions.ts",
+          "hash": "4e062cdd7d5422053c6f2c87f73643f156ad5a373049b6642efcd97411c6116a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/agentkit-chat/work-step-labels.ts",
+          "source": "src/app/chat/agentkit-chat/work-step-labels.ts",
+          "hash": "cdc340940e4fa558d84734ff6432e3192ad812800ecb6b6ad60b11c91b6b627a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first-copy.ts",
+          "source": "src/app/chat/chat-first-copy.ts",
+          "hash": "2e1fe6a0a2cff79992bc36c9f5ebdebb886d55f63f419426e8e16ae10e96ddeb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/ChatFirstAgentActivityPanel.tsx",
+          "source": "src/app/chat/chat-first/ChatFirstAgentActivityPanel.tsx",
+          "hash": "3d63edd4702fe7e50e7322cf8a1df98015046c032ef7ac47054e4f539a4af4c2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/ChatFirstSurfacePanelToggle.tsx",
+          "source": "src/app/chat/chat-first/ChatFirstSurfacePanelToggle.tsx",
+          "hash": "6c58f174f868d469f04146c125f119dcda63c696292db765dafe9a5ef27ef359"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/active-surface.ts",
+          "source": "src/app/chat/chat-first/active-surface.ts",
+          "hash": "6793dc256b04e6ed418378c7df72170ab6667cfe5329476bd765f84bdd2152ea"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/agents-pane.tsx",
+          "source": "src/app/chat/chat-first/agents-pane.tsx",
+          "hash": "696ae3918a9b62fe2da19712c7fbf1b29caa8c0392642fdca7f70893b2e25ead"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/app-open-actions.tsx",
+          "source": "src/app/chat/chat-first/app-open-actions.tsx",
+          "hash": "aeb2d1e6f9b1744e81365375ec2c1bb4c61d54404c7f60c6a99e2b955ac04911"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/app-pane.tsx",
+          "source": "src/app/chat/chat-first/app-pane.tsx",
+          "hash": "0e3848ed92289d73fe1b979d69750d91e7b80ff524a69d4bb4f53f766efbef0d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/apps-rail.tsx",
+          "source": "src/app/chat/chat-first/apps-rail.tsx",
+          "hash": "3b7057647fdd20b98475f3e267c75d54654e039fe100414396766d650624e56a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/browser-pane.tsx",
+          "source": "src/app/chat/chat-first/browser-pane.tsx",
+          "hash": "ad8965c525ccd1b22e1d280ad1b0c36aa31f88727acca75d43bdebed99de80ff"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/chat-history.tsx",
+          "source": "src/app/chat/chat-first/chat-history.tsx",
+          "hash": "b323d6c7d93eafce0beb52abcd206dbe53cb9f41d1ff75d3c8f3d2be631a91db"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/copy.ts",
+          "source": "src/app/chat/chat-first/copy.ts",
+          "hash": "aab9f3742cc83a2f0bf0f7767a3f91bb498e0f2776b8436d31b817c5126017ea"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/index.ts",
+          "source": "src/app/chat/chat-first/index.ts",
+          "hash": "9be8c4659644b708eed7b278c2b2ac0bd41e7fc99b6a8b223823fcc6691d38e0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/primary-nav.tsx",
+          "source": "src/app/chat/chat-first/primary-nav.tsx",
+          "hash": "490b5971fe75eaf3a0e75e731e36605c940b4dd0334c4c90c50b9491f537be90"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/session-watch-pane.tsx",
+          "source": "src/app/chat/chat-first/session-watch-pane.tsx",
+          "hash": "c20f7bfa74f100495f2b7f0fa69c3421a24b2ece022b14aa2bf63e3da073b41d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/surface-panel.tsx",
+          "source": "src/app/chat/chat-first/surface-panel.tsx",
+          "hash": "64363ade3d5ac9d2cb13ebbcfeb4820801e14aee2d01ac35b85a5bc12b1d87b1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/surface-tabs.tsx",
+          "source": "src/app/chat/chat-first/surface-tabs.tsx",
+          "hash": "bf8479495166fb1d464495b6ccb558b9767f5b8811a4a4f79e40dda3caae18be"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat-first/types.ts",
+          "source": "src/app/chat/chat-first/types.ts",
+          "hash": "a94136fc6db766983a1ad12e18039a9d5e130fb4bf073f1005192e69a0fc8051"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/ChatHistoryList.tsx",
+          "source": "src/app/chat/chat/ChatHistoryList.tsx",
+          "hash": "a801895fb7bf1254fc2639e2fb32205063f869f3ae8fa853ca6f64426c622bdf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/IframeEmbed.tsx",
+          "source": "src/app/chat/chat/IframeEmbed.tsx",
+          "hash": "f440c36f7f2cf3cbcaf6f009103cd39b388de432859021b3a9f5ad47c639d266"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/action-chat-ui-surface.tsx",
+          "source": "src/app/chat/chat/action-chat-ui-surface.tsx",
+          "hash": "94a619c0b46289c77b4ef7ee0b5a21b889f68cfa13aec2abc9da33456360dd48"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/agent-activity-object.tsx",
+          "source": "src/app/chat/chat/agent-activity-object.tsx",
+          "hash": "43a52164a7c7a2cb817d51437b86a3a0f9631b3efccaa8cf4437528925858367"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/agent-activity-trace.tsx",
+          "source": "src/app/chat/chat/agent-activity-trace.tsx",
+          "hash": "912ea7f139bcd150ea54542173ab75da0611e2071a201a3335ca8a3d84bed0bc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/agent-approval-card.tsx",
+          "source": "src/app/chat/chat/agent-approval-card.tsx",
+          "hash": "fb7189753734b9d3fbe26fb05744c502c671bd8cb939550c1585326f12f0b588"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/history-types.ts",
+          "source": "src/app/chat/chat/history-types.ts",
+          "hash": "18fca85be08910823a57337b4d0dd3a33e0b7a688dad115744c05f3ca7810b38"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/index.ts",
+          "source": "src/app/chat/chat/index.ts",
+          "hash": "089f2ad89617be2c0d318b597915b6b14a8af37c6b6428ffd688c79b5fe51e58"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/legacy-chart-shorthand.tsx",
+          "source": "src/app/chat/chat/legacy-chart-shorthand.tsx",
+          "hash": "89519784c5ac725aa9071a2cec5a74c69eed879c2b0a7b5fe1a9d234b99b71b6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/markdown-renderer.tsx",
+          "source": "src/app/chat/chat/markdown-renderer.tsx",
+          "hash": "e7a13da6d6197d116d69b358a8c86a9ae98aae250fe84f13c0f43cc600243c40"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/run-recovery.tsx",
+          "source": "src/app/chat/chat/run-recovery.tsx",
+          "hash": "8a3dadf80ae2c2780654dbb642eb0230ac5ff884e6eaaeff6424f25800d7f0ea"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/surface-types.ts",
+          "source": "src/app/chat/chat/surface-types.ts",
+          "hash": "647cc5a6e1122926a446d8e455d0e9e87481070fabfe113060e79231c9aea46e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/tool-call-display.tsx",
+          "source": "src/app/chat/chat/tool-call-display.tsx",
+          "hash": "f7b11918aca724d23995789bea2ecfb5c92dc17ee93cd2f8f43a7501cf826b8a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/tool-chips.tsx",
+          "source": "src/app/chat/chat/tool-chips.tsx",
+          "hash": "1df5d4b2b4d0d3d07fe2bd51ab7e09b164aeaf8226db1d1e1a515b3fe6d7b370"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/tool-integration.tsx",
+          "source": "src/app/chat/chat/tool-integration.tsx",
+          "hash": "c7a575d49cfd3d24d6f57addf7f3a0cc2d37d7f50ec3c97ce75e09dc74bf8919"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/tool-render-registry.tsx",
+          "source": "src/app/chat/chat/tool-render-registry.tsx",
+          "hash": "677ea6cc9ad0ac417780baf6608eaf9654f9df953bed3e3db32225119c13cc1b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/ActionCard.tsx",
+          "source": "src/app/chat/chat/widgets/ActionCard.tsx",
+          "hash": "cb71951b10874320e89ac77e4fb5b7fa9536a206641cec7fefab48746ef235e0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/AgentTeamProgressWidget.tsx",
+          "source": "src/app/chat/chat/widgets/AgentTeamProgressWidget.tsx",
+          "hash": "aed2909c72d288c7c415a2453489aa3fc9a9e730f208d292de00df77dc8d62c3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/ConnectRequiredWidget.tsx",
+          "source": "src/app/chat/chat/widgets/ConnectRequiredWidget.tsx",
+          "hash": "e10de0109541b0da650e3a6e613337e029bb7b00865a411779ef639012e0cfa5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/DataChartRenderer.tsx",
+          "source": "src/app/chat/chat/widgets/DataChartRenderer.tsx",
+          "hash": "89ac7ff6a5dc03aec7cc06e83ed62bb645648df21a943e53e3a9dae53591cbb6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/DataChartWidget.tsx",
+          "source": "src/app/chat/chat/widgets/DataChartWidget.tsx",
+          "hash": "579a55d1bc53c4a50c3517f8382184d1c57731ec5ab4fe901a43baf1ca96dd2d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/DataInsightsWidget.tsx",
+          "source": "src/app/chat/chat/widgets/DataInsightsWidget.tsx",
+          "hash": "d994e3aff0dbe67d65adda5b05e56dbdefa132e2c0a94497d05efe0148dcddb6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/DataTableWidget.tsx",
+          "source": "src/app/chat/chat/widgets/DataTableWidget.tsx",
+          "hash": "a99c9f6802bffbcc97f26537eda6233efcf8ecf86bacdcb518dc69fbaf8df3c2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/DataWidgetDisplayControls.tsx",
+          "source": "src/app/chat/chat/widgets/DataWidgetDisplayControls.tsx",
+          "hash": "7f83a7b027861e9e3977d7c5bddd46011903295ce7c9be6d864ad3262eb6c032"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/InlineExtensionWidget.tsx",
+          "source": "src/app/chat/chat/widgets/InlineExtensionWidget.tsx",
+          "hash": "fbd39fa556d6cc1bf34c917157ae180b738adb687642add4088c4864e252a0f9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/RecordChangeWidget.tsx",
+          "source": "src/app/chat/chat/widgets/RecordChangeWidget.tsx",
+          "hash": "a69d3d302e64db641419ea8422e1c724ab526efd486fc91c6a21c0105a8fbc9f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/WorkspaceFileWidget.tsx",
+          "source": "src/app/chat/chat/widgets/WorkspaceFileWidget.tsx",
+          "hash": "84322266a055dd2c3a842401ea6eaf32e8e316afd5f5f643738ec07d1d410b2c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/builtin-tool-renderers.tsx",
+          "source": "src/app/chat/chat/widgets/builtin-tool-renderers.tsx",
+          "hash": "fb76144c6e31c7afdbd06b1ae56d6d97464ce01dcb089a6fc5817e93de2f1584"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/data-widget-types.ts",
+          "source": "src/app/chat/chat/widgets/data-widget-types.ts",
+          "hash": "f108af150e4ca98340984ccfd8e7e8641ef668aa58591cfe97595846490c2694"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/inline-extension-result.ts",
+          "source": "src/app/chat/chat/widgets/inline-extension-result.ts",
+          "hash": "d2f900b4ac06e92407cc4856ebb93ca5daa6e58fd68bbe8d33711df1135a49f2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/chat/widgets/workspace-file-result.ts",
+          "source": "src/app/chat/chat/widgets/workspace-file-result.ts",
+          "hash": "8b465749f142a1d82ac5702e7220f3c0f5e4f165d5dfefb6671ab4e474d8decf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/components/CodeAgentIndicator.tsx",
+          "source": "src/app/chat/components/CodeAgentIndicator.tsx",
+          "hash": "7acdf26ef999bd976cf306dedc8da32427e6f94627cbc526aca31d3a0777cdf2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/components/CodeRequiredDialog.tsx",
+          "source": "src/app/chat/components/CodeRequiredDialog.tsx",
+          "hash": "734d65aeb7f67137386c6f52caa859dd3add9924fec43e2f62e0946e09605640"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/components/ui/button-classes.ts",
+          "source": "src/app/chat/components/ui/button-classes.ts",
+          "hash": "96fb642aa7227cb1f22c35bedc580386508d77d641ba8e9ecf4d725eb27b70fe"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/components/ui/message-scroller.tsx",
+          "source": "src/app/chat/components/ui/message-scroller.tsx",
+          "hash": "64b554589e0a7723dc7eba9865c70553ec615e1b371400660b7c7e84f6c833ec"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/assistant-ui-recovery.tsx",
+          "source": "src/app/chat/composer/assistant-ui-recovery.tsx",
+          "hash": "8473ee63589159c60711106b82d479eeeb81490e30aab1b7578238e918735ce6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/index.ts",
+          "source": "src/app/chat/composer/index.ts",
+          "hash": "fd7b2089a3fd8c99cc4fbeb6f33b1b0d0568fa65ce352bcf02c18f2491969f7a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/model-runtime-adapters.ts",
+          "source": "src/app/chat/composer/model-runtime-adapters.ts",
+          "hash": "20db78d9160ce12fa50262123608a9da3a911d3a4cea1cce4a2e5a827d4fe176"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/runtime-adapters.tsx",
+          "source": "src/app/chat/composer/runtime-adapters.tsx",
+          "hash": "2b32818b1fe241154148c14c705e10bc944ec7ee66d4882d4fc229967fbe4f38"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/use-agentkit-capabilities.ts",
+          "source": "src/app/chat/composer/use-agentkit-capabilities.ts",
+          "hash": "e1674e4a0d3924be1a47dd53141240d11e5f7fae87b9f7771071c1f11009a44f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/use-agentkit-integration-menu.tsx",
+          "source": "src/app/chat/composer/use-agentkit-integration-menu.tsx",
+          "hash": "d8a63e0434548363b39261e946032ee26400972313958608b5070cce348a5d1f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/use-describe-model.ts",
+          "source": "src/app/chat/composer/use-describe-model.ts",
+          "hash": "ce493c0b5e46aaa1900c2f2afaf2e8aea49c37fed9845371fdec8bf9633f7672"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/use-mention-search.ts",
+          "source": "src/app/chat/composer/use-mention-search.ts",
+          "hash": "13b43a1e408f023b45675cca2fb892f1dd7a903365ef7390960093861410ec4a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/use-send-to-agent-chat.tsx",
+          "source": "src/app/chat/composer/use-send-to-agent-chat.tsx",
+          "hash": "00906132cd84f6ed00fcd1ceff72433e3f1a4c49a47a48495a1a0cc58b8f9e29"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/composer/wired-components.tsx",
+          "source": "src/app/chat/composer/wired-components.tsx",
+          "hash": "c528dd400ce418415b47a80270688795c8b3cd2b15985056503edb3218dae522"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/conversation/AgentConversation.tsx",
+          "source": "src/app/chat/conversation/AgentConversation.tsx",
+          "hash": "ab11eef0a7235cbe751f866c52bab6824a75f6c15c9026b40205e0f15738ba32"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/conversation/code-agent-transcript.ts",
+          "source": "src/app/chat/conversation/code-agent-transcript.ts",
+          "hash": "66bdb45b61aee3e7a7c83872479dc4fe7a3aef0eae22b020a2757489c05d6c91"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/conversation/index.ts",
+          "source": "src/app/chat/conversation/index.ts",
+          "hash": "a1c18b453e0c576a56ae2a8a5bb7586a1f2df7d1a507a2a8a0d960b595ea8eb9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/conversation/types.ts",
+          "source": "src/app/chat/conversation/types.ts",
+          "hash": "9d01e2ee3ab88c23efbaeba516faa47d1f6b05736071469897b76c74261979f9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/conversation/use-near-bottom-autoscroll.ts",
+          "source": "src/app/chat/conversation/use-near-bottom-autoscroll.ts",
+          "hash": "4d452a1fcf9de5762eb1d8cb47b22c03f16f4cb9d7ca97a26f7c04835334d29b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/external-agent-host.tsx",
+          "source": "src/app/chat/external-agent-host.tsx",
+          "hash": "5d631ab91fd2c51a1ee82dc5237f60dec8a800d6ee88ac84a59efd0cb88542ab"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/fallback-chat-title.ts",
+          "source": "src/app/chat/fallback-chat-title.ts",
+          "hash": "68ad4a32d21cdad177854cf4d7da0288da063e805a649468b494c19c7464d8a7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/feedback-report.ts",
+          "source": "src/app/chat/feedback-report.ts",
+          "hash": "61c67fa3597b92f18c39d4dae0013c915ae605967eb24dc07e48872a07883a9d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/index.ts",
+          "source": "src/app/chat/index.ts",
+          "hash": "e34708dd346e74eac0aa2b1cc5462e8a9994bb7095bf62c23f2ae48d661b574a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/mcp-apps/McpAppRenderer.tsx",
+          "source": "src/app/chat/mcp-apps/McpAppRenderer.tsx",
+          "hash": "b34f7c519b43725d55a92752e278303807106501e1ed684e9c5b5713d8ebbdd6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/mcp-apps/mcp-app-theme.ts",
+          "source": "src/app/chat/mcp-apps/mcp-app-theme.ts",
+          "hash": "37b3c9911ca95519a237c81ebc59787df1acecabcacffff07b5003f6f874e0e0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/ownership-history/ChatOwnerAvatar.tsx",
+          "source": "src/app/chat/ownership-history/ChatOwnerAvatar.tsx",
+          "hash": "0ef7e0eeae4f3758e8d58e80bd620b034c4114b9ea265673ac274246379a3787"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/ownership-history/index.tsx",
+          "source": "src/app/chat/ownership-history/index.tsx",
+          "hash": "90bf5ea5147cdad0b1725a017a443d4e313b9ec9372541ea4faa7ad549daf7e7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/ownership-history/rows.ts",
+          "source": "src/app/chat/ownership-history/rows.ts",
+          "hash": "40d0c8475cb9215ff9fa94eb817377b73777d108b61a535a647ed40f967fd405"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/ownership-history/useOwnershipChatHistory.ts",
+          "source": "src/app/chat/ownership-history/useOwnershipChatHistory.ts",
+          "hash": "4c2cfaa79f581eeb266bd854fe59c1968c173ed471d623c8b0b7db94a2c9867c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/reconcile-settled-run.ts",
+          "source": "src/app/chat/reconcile-settled-run.ts",
+          "hash": "772127c3831e30efef746e74fd5fccd7d9139cdfce06071e398d954e7edb4214"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/reply-connection-suggestion.ts",
+          "source": "src/app/chat/reply-connection-suggestion.ts",
+          "hash": "70b9836185e4de4418aaff216a86b660f948cd9f632cff9c891167195b6c953a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/run-awareness/chat-unread-state.ts",
+          "source": "src/app/chat/run-awareness/chat-unread-state.ts",
+          "hash": "d415093811c211050243c1bb06e93cb80c67111e5e74ffc7744a1214b926a89a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/session-replay-privacy.ts",
+          "source": "src/app/chat/session-replay-privacy.ts",
+          "hash": "323810589c68ad4c50775fe7282d838223b74a951e9d93fa934b0d4266eb3643"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/thinking-display.tsx",
+          "source": "src/app/chat/thinking-display.tsx",
+          "hash": "16aae83dda2366a8006ffc86c092513f5c1b2a03d7e68c93611625ab7135def8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/tool-cells/BashCell.tsx",
+          "source": "src/app/chat/tool-cells/BashCell.tsx",
+          "hash": "9e72563232193b2b6f3ea5ac8aa0c14c59e0462e0fa9e4276333ad000f1c6003"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/tool-cells/EditCell.tsx",
+          "source": "src/app/chat/tool-cells/EditCell.tsx",
+          "hash": "cf6c94e1198ed3e27ded6ee021ee1389eb92d3b5913d97fbc62a1184ebbfdcfb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/tool-cells/FilesChangedSummary.tsx",
+          "source": "src/app/chat/tool-cells/FilesChangedSummary.tsx",
+          "hash": "9c19940c7afee22383438f0ea9e55de99ff7b67f722788d9c8487e3475a52018"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/tool-cells/WriteCell.tsx",
+          "source": "src/app/chat/tool-cells/WriteCell.tsx",
+          "hash": "a6720b7586de432f2b6312a85634ed7f0ea1f10a903e5f9a45cf9594633a16c6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/chat/tool-cells/index.ts",
+          "source": "src/app/chat/tool-cells/index.ts",
+          "hash": "3aae966e65b923c5c964e65ed566b23dfea0f70e0620796875aa65d709c64279"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/context-xray/ThreadContextRing.tsx",
+          "source": "src/app/context-xray/ThreadContextRing.tsx",
+          "hash": "e68b8dc1d2a8555e96e210e9f3fa1243b1ef87fc340587d6902e51c22c5ca159"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/context-xray/use-thread-context-usage.ts",
+          "source": "src/app/context-xray/use-thread-context-usage.ts",
+          "hash": "e0f8bbacfd8d287879ba3d3b151570128834a404022d15a13b93071f9738f089"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/db-admin/export-utils.ts",
+          "source": "src/app/db-admin/export-utils.ts",
+          "hash": "147f08a51a71c60336ff83f5a788a39ce51fcbb7bdf962e5c5446fafd5dc7971"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/AgentNativeExtensionFrame.tsx",
+          "source": "src/app/extensions/AgentNativeExtensionFrame.tsx",
+          "hash": "ee5e7f49ec40752a75a6b26bdcb778241714f71afb0c34b4b6661c04069e7a27"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/EmbeddedExtension.tsx",
+          "source": "src/app/extensions/EmbeddedExtension.tsx",
+          "hash": "a21be80944c3f44e9cec91a65d40352e4c6aeae486e9c9a95a9b424b8b11d36b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionEditor.tsx",
+          "source": "src/app/extensions/ExtensionEditor.tsx",
+          "hash": "ee0f2f35c9e828e8d4ce2c86f2605c14902cb769b4660e3b89a0a783daa0e551"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionQueryErrorState.tsx",
+          "source": "src/app/extensions/ExtensionQueryErrorState.tsx",
+          "hash": "f6dfa8abf33eddbf2edfad0e00b98267575c94c8b812cb962d46e0d11d6f485b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionSlot.tsx",
+          "source": "src/app/extensions/ExtensionSlot.tsx",
+          "hash": "71e9615015eb04a11ca728d908dfa69a5023fdd7d7c5a5fe8ecfe17efb1f0860"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionViewer.tsx",
+          "source": "src/app/extensions/ExtensionViewer.tsx",
+          "hash": "12e80f9b05fad6cb1e9c185d8aadf9720b1436c3a584f82f06f862e6677cbaca"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionViewerPage.tsx",
+          "source": "src/app/extensions/ExtensionViewerPage.tsx",
+          "hash": "dfc3d23eb07d9dadea56dab0e3c0898954facc1d64ec83e166dfcc65546c2513"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionsListPage.tsx",
+          "source": "src/app/extensions/ExtensionsListPage.tsx",
+          "hash": "965da52a5cfab0b10da08f04a8bcb8364fcca3d8a5e6a01e2984f300b7391d30"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/ExtensionsSidebarSection.tsx",
+          "source": "src/app/extensions/ExtensionsSidebarSection.tsx",
+          "hash": "e0a76ff2a81f9eead761173c3ba85607541120d521014b4df83b07028356690d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/InlineExtensionFrame.tsx",
+          "source": "src/app/extensions/InlineExtensionFrame.tsx",
+          "hash": "dd79f99c09cf7c48b941f910f33dcb6ea6a8c75eb11adfbed93f308edda886ec"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/delete-extension.ts",
+          "source": "src/app/extensions/delete-extension.ts",
+          "hash": "b492aebec7f6b6200a3ca88cd4ec1c7e53b7fc056ad7564941bb37ae4014e581"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/extension-links.ts",
+          "source": "src/app/extensions/extension-links.ts",
+          "hash": "b5bf6e00701cb3d229e79cc762180188a4fc588bea6e583ecd21b1ca67e7b638"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/extension-load-error.ts",
+          "source": "src/app/extensions/extension-load-error.ts",
+          "hash": "efb94dc7645344da22f77d4b0453982f9a8870085bcdd0923c1c97d5aba0ee82"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/extension-order.ts",
+          "source": "src/app/extensions/extension-order.ts",
+          "hash": "035f103c25c515e8273649bc403d6ff7420fe2a5768734aea4043b990dd462fd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/extension-popularity.ts",
+          "source": "src/app/extensions/extension-popularity.ts",
+          "hash": "f2bdeb4e62e4136976ce8798fd7f29b811ade3dac737f63ff56e48dde8d831b3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/iframe-bridge.ts",
+          "source": "src/app/extensions/iframe-bridge.ts",
+          "hash": "b27e1c49746fe71f1de2f8dfc132e74241b76fc911e3c24b5fa4dd5129085e39"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/iframe-display-sources.ts",
+          "source": "src/app/extensions/iframe-display-sources.ts",
+          "hash": "473b63fa5480d499e192b06c81a509d97675c7666bc31d9df80cb1ebc26d8625"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/index.ts",
+          "source": "src/app/extensions/index.ts",
+          "hash": "216eab66dc1e125c72fc937a4407a4cf6572955cb18de36f7e744dd8ac57119d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/open-extension-link.ts",
+          "source": "src/app/extensions/open-extension-link.ts",
+          "hash": "2bf5b1c88e659b527b74e10e68cc2a428997061167f51a6ccd950a4269bcabcf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/extensions/portable-extension.ts",
+          "source": "src/app/extensions/portable-extension.ts",
+          "hash": "8257f94f4daffd5fb2ea911a21bfe45ae63bd85d59f66adbf4ced2c98b8a1315"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/feedback/ErrorReportActions.tsx",
+          "source": "src/app/feedback/ErrorReportActions.tsx",
+          "hash": "5cae8290c16a51ea88cfe9c619679794aa70d2c6c6677db24521cde735526bfc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/feedback/FeedbackButton.tsx",
+          "source": "src/app/feedback/FeedbackButton.tsx",
+          "hash": "7e03f24b824ab70a14f268cc927e3634162afd56166d12e9c6261a69d793a20b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/feedback/ReportProblemButton.tsx",
+          "source": "src/app/feedback/ReportProblemButton.tsx",
+          "hash": "5863f678f9789d6b5bff15df35b2dac6856ef1d8333bb2932ca09f971e109d0e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/feedback/ReportProblemDialog.tsx",
+          "source": "src/app/feedback/ReportProblemDialog.tsx",
+          "hash": "9abfadcea7362e1197d7a96a1b7d7417a9ffbe057969e3bb223272f10e6be9f1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/feedback/index.ts",
+          "source": "src/app/feedback/index.ts",
+          "hash": "5a2e496468a1af416fb0ac76c13743178c86afcb64449038af255f8559576410"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/BuilderIntegrationPage.tsx",
+          "source": "src/app/integrations/BuilderIntegrationPage.tsx",
+          "hash": "0f9ec6fd45999702ba28b50c30409ca325e2fcf3cd3bbcdf64dd8346269fb823"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/ChannelsPage.tsx",
+          "source": "src/app/integrations/ChannelsPage.tsx",
+          "hash": "be6e241c134f177466abad523032aaff1bdb52a2c193182ebb6649b900bbb409"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/GoogleProductLogo.tsx",
+          "source": "src/app/integrations/GoogleProductLogo.tsx",
+          "hash": "385fbedaa4632deb99c141c2325b483caa860b9945e651750e204094c5df8fdd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/IntegrationConnectionChoice.tsx",
+          "source": "src/app/integrations/IntegrationConnectionChoice.tsx",
+          "hash": "761255106573cef4dfd833fcdc056bb5eb6c5c6b92ebe4299288920baae52308"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/IntegrationDetailPage.tsx",
+          "source": "src/app/integrations/IntegrationDetailPage.tsx",
+          "hash": "8a1aa17317d785da6927cf94663fd913220b6b47f5ea4c333a3f9ddee50e36cf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/IntegrationDetailParts.tsx",
+          "source": "src/app/integrations/IntegrationDetailParts.tsx",
+          "hash": "947190f54ad33a6fbe4a37be474b8af65a6b15adb2649cce110b4f6dc1b87167"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/IntegrationGrid.tsx",
+          "source": "src/app/integrations/IntegrationGrid.tsx",
+          "hash": "00898bb372c3295c32979087e93f7197dcb35899f4325943bf866739753dadd3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/IntegrationsPage.tsx",
+          "source": "src/app/integrations/IntegrationsPage.tsx",
+          "hash": "f956ba0567a86b30f5cf90be7804d8f3d74a0e43161d140ac6ab204b4fb04381"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/IntegrationsPanel.tsx",
+          "source": "src/app/integrations/IntegrationsPanel.tsx",
+          "hash": "bd98fa06d967b945baaf8fe86d7df320fa16b6dedf12014cd5a462bd67fef959"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/channel-extensions.ts",
+          "source": "src/app/integrations/channel-extensions.ts",
+          "hash": "c49c503e24b66e5d7a8d7ad0bdce1359b164bd1ae0fc2940a5cf605767410077"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/channel-icons.ts",
+          "source": "src/app/integrations/channel-icons.ts",
+          "hash": "a94b24f46bd77d20bd83db99bb1ada59a61dfae371b4792ceff5d03e4d71e3a8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/index.ts",
+          "source": "src/app/integrations/index.ts",
+          "hash": "bad0733dd2aff025bd8a2a8298c96a4dee37c77ed4e14b5b78c0b6a6ca811af1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/integrations/settings-page-link.tsx",
+          "source": "src/app/integrations/settings-page-link.tsx",
+          "hash": "253d9e79a9f456409843a6b1c91d56c823ac3989fd11ef7d52bc998f3269027a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/labs/ExperimentsSettings.tsx",
+          "source": "src/app/labs/ExperimentsSettings.tsx",
+          "hash": "42f88543cf9047254df86956adc54ff5cbbc4c4408e9529cb8169aaf6e4106f6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/labs/LabsSettings.tsx",
+          "source": "src/app/labs/LabsSettings.tsx",
+          "hash": "817eeb3fe29f2d6469231f5d5e716b8efff1389579503145777c6763be6e9b02"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/labs/index.ts",
+          "source": "src/app/labs/index.ts",
+          "hash": "2f228ee20672679259d950f1be9efa072aaebe5d3b9cd3742f5ace33cfd1541f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/BuilderIncludedServices.tsx",
+          "source": "src/app/onboarding/BuilderIncludedServices.tsx",
+          "hash": "0a014f9525970934482779b5bb5483b560f8041ef5400eb96737834cfee3c771"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/FirstRunOnboarding.tsx",
+          "source": "src/app/onboarding/FirstRunOnboarding.tsx",
+          "hash": "a690c02bffc5ec442e0275e19158953b9d5490176cbd28414d31dc552e971879"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/OnboardingPanel.tsx",
+          "source": "src/app/onboarding/OnboardingPanel.tsx",
+          "hash": "8b410302dbf11d1d763c2864d8c1232536ca5c3165f2fcd6d7585f676da9a2f4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/OnboardingStepLayout.tsx",
+          "source": "src/app/onboarding/OnboardingStepLayout.tsx",
+          "hash": "09ec58c2aa491b91955c8d318b5aa289f43cf4c71b7b1679e53041d68145e8ed"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/SetupButton.tsx",
+          "source": "src/app/onboarding/SetupButton.tsx",
+          "hash": "cf9e2ed65e7d87cc1a3cc5cb4a8abb9a74eee01e918a5f8e0070b85790633464"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/first-run-experiment.ts",
+          "source": "src/app/onboarding/first-run-experiment.ts",
+          "hash": "d18f7e8bf310c264e335ce854e2a7d1c24d722cc9d0bc405c8dbaad51bc86271"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/onboarding/first-run-startup-gate.tsx",
+          "source": "src/app/onboarding/first-run-startup-gate.tsx",
+          "hash": "188023b846764c1f080724e01830368e44937d6e20782533c05a9c046f07e3c0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/AppsAccessSection.tsx",
+          "source": "src/app/org/AppsAccessSection.tsx",
+          "hash": "08ca9198aaec1bea5960b3399306b54ab637d08597db66f5e674280c516fa64a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/AuthenticationSection.tsx",
+          "source": "src/app/org/AuthenticationSection.tsx",
+          "hash": "4a83e01b0e461256d08a2e5ec715ba11e8390131aef91e3864e1d38a09cb48dd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/BulkInviteForm.tsx",
+          "source": "src/app/org/BulkInviteForm.tsx",
+          "hash": "d7e25d094079e8b68e1019d0fa6e5268d54762fb7c0d79144ccb5ca9b20b1b8b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/GroupsSection.tsx",
+          "source": "src/app/org/GroupsSection.tsx",
+          "hash": "2397522de76db4e235e9d3638f63c30e35a4d23a84a556b27c35aeb974285d0b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/MemberAppRoles.tsx",
+          "source": "src/app/org/MemberAppRoles.tsx",
+          "hash": "fdfd23cabf8f35681b6c9bd1ffefe6f9ee5e8eb138ad24b5d73e32488c5be364"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/MembersSection.tsx",
+          "source": "src/app/org/MembersSection.tsx",
+          "hash": "6bba1fa1cdf23534846dba15d36f6f1be41393285689f5f1225aa975e674ed60"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/OrgGeneralSection.tsx",
+          "source": "src/app/org/OrgGeneralSection.tsx",
+          "hash": "0c9d406197787fe644aa1ee72c9dc705aac7f6c5465561cecb473a90ea16e880"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/OrgIdentitySettings.tsx",
+          "source": "src/app/org/OrgIdentitySettings.tsx",
+          "hash": "90782758a889a31582ef51cd98a1db11962f1d308530592581b62fe7aa474b7c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/SuccessorPicker.tsx",
+          "source": "src/app/org/SuccessorPicker.tsx",
+          "hash": "01ea310c921f9c3d6bcff6dbc5a0f6b8201cef8a39fa8f10981bf66b0664692c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/TeamOnboardingCards.tsx",
+          "source": "src/app/org/TeamOnboardingCards.tsx",
+          "hash": "b5b7b3e395a2f6b82b4e3c89b2dfc5bd95515990214ecc114badd08e0499efc8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/TeamPage.tsx",
+          "source": "src/app/org/TeamPage.tsx",
+          "hash": "9ce2223f6cd31a39eab3f2f956fbea01c5cdb542b5f072277560681cf842062b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/TeamPrimitives.tsx",
+          "source": "src/app/org/TeamPrimitives.tsx",
+          "hash": "28122e7ea4d9cd86045d247a423761436adbf508d0d9d1bbfb8c37140ee677c4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/pages/OrgAppsPage.tsx",
+          "source": "src/app/org/pages/OrgAppsPage.tsx",
+          "hash": "bc3afa2f16f48564b95e39a25549dfdfc0d4f3513a58995130db03f70c509bba"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/pages/OrgAuthenticationPage.tsx",
+          "source": "src/app/org/pages/OrgAuthenticationPage.tsx",
+          "hash": "0c3dcbb7fe1d579f80c7f54052ad66e1eaca02f5613f4e58388e617e0f559af7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/pages/OrgGeneralPage.tsx",
+          "source": "src/app/org/pages/OrgGeneralPage.tsx",
+          "hash": "269e33505582eadf040cee67e3ee6cff06acb50189f824c147b3cc47a4881814"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/pages/OrgMembersPage.tsx",
+          "source": "src/app/org/pages/OrgMembersPage.tsx",
+          "hash": "23159304d45a6763d2ed967853c8d31acaa247678c7bd14c1521911521cc4b58"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/pages/OrgPageGate.tsx",
+          "source": "src/app/org/pages/OrgPageGate.tsx",
+          "hash": "85fe60217c5f125046c31e7a65ddc8fc983c1d7ce3134255d2febd6f3ed225c4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/org/workspace-app-links.ts",
+          "source": "src/app/org/workspace-app-links.ts",
+          "hash": "87e3c17d5a0f44c9a6f7d5bf66610929b49867af505e2c3fd5e2042dd2b60eaa"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/progress/RunsTray.tsx",
+          "source": "src/app/progress/RunsTray.tsx",
+          "hash": "d75bf2d717e033bbcd6c7f3a76a0a6f9849069559975716a32f8b92e3155b6c2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/progress/index.ts",
+          "source": "src/app/progress/index.ts",
+          "hash": "34cb428c7016f16dc493230e8517104459e1db04e8eb5ac3583dae506395c7ef"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/BuiltinCapabilityDetail.tsx",
+          "source": "src/app/resources/BuiltinCapabilityDetail.tsx",
+          "hash": "a01f6f5a8ee221e7a118f3c8e29094f3a069087cf59c1eebd7b886281419ace4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpAccessSettings.tsx",
+          "source": "src/app/resources/McpAccessSettings.tsx",
+          "hash": "e3d819a045803a8c83a44c2c29f4c121800fa868e41ac082cc3d4dde1f5e251e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpAgentKitConnectionRequest.tsx",
+          "source": "src/app/resources/McpAgentKitConnectionRequest.tsx",
+          "hash": "cfd9e3c1d41ec78e4c49f2412edd9c6c1a3c2143a84f5c845ee8e0f368dc52cf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpConnectionSuggestion.tsx",
+          "source": "src/app/resources/McpConnectionSuggestion.tsx",
+          "hash": "9600544ccd5b284e2ae5d04c93be1c6307e4e6ebeaaa0b155f3817e124295e34"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpIntegrationDialog.tsx",
+          "source": "src/app/resources/McpIntegrationDialog.tsx",
+          "hash": "8feb2e747d0a879df0f36da598355a7624c550fd99861548d33f5fa6ed114222"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpIntegrationDialogDeferred.tsx",
+          "source": "src/app/resources/McpIntegrationDialogDeferred.tsx",
+          "hash": "3cab9d5f6f948cc3f9a09fc15493d6c9aa84a0f8962caa14b3a1772f400970cd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpIntegrationLogo.tsx",
+          "source": "src/app/resources/McpIntegrationLogo.tsx",
+          "hash": "24f67aef656d22d0dad68b077fc9dd492498dc0253962e5798b7d171ecb6568e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/McpServerDetail.tsx",
+          "source": "src/app/resources/McpServerDetail.tsx",
+          "hash": "baf64a64aa3e3da812279fb470d376547eabc1c66019091643b8dcd28f82638a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/ResourceEditor.tsx",
+          "source": "src/app/resources/ResourceEditor.tsx",
+          "hash": "22c960923c29c6a7011dcb4c1653af39bbb08977b8cc42973aaaa68593af69f5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/ResourceSettingsGroups.tsx",
+          "source": "src/app/resources/ResourceSettingsGroups.tsx",
+          "hash": "a9ad866c84861043c2f3a9a8718a32247d982d290b51808e02bf00cffca6945e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/ResourceTree.tsx",
+          "source": "src/app/resources/ResourceTree.tsx",
+          "hash": "40d9984e6ddd686b955686c15c89c0b891ca557c22bcb650da0fa241e5a7298b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/ResourcesPanel.tsx",
+          "source": "src/app/resources/ResourcesPanel.tsx",
+          "hash": "0da205a7da70f2566a4e05725f954c03a77c8268799999d9a4e39acc484a9bcb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/custom-agent-model-options.ts",
+          "source": "src/app/resources/custom-agent-model-options.ts",
+          "hash": "a95acb73289130b258f428d189a6c079bb53b37fbc89238546565e16e21ab474"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/resources/index.ts",
+          "source": "src/app/resources/index.ts",
+          "hash": "18884a53971d75e59b278fe07d3a64f7a79baff0c6c2b7841a384bdc314e0b31"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/AccountSettingsCard.tsx",
+          "source": "src/app/settings/AccountSettingsCard.tsx",
+          "hash": "3d36c831aae01adc8fc27ad7a75305e35e7f27e90079c4b2e292f79dd3ef8bd9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/AgentDirectorySection.tsx",
+          "source": "src/app/settings/AgentDirectorySection.tsx",
+          "hash": "0a4b2be6d03309eb7a41674cba18639990619033c6568ebbfaed7fd2626d45b9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/AgentPersonalizationSettings.tsx",
+          "source": "src/app/settings/AgentPersonalizationSettings.tsx",
+          "hash": "fc14314beee0e6e350d57692899ed688dc087782c265d21e0c595115c0c29ac6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/AgentProviderPicker.tsx",
+          "source": "src/app/settings/AgentProviderPicker.tsx",
+          "hash": "28b377479e90226aa5390765a030a75975f8b07e0353fb302656562df110f92f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/AgentsSection.tsx",
+          "source": "src/app/settings/AgentsSection.tsx",
+          "hash": "659037b4904b11a773c7ac945af6c2fbc95b84a1134107df27b0b7ccf1cad3ff"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/ApiKeySettings.tsx",
+          "source": "src/app/settings/ApiKeySettings.tsx",
+          "hash": "1baa596bf23c0ca417552587d939ab6a0773e05dcb0755e3c5c5a78a26764021"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/AutomationsSection.tsx",
+          "source": "src/app/settings/AutomationsSection.tsx",
+          "hash": "115fad33c478cbf87cd476f3e78d4514d5cf329ae43fdecd77bf12b4c36b3b6c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/BuilderConnectPopover.tsx",
+          "source": "src/app/settings/BuilderConnectPopover.tsx",
+          "hash": "f7b863e4e065376c3e299183738318e8804dadcac49dc39b46a9ebe387f2eec6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/BuilderIncludedBenefitsDisclosure.tsx",
+          "source": "src/app/settings/BuilderIncludedBenefitsDisclosure.tsx",
+          "hash": "87c712e19fc5acd118f72ea7a5808b47593735a9adac604e86cf4d5594266924"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/DemoModeSection.tsx",
+          "source": "src/app/settings/DemoModeSection.tsx",
+          "hash": "ad1cd7759a9a653bbd94512dc5fc36e711a5d032e137db51e9055516ebc7f8c8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/ExtensionsSettingsContent.tsx",
+          "source": "src/app/settings/ExtensionsSettingsContent.tsx",
+          "hash": "18171c9c14fa04e2c794f198b9cc3592ea1459ec3cff9e777390cc446f4650bf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/KeyProviderTile.tsx",
+          "source": "src/app/settings/KeyProviderTile.tsx",
+          "hash": "5bf1b8b2b3836d4198b53e908d301a318278c9c831cd671773eb07692206efab"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/NewKeyMenu.tsx",
+          "source": "src/app/settings/NewKeyMenu.tsx",
+          "hash": "ef4acebc88bfa31ea940b53ab5da0b1bc70248b14b51326867628b43b6d44cb5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/ProviderSetupForm.tsx",
+          "source": "src/app/settings/ProviderSetupForm.tsx",
+          "hash": "a997a2f690bc7ef6ebba4113292a6cd88947115c9feddefad99786c1fd3cbf8b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SchedulingTimezoneField.tsx",
+          "source": "src/app/settings/SchedulingTimezoneField.tsx",
+          "hash": "3898d0b5d1b3305c38521bffb537a4fc0e49b8d1b88b18d78c7ffb4672f51fc8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SecretsSection.tsx",
+          "source": "src/app/settings/SecretsSection.tsx",
+          "hash": "ab4df6f3aaec522bcbb56afe4c2dcaeb54a9217877839df2b7ee82bf33c75848"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SettingsCrossLinkHint.tsx",
+          "source": "src/app/settings/SettingsCrossLinkHint.tsx",
+          "hash": "3b7ea74a7c00bfb28c2d0417e526a37a232bfb857cfa5fe78744f0b27b9958bb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SettingsPanel.tsx",
+          "source": "src/app/settings/SettingsPanel.tsx",
+          "hash": "85e439f969f7d6209037982e5d16b55f3810ab495ff0c7974bdff1191078e5fb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SettingsRow.tsx",
+          "source": "src/app/settings/SettingsRow.tsx",
+          "hash": "101ead1595d9ea5f727d5b9a89ef566b2601b8cbbbd7d562b8a21b9ccbc2fe7f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SettingsSection.tsx",
+          "source": "src/app/settings/SettingsSection.tsx",
+          "hash": "389e00d0a9a568ee3c631268194d6ba5bd7e5c7cb577a5c64ab11e41fd3cea00"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SettingsSkeleton.tsx",
+          "source": "src/app/settings/SettingsSkeleton.tsx",
+          "hash": "7a080027b0b97c5b22742ee701e4d514ce95b7977612741b192f5dcbb55896a6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/SettingsTabsPage.tsx",
+          "source": "src/app/settings/SettingsTabsPage.tsx",
+          "hash": "977baeb477ca09c80171282afe0195c8a3622788edf6df8e2ee0c7bd5a7a59b4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/StorageSettingsForm.tsx",
+          "source": "src/app/settings/StorageSettingsForm.tsx",
+          "hash": "03546d577143c730025e47928828c17d888583a79bf858b488d6e3beea4d03e7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/UsageSection.tsx",
+          "source": "src/app/settings/UsageSection.tsx",
+          "hash": "63b7e75deacb623fc1161f13c55a08589ab6e8dfac87447d68ebe2031d93f75a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/VoiceChatSettings.tsx",
+          "source": "src/app/settings/VoiceChatSettings.tsx",
+          "hash": "43aadfe3fa3bf3611b99a4d24f8f22e541b1fd0532b6c386fcf372f887718914"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/VoiceTranscriptionSection.tsx",
+          "source": "src/app/settings/VoiceTranscriptionSection.tsx",
+          "hash": "6fb638dc27e362cb650b3dd5a393bdc8b38c1c6d851caad9fa05fa6e3626c367"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/WhoField.tsx",
+          "source": "src/app/settings/WhoField.tsx",
+          "hash": "37aaf3f23dcc39c2366ef5dda2c2b79ecc2fe7c455336314f33dc22a1d97e549"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/PreferencesSettings.tsx",
+          "source": "src/app/settings/account/PreferencesSettings.tsx",
+          "hash": "1db4f0c455a752cb86d1779840326ae7e81ea11e91bc415ab5dc2a164bb6bec4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/ProfileSettings.tsx",
+          "source": "src/app/settings/account/ProfileSettings.tsx",
+          "hash": "55a8e66a9afcbe71ad88d01b9c3621bd45f8a39a2c234ac774cea88ca2264bb6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/SecuritySettings.tsx",
+          "source": "src/app/settings/account/SecuritySettings.tsx",
+          "hash": "af4a2aebffdd31afe57cc13c672a36ded5d0d7cd8a48208cd8f7527d46d03232"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/ThemeFamilySettings.tsx",
+          "source": "src/app/settings/account/ThemeFamilySettings.tsx",
+          "hash": "d85e58a31531feaddc589f36deb1a7fd37bd6267e11988308dee31c6a2025a6f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/account-copy.ts",
+          "source": "src/app/settings/account/account-copy.ts",
+          "hash": "4146c2adab95da42e9574f4fa4d6579f8556c0ef297b04960c23e71885de5a13"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/account-hooks.ts",
+          "source": "src/app/settings/account/account-hooks.ts",
+          "hash": "739c30d2b3af284c055a6109c5eb04be4a4db8bf15bea28f189e67d7f8798161"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/account/search-entries.ts",
+          "source": "src/app/settings/account/search-entries.ts",
+          "hash": "3d8dcb54abd2719d940aef28e1e4772d68249d135f4da399f3dc8f3da6e7cd8c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/agent-settings-search.ts",
+          "source": "src/app/settings/agent-settings-search.ts",
+          "hash": "158bddc8755fdc9e4c719ed973b73c74bf8a25cf4a2942943c52043b57963c17"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/api-keys/ApiKeyDialogs.tsx",
+          "source": "src/app/settings/api-keys/ApiKeyDialogs.tsx",
+          "hash": "aac395b81f27c773f6a8efa5f4d63f8dd15e11c570e3558bc8ed24f6a31fd5b2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/api-keys/ApiKeysSettingsPage.tsx",
+          "source": "src/app/settings/api-keys/ApiKeysSettingsPage.tsx",
+          "hash": "ffb67ac02cf3f8648adbc0884d144943f108b25213cbc85a0fed3bc0b0a6d116"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/api-keys/api-keys-client.ts",
+          "source": "src/app/settings/api-keys/api-keys-client.ts",
+          "hash": "9a4e38920a28a3d207855197045243aedc8a57e0b2ba08029aa1190740ab1d1b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/api-keys/api-keys-state.ts",
+          "source": "src/app/settings/api-keys/api-keys-state.ts",
+          "hash": "b6a4d6cd492bd42c6b4ba41c4fe315a4a6bd3b5d3fcf2506a9f617ef707d6884"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/app-group/AppDefaultModelRow.tsx",
+          "source": "src/app/settings/app-group/AppDefaultModelRow.tsx",
+          "hash": "67f22f614ee2b8fc317273c750205f17dc68e180dd62b4606d684bd87e4b64a7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/app-group/ReadOnlySettingValue.tsx",
+          "source": "src/app/settings/app-group/ReadOnlySettingValue.tsx",
+          "hash": "e4dfec51286ea367c625da69ad7169d9a00dcbe5ed87097edc57f7253f89912a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/app-group/SettingsHeaderBadge.tsx",
+          "source": "src/app/settings/app-group/SettingsHeaderBadge.tsx",
+          "hash": "6aae95e42bb854e55212e2f231f8d487791203dfdb761c017880d585195f28b6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/app-settings-tabs.ts",
+          "source": "src/app/settings/app-settings-tabs.ts",
+          "hash": "97cad0e09dc3ade60afa1e935329ffcbe8fa8560da8918f413696a860c38c2dc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/deferred-builder-connect-popover.tsx",
+          "source": "src/app/settings/deferred-builder-connect-popover.tsx",
+          "hash": "f773ad9054dbfa6a2632edf85c13f53ebeb112de52bb5b5eb3188038f2672db6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/index.ts",
+          "source": "src/app/settings/index.ts",
+          "hash": "97c7f3e5aa8bc1a2f9bbd4a885dc13c1f4fa1e46cfdcccb657a42e0fe4d41704"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/infra/EnvironmentDialogs.tsx",
+          "source": "src/app/settings/infra/EnvironmentDialogs.tsx",
+          "hash": "7cea8ea88c7a0e008612b62efc265d40555d2db5a6079e4219bebbbae2f54db9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/infra/InfrastructureSettingsPage.tsx",
+          "source": "src/app/settings/infra/InfrastructureSettingsPage.tsx",
+          "hash": "a1a0b66447ae63dbc2a31b55542271de8237449783fbddb32e70b8b23260cf91"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/infra/ServiceDialog.tsx",
+          "source": "src/app/settings/infra/ServiceDialog.tsx",
+          "hash": "8e3127ee0ec462e461091524f335189cc39f769dac9318dab243ecd0c5d50327"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/infra/infra-page-state.ts",
+          "source": "src/app/settings/infra/infra-page-state.ts",
+          "hash": "fb43a1cf0f8af3028aed250ddc46fcdb60dbba5b37dc206ae66405513ed4ff80"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/infra/logos.tsx",
+          "source": "src/app/settings/infra/logos.tsx",
+          "hash": "bed2b0fef5b67427d4c6d1f2c6e9a6faeec6b9067921b9c3d72cf891036f1262"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/managed-secrets.ts",
+          "source": "src/app/settings/managed-secrets.ts",
+          "hash": "4f0f5bc0e64956a4ba475d23e181c784e22d7c9c1b8e4041d165ec2266d37a82"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/model/ChatGPTSubscriptionRow.tsx",
+          "source": "src/app/settings/model/ChatGPTSubscriptionRow.tsx",
+          "hash": "66de609468cadac8059d7b508f23dcb42c6dd0d7ab0007a98d963449fff6fb64"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/model/ModelSettingsPage.tsx",
+          "source": "src/app/settings/model/ModelSettingsPage.tsx",
+          "hash": "288c50df6bbc120ae63f6dc44372b82b4fe3c1bbeb99f5ff9d24ae8303d49962"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/model/ProviderDialog.tsx",
+          "source": "src/app/settings/model/ProviderDialog.tsx",
+          "hash": "c911d53b83d644d26a7005525c86eba463d2921df76c27fac93db5e97dbe40dc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/model/RemoveProviderDialog.tsx",
+          "source": "src/app/settings/model/RemoveProviderDialog.tsx",
+          "hash": "86714d49b1444d408d3559ffe9277e9bd2851126744141520164af9fe4e7e239"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/model/RestrictKeysDialog.tsx",
+          "source": "src/app/settings/model/RestrictKeysDialog.tsx",
+          "hash": "f475c99370ce0e11521154001508ea28437ca7b6f8d7ae3180a10d0a05b11a86"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/model/model-page-state.ts",
+          "source": "src/app/settings/model/model-page-state.ts",
+          "hash": "679832429a38601d8847d9c10624b059813ece39ffca722ea8cccd4aa69169b6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/recent-prompt-groups.ts",
+          "source": "src/app/settings/recent-prompt-groups.ts",
+          "hash": "6014fd43ba97edc12161b0a7098384a6d3cffe2ea679806ba57c2197247cacb3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/SettingsShell.tsx",
+          "source": "src/app/settings/shell/SettingsShell.tsx",
+          "hash": "3defe076306342031a555a27eb42b0979946be751991c0cf470f6f19c8b25c32"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/SettingsShellSkeleton.tsx",
+          "source": "src/app/settings/shell/SettingsShellSkeleton.tsx",
+          "hash": "264d500967adf1d2f9c1f7cb3a10ab10c5e27577f3c8d0cf5bcad7fe81e4d98c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/app-identity.ts",
+          "source": "src/app/settings/shell/app-identity.ts",
+          "hash": "9a64e4e741d44c3b61be3bd5716c83cd474d9291482e788de0b97c328f3c1384"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/bridge.ts",
+          "source": "src/app/settings/shell/bridge.ts",
+          "hash": "72f20b5f72ad7c5053287b993ae79d6ad17701a4620af6e39d4a6eac4905d602"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/context.tsx",
+          "source": "src/app/settings/shell/context.tsx",
+          "hash": "7ef99165517b2c120504efa53a7ad11406a8b577c6cf40037dcf92018d024298"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/core-pages.ts",
+          "source": "src/app/settings/shell/core-pages.ts",
+          "hash": "724adc0514b88e74a15d3861dd667260b29185bbce4947ab5eb6e230542fe5d5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/index.ts",
+          "source": "src/app/settings/shell/index.ts",
+          "hash": "08fb0966cfe423e09356026fd16f9c36b90ca073ad9cde5922ed0795fc39930a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/api-keys.tsx",
+          "source": "src/app/settings/shell/pages/api-keys.tsx",
+          "hash": "bbdc01f0b322af9e71d67fc1d0e708b6540c4f3088dbd949a7a073533631e441"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/app.tsx",
+          "source": "src/app/settings/shell/pages/app.tsx",
+          "hash": "32afa74a12b6f256f414976f0bef1f6d6a24e99590488f591a04e1cea6793b9b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/apps.tsx",
+          "source": "src/app/settings/shell/pages/apps.tsx",
+          "hash": "752f90866a6c4ac9764c88df4bf776bc0112d0ad66bb9601bba6f9b14777ff9d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/audit.tsx",
+          "source": "src/app/settings/shell/pages/audit.tsx",
+          "hash": "5275cb634498b3440503322632012dd32a2f89f587c894e52aa0a13084f650ef"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/auth.tsx",
+          "source": "src/app/settings/shell/pages/auth.tsx",
+          "hash": "dbee49e311cc1c09e88cd6ad4ff3b4c5e4241920408232f0b513df64115754e6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/automations.tsx",
+          "source": "src/app/settings/shell/pages/automations.tsx",
+          "hash": "c01a4e952e4017ef5b0df2fd18f29dcdba0690ef09c4144caa5c58fcd13af89a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/bridged-tab.tsx",
+          "source": "src/app/settings/shell/pages/bridged-tab.tsx",
+          "hash": "4e4187f19a2c5b1f98a41a356443ceb796ae3be0eaf6d0b7c0f966dafb908bfd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/channels.tsx",
+          "source": "src/app/settings/shell/pages/channels.tsx",
+          "hash": "fd926f4a2a71a94941dfe0d9ef07650d76248b47c3e6309c8f6a08f00c16b6ca"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/creative-context.tsx",
+          "source": "src/app/settings/shell/pages/creative-context.tsx",
+          "hash": "8db885317f03014468548adb83b9bb782114a83d2cb0aac1694ea95aa103bf4c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/files.tsx",
+          "source": "src/app/settings/shell/pages/files.tsx",
+          "hash": "054130545be0cd9a3aa67b79ca8a2e6c7dd1bc77ee8fb8f02549ad2b07c5129d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/infra.tsx",
+          "source": "src/app/settings/shell/pages/infra.tsx",
+          "hash": "fdb2942beab873cfe8d3d238e6744ce12224d2115d5a3650c255ea00d7b35ec8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/instructions.tsx",
+          "source": "src/app/settings/shell/pages/instructions.tsx",
+          "hash": "3d6036178b70e8311273cb046ed699370b6aa41ba19cdc8459ae31f8833c9e2a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/integrations.tsx",
+          "source": "src/app/settings/shell/pages/integrations.tsx",
+          "hash": "a3768fced6db24dd2b0fe4403753ae48443148c249e796f1ab382bdffbcc6318"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/labs.tsx",
+          "source": "src/app/settings/shell/pages/labs.tsx",
+          "hash": "fba8682df39ca93831369f3886d82d0dc1970fe8021934906d827cb2aa5cb8d9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/mcp.tsx",
+          "source": "src/app/settings/shell/pages/mcp.tsx",
+          "hash": "116ab994b5bfdd8db71d7e3298cfd17a85845d25d0923e5f7fed74551b745c94"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/members.tsx",
+          "source": "src/app/settings/shell/pages/members.tsx",
+          "hash": "c7543f3ba67b16137f6540d32fa4559e8f56dfe406c830bfa4586c234b74c280"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/memory.tsx",
+          "source": "src/app/settings/shell/pages/memory.tsx",
+          "hash": "bfde3de44c163cc2f2b1e2f8c7c82739bf8c851cfca3b68430973882c0563024"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/model.tsx",
+          "source": "src/app/settings/shell/pages/model.tsx",
+          "hash": "a2eacf319265999393fc998ed18a003ff38ce08fc8e3a11eb76d0087894a53cd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/notifications.tsx",
+          "source": "src/app/settings/shell/pages/notifications.tsx",
+          "hash": "1ea85811d9e497e6512a64e284eedb430a8bc8c37d12d9d2f55c16388447d98d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/org.tsx",
+          "source": "src/app/settings/shell/pages/org.tsx",
+          "hash": "4fe8a2fc50d001fbf532d7f99b31ed214a3a9144df21e67c612d0c2dbceaea6f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/pending.tsx",
+          "source": "src/app/settings/shell/pages/pending.tsx",
+          "hash": "46d3f24b2cdbfc60f80eb34d1317d1edc248a7b8ef9619c05b0272c0013a9ccc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/preferences.tsx",
+          "source": "src/app/settings/shell/pages/preferences.tsx",
+          "hash": "654f9b840f85229a43ee4467e4c6ab2f9954129398d0e25ef5f7858fb8cdad98"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/profile.tsx",
+          "source": "src/app/settings/shell/pages/profile.tsx",
+          "hash": "a626f9623fb2b8bccd0079c74fdc4f16f5e9b9d57bef534b804513d47732c062"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/resource-collection.tsx",
+          "source": "src/app/settings/shell/pages/resource-collection.tsx",
+          "hash": "4912819eb935b36c5bb1500d4dab14db483aa4f767ddb1d7a4032abee74523bd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/resource-settings-page.tsx",
+          "source": "src/app/settings/shell/pages/resource-settings-page.tsx",
+          "hash": "a7bb0ea8674dc8b798eeb2b1acbd8323ac4920b5cb9bf73c11ef6b08c92828c6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/security.tsx",
+          "source": "src/app/settings/shell/pages/security.tsx",
+          "hash": "2ba1358d7287c4536bf5279cee22b59353707aee523fdfa30ddf1579781a4c44"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/skills.tsx",
+          "source": "src/app/settings/shell/pages/skills.tsx",
+          "hash": "cd6de9c43003cf337de1faa6a271a394ac6d5882dcf5ed9cc13dc5e818b125c2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/sub-agents.tsx",
+          "source": "src/app/settings/shell/pages/sub-agents.tsx",
+          "hash": "2294c19dc6513965c0d6878acdadccf4ff71942568af128f6ad2b3a7f07646bc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/usage.tsx",
+          "source": "src/app/settings/shell/pages/usage.tsx",
+          "hash": "d29f823e3f03812814772de86ddf220b2062d2a4027aab1902445e99a4e903d8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/pages/whats-new.tsx",
+          "source": "src/app/settings/shell/pages/whats-new.tsx",
+          "hash": "7dd5acff60e1476af879ff59dacd5756c5eee1f7cb43ed58ac9fd046715a7edd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/registry.ts",
+          "source": "src/app/settings/shell/registry.ts",
+          "hash": "19474a25a975ab6896ac664a51d4c340fa270ae4b0e36a1735d34cd8300108cf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/return-path.ts",
+          "source": "src/app/settings/shell/return-path.ts",
+          "hash": "62270d76f35e4d9ecca33360477bcfae3c020c282757939eb7f2e2dfc8394b8a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/routing.ts",
+          "source": "src/app/settings/shell/routing.ts",
+          "hash": "891e9cbe85bc4a8015031f33c15068196cb7eafb6fdb367dff9fbdea898e7aee"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/search.ts",
+          "source": "src/app/settings/shell/search.ts",
+          "hash": "5bccde67745e9a27ecfd8eac2702af8f0c6a699ca7c0f3e1efa96147aae8239b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/shell/types.ts",
+          "source": "src/app/settings/shell/types.ts",
+          "hash": "247fd27fcef5836a8ba6ba083ec985af5a1c8abf1dea3937929cd2a2046b645a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/usage/UsageAlerts.tsx",
+          "source": "src/app/settings/usage/UsageAlerts.tsx",
+          "hash": "02584419840e2fc73511307351df70257201a303897ae525124f389e09e793b4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/usage/UsageCharts.tsx",
+          "source": "src/app/settings/usage/UsageCharts.tsx",
+          "hash": "297d3f386ab19048673331317715d2cba9910f594e42577c45fc273819079c8c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/usage/UsageGroup.tsx",
+          "source": "src/app/settings/usage/UsageGroup.tsx",
+          "hash": "30520d8dd62db254a6ea129acb100a61070238cbad8428aa1a6669a471556f18"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/usage/UsagePage.tsx",
+          "source": "src/app/settings/usage/UsagePage.tsx",
+          "hash": "fe120c53f3f8edbcb8654e8858b8bf0077ccf9a7fb0841824683cda2d051b25c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/usage/usage-model.ts",
+          "source": "src/app/settings/usage/usage-model.ts",
+          "hash": "e5c7cd0926fd8a04752be21c9ce80b157be53d02b3e53000ef0a4e63fcda4754"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/use-credential-save-scope.ts",
+          "source": "src/app/settings/use-credential-save-scope.ts",
+          "hash": "8d08bd83eabb516aa62fcbe55b9545a69ae9cd20c6346fc1d017bfe327ab8add"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/useBuilderStatus.ts",
+          "source": "src/app/settings/useBuilderStatus.ts",
+          "hash": "51391075effc2879bfbeb26f8f63f461d0c27a6885e7ce43f6e107694da26537"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/settings/useSettingsPanelController.ts",
+          "source": "src/app/settings/useSettingsPanelController.ts",
+          "hash": "f1735c95344b5965664eddda4390d2829022f1803dd681c716a544d1c4ab017d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/setup-connections/BuilderConnectCard.tsx",
+          "source": "src/app/setup-connections/BuilderConnectCard.tsx",
+          "hash": "a6bffdc52fe6d6205d6c8ba880e072b47d222b54c1dc54f92bf5bde587861c7a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/setup-connections/ProviderReadinessBadge.tsx",
+          "source": "src/app/setup-connections/ProviderReadinessBadge.tsx",
+          "hash": "aeaae7c6fd76e6da7e07efc51cb6c01846ed7b8db12738531ca476b95f8abf8b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/setup-connections/SetupConnectionsPage.tsx",
+          "source": "src/app/setup-connections/SetupConnectionsPage.tsx",
+          "hash": "45590b64ba410943bac67774fbd2235338dbaa3b6817af28155e4229332b6bde"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/setup-connections/index.ts",
+          "source": "src/app/setup-connections/index.ts",
+          "hash": "ea2d626279f0eb62da369519ed6e690d48c0a6cd867fd1db390ef4600dfe0c34"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/setup-connections/useBuilderConnectCardController.ts",
+          "source": "src/app/setup-connections/useBuilderConnectCardController.ts",
+          "hash": "e27d9566916d1fb325e0de9c19706205c08ead2777e1877635d7d0c05828e88f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/AboutAgentNativeDialog.tsx",
+          "source": "src/app/shared/AboutAgentNativeDialog.tsx",
+          "hash": "61b441e02b75cb49428e08a83452ed4539c17cfdd09ef2b1e29531f346d8d7c6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/AgentMark.tsx",
+          "source": "src/app/shared/AgentMark.tsx",
+          "hash": "195cc15fb385369da884ca3f439ce6c8840e47597072241272605082047cf2c0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/AgentNativeIcon.tsx",
+          "source": "src/app/shared/AgentNativeIcon.tsx",
+          "hash": "39dd08eae6d99a0ac2ce3e16dbe41920bf8e35df89a707273d09d47779bfe74f"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/AppShellSkeleton.tsx",
+          "source": "src/app/shared/AppShellSkeleton.tsx",
+          "hash": "8212f23bf0a7203b897e1638e61d2977e202c2cc28bdf0f3e5621383d778b682"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/AppSidebar.tsx",
+          "source": "src/app/shared/AppSidebar.tsx",
+          "hash": "85115ff8ea7aa3539b416ab4b3bd845529ff58f4a20eaf4f367e257155d86a93"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/AppearancePicker.tsx",
+          "source": "src/app/shared/AppearancePicker.tsx",
+          "hash": "d0675196742bcc6d5bb621e74a863e08457238b32de6501fd5c7d8aa80e5d2b3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ClientOnly.tsx",
+          "source": "src/app/shared/ClientOnly.tsx",
+          "hash": "a7fa1d888788ed68cf6be0bf99b14137436655034021435be5bbe3888c848d74"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/CommandMenu.tsx",
+          "source": "src/app/shared/CommandMenu.tsx",
+          "hash": "de1a026a04b6698409545635a615a4bccca1cdf085bfa611904afc7d377fd082"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/DefaultSpinner.tsx",
+          "source": "src/app/shared/DefaultSpinner.tsx",
+          "hash": "59481fabc0c452ccd9206a206ab4bbe6f1cebd558b75fa476d8c50491fe1241b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/EnvironmentBadge.tsx",
+          "source": "src/app/shared/EnvironmentBadge.tsx",
+          "hash": "09b11a83de0f88350dc6df88f2bf8440e4299ce94241fce5dbcd5a20783b77d1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ErrorBoundary.tsx",
+          "source": "src/app/shared/ErrorBoundary.tsx",
+          "hash": "6841b9fec5bc700cf6e8ddb404ecbd0f5f8e1ae5b355acc9c67dc73285a2b999"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/LanguagePicker.tsx",
+          "source": "src/app/shared/LanguagePicker.tsx",
+          "hash": "1113c57c9229866ef81519ae32ab67b60b112fe9f23aaead9519877ece9ebcf8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/LazyChunkErrorBoundary.tsx",
+          "source": "src/app/shared/LazyChunkErrorBoundary.tsx",
+          "hash": "1ab3a13a21ec2bca00c049860ae26d2c3a20664cd64ff1c6f4ea82dd63c6a093"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/LazyChunkRetryFallback.tsx",
+          "source": "src/app/shared/LazyChunkRetryFallback.tsx",
+          "hash": "853789c0dcf36aafb386ed044aeb5ab98d6cf99d426ffd386abae6c2b1749cbe"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/PoweredByBadge.tsx",
+          "source": "src/app/shared/PoweredByBadge.tsx",
+          "hash": "62fcdc7ce794e1c7554474c9bac9840a61a8fabfa71a6484c35794d1c0cf0c06"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/PrimitiveButton.tsx",
+          "source": "src/app/shared/PrimitiveButton.tsx",
+          "hash": "76ef263f1601386ac797571ebd201ad4f98b853e37777daceaf89872860bde44"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/RouteTransitionIndicator.tsx",
+          "source": "src/app/shared/RouteTransitionIndicator.tsx",
+          "hash": "ee6f1d3045ec7f24586d20ae8c823dca4e4999d72f5e09c698d95c727d2ea3f2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/RuntimeConfigNotice.tsx",
+          "source": "src/app/shared/RuntimeConfigNotice.tsx",
+          "hash": "1458d5ded769e3e7c0fdf6cb852fd5548585d32d6d14d3e914aeeaffb6dbf0c6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/StarfieldBackground.tsx",
+          "source": "src/app/shared/StarfieldBackground.tsx",
+          "hash": "de80805223746447a5f663d601cf4e76fd67b6e5316d236ac3ecb9d248732d3d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/Turnstile.tsx",
+          "source": "src/app/shared/Turnstile.tsx",
+          "hash": "62502bdd6f377022be196d388cb01df7e8154a03ee25b1b36868c6066fda653d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/UnsupportedDeviceGate.tsx",
+          "source": "src/app/shared/UnsupportedDeviceGate.tsx",
+          "hash": "af40d6ab831618509955eeb8b1af343ebd74d8a97462b62aa0efffb3f18e6420"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/WaveBackground.tsx",
+          "source": "src/app/shared/WaveBackground.tsx",
+          "hash": "8ea6c2f70f821dbd43d4f00ea6e34f670481d143dce1de248c67c535a826fe42"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/WebGlWaveBackground.tsx",
+          "source": "src/app/shared/WebGlWaveBackground.tsx",
+          "hash": "0b49871caac671c5477b315fabb56d0bb5a5c68f2a75a7a52f4b2bc49a2d48d3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/index.ts",
+          "source": "src/app/shared/index.ts",
+          "hash": "88a8ad18e19d74f647d2540466ee15ea937fd0fcdd23645bb875b87cc0fa96df"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/is-builder-io-employee.ts",
+          "source": "src/app/shared/is-builder-io-employee.ts",
+          "hash": "119d140c3e4ed54fff91a3c3009efa77f510b38c2bf5c6fae919222b658ba215"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/bloom-blur.wgsl",
+          "source": "src/app/shared/ocean/bloom-blur.wgsl",
+          "hash": "b5d0c2f074ca11e1faeaa0e4f215e4b620a78fc3a4ff7a9471e142057cf3f364"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/bloom-bright.wgsl",
+          "source": "src/app/shared/ocean/bloom-bright.wgsl",
+          "hash": "dea1634482718fb3a7c2828857a04b4887b83cff186b7ce7fdae37f73d7398e5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/bloom-composite.wgsl",
+          "source": "src/app/shared/ocean/bloom-composite.wgsl",
+          "hash": "85c404ff79273f1358e434102baf2844c094e58f00e30a145bbf41dbb5086d15"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/brand-colors.ts",
+          "source": "src/app/shared/ocean/brand-colors.ts",
+          "hash": "a83cc0a6ed114c361e892e0bf82fda456d0e6735137cf4321a910758c748eaa0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/camera.ts",
+          "source": "src/app/shared/ocean/camera.ts",
+          "hash": "63673570cffd7806de54f96eb0976d7255f8c62a10475525e6c150938cc32718"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/hero-layout.ts",
+          "source": "src/app/shared/ocean/hero-layout.ts",
+          "hash": "b1c156341e97adfd854b89697ed8806bcdcad606fae01fbd603aea888419737a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/hero-ocean-background.tsx",
+          "source": "src/app/shared/ocean/hero-ocean-background.tsx",
+          "hash": "0fa1dabd4185b64cbda2c41d0d8d9c6fa591f4388da741bc4727f0ed7d7f3697"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/ifft-stage.wgsl",
+          "source": "src/app/shared/ocean/ifft-stage.wgsl",
+          "hash": "49ec0955341ba9fbbed874fedadfed61bcc85fcfc4c5f07d7b2cab703dd5e9c9"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/initial-spectrum.wgsl",
+          "source": "src/app/shared/ocean/initial-spectrum.wgsl",
+          "hash": "625b989bed46aae51d9afcd243a7c97d22c50993114468b8cef9982c2c14e9f3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/noise.wgsl",
+          "source": "src/app/shared/ocean/noise.wgsl",
+          "hash": "4512f60f067c5e485f3e7764bc9cbcd8375e32fbd3d61033bd245b4ab40443e0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/normal-foam.wgsl",
+          "source": "src/app/shared/ocean/normal-foam.wgsl",
+          "hash": "f75e0928bede6811ec63980ac8c3fc02d58e3275be09f441c1aebbd79416d763"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/ocean-colors.ts",
+          "source": "src/app/shared/ocean/ocean-colors.ts",
+          "hash": "475b2853ca7a4c9e2cb24f3171320df782d853c63637416da6be19279b8cb2f4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/ocean-common.wgsl",
+          "source": "src/app/shared/ocean/ocean-common.wgsl",
+          "hash": "1e2e532549abe3893cd359d04554def12fd2dd064c5d32e0dc46609480d91ab7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/ocean-graph.ts",
+          "source": "src/app/shared/ocean/ocean-graph.ts",
+          "hash": "b9dd01c41df6ea3d4f23dd509f47eca45f37808e5abdfc9545c79181c3eb8b2a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/particles.wgsl",
+          "source": "src/app/shared/ocean/particles.wgsl",
+          "hash": "8c35fd16c90404c80dc9b12a390661547e53a81f2ca3d173c76a60090e1cd249"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/present.wgsl",
+          "source": "src/app/shared/ocean/present.wgsl",
+          "hash": "d0f0e7c1186e9a231f8d8a7e73e27bda562a0263d66af53b672cb13a2cb0dda8"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/renderer.ts",
+          "source": "src/app/shared/ocean/renderer.ts",
+          "hash": "81da70a4f4b74e077f2cdd37da6b6309a5d174044d3c37c04a6ad592d209e3df"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/spectrum.wgsl",
+          "source": "src/app/shared/ocean/spectrum.wgsl",
+          "hash": "1c1ef03edb54899e92b40e74b9dcff1a7c59a7a077a43c2f278545cfaebb6ae4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/tuning.ts",
+          "source": "src/app/shared/ocean/tuning.ts",
+          "hash": "64f1aefdf3b6df3d07e510c6a7344b93108ed04eee4cf07dc9f8868770a28e6e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/shared/ocean/webgpu-support.ts",
+          "source": "src/app/shared/ocean/webgpu-support.ts",
+          "hash": "ccdf7c5505c0e1d099e06b61033ec031cc0921076a4477a74754bb3facbbd8c7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/AccessRequestApprovalPage.tsx",
+          "source": "src/app/sharing/AccessRequestApprovalPage.tsx",
+          "hash": "27cd9112c2390173ccae239fc6ac8e703795901c2ddcb0c2eda89ecb714f05d6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/AccessRequestsSection.tsx",
+          "source": "src/app/sharing/AccessRequestsSection.tsx",
+          "hash": "60005abf260beb4fb16444c4128a9e4bbb0751a95807413c3bf8b62dfa0d49bd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/AgentShareSection.tsx",
+          "source": "src/app/sharing/AgentShareSection.tsx",
+          "hash": "654e157e72ae82394a9f8611f7ff5e9019fcf9b6e5e46ef8b3812b0105c2f452"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/McpInstallActions.tsx",
+          "source": "src/app/sharing/McpInstallActions.tsx",
+          "hash": "b7061337ba0c1c1d9bcac33f548c2aa367bd439995ea52ed5f760f6fea4b7cc5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/OwnershipFilter.tsx",
+          "source": "src/app/sharing/OwnershipFilter.tsx",
+          "hash": "7ae4d97a9c6fd977ca6def3b769c4894b389d455d619bc7f0d57d73be6040ef2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/ResourceAccessScreen.tsx",
+          "source": "src/app/sharing/ResourceAccessScreen.tsx",
+          "hash": "26248600aed0c29ebd9a32bf8e785bc3474fef4a8b6472309a4a5c6bf403c166"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/ShareButton.tsx",
+          "source": "src/app/sharing/ShareButton.tsx",
+          "hash": "b07e4c0a5a49bc033eb25bbea7b3eeebe7865408e3568d2af01607201820f916"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/ShareDialog.tsx",
+          "source": "src/app/sharing/ShareDialog.tsx",
+          "hash": "98002f00ab17577200f972d54ce32b9facef676d3f84f35a219e2a3415e4cf14"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/ShareVisibilityConfirmDialog.tsx",
+          "source": "src/app/sharing/ShareVisibilityConfirmDialog.tsx",
+          "hash": "79f481c2a0306d7a110f56cfb5c039e47a7b132eac35c06713b08c2511c10bfe"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/VisibilityBadge.tsx",
+          "source": "src/app/sharing/VisibilityBadge.tsx",
+          "hash": "a41e1060ef70e3e5b0601debb7e791a2766afc33a3a2f0aaeffdafde7ce5a914"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/sharing/index.ts",
+          "source": "src/app/sharing/index.ts",
+          "hash": "c1bc0a6e03019bee720812ab9fee3202e60e8e30f31a1f2c04a1314f3e661013"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/terminal/AgentTerminal.tsx",
+          "source": "src/app/terminal/AgentTerminal.tsx",
+          "hash": "675a33efc87597688cfbb10c54926091e99c2b5bd72dc4a0b48810ae23eae919"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/app/terminal/index.ts",
+          "source": "src/app/terminal/index.ts",
+          "hash": "6441fca2e88e04dc230f8b55a748334323097a1425325e85819bb45770feec61"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/clipboard.ts",
+          "source": "src/clipboard.ts",
+          "hash": "3c7d5c7b1fbee948deb4ff84e9d97f29a7105a9f08ab15124592ed899732c468"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/AgentComposerFrame.tsx",
+          "source": "src/composer/AgentComposerFrame.tsx",
+          "hash": "10b7a8244e6e7dac81cb1ecfd516e2f850e2f62a60c7f323257927d62f133bc6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/AgentSuggestionBar.tsx",
+          "source": "src/composer/AgentSuggestionBar.tsx",
+          "hash": "c05b4280176c5fa97062c714c38977ac3b7dbe50fd615159290d0f37d6f627c5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ComposerContextMenu.tsx",
+          "source": "src/composer/ComposerContextMenu.tsx",
+          "hash": "180a8eb892ffd054c14455194a9e5191e8bd431f36c22763db4d283ebf465a30"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ComposerContextMenuSearch.tsx",
+          "source": "src/composer/ComposerContextMenuSearch.tsx",
+          "hash": "bada18992c0b6a79f9bae182d8ce6236665b2f15f96888c15854db4f8af7f1d0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ComposerContextPicker.tsx",
+          "source": "src/composer/ComposerContextPicker.tsx",
+          "hash": "e251311eebaa446c9c9f3be7b2e70931336484181a1f4f794652b0fab6f2f2db"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ComposerContextPickerDialog.tsx",
+          "source": "src/composer/ComposerContextPickerDialog.tsx",
+          "hash": "9509cfb8a51bbab44ce15336edfa6dbedd71339b4f6f06f4bdb22acd33fb7ece"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ComposerContextSearchInput.tsx",
+          "source": "src/composer/ComposerContextSearchInput.tsx",
+          "hash": "8444dc7ac6d4571a6a52c987aba6735f0203eaa204416441595fea2e290d2064"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ComposerPlusMenu.tsx",
+          "source": "src/composer/ComposerPlusMenu.tsx",
+          "hash": "33bfa010273200de87cf871109e0055bd1e15c0a6f846a26d3f0e1b72d45e294"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/MentionChip.tsx",
+          "source": "src/composer/MentionChip.tsx",
+          "hash": "3fa419a939be2e99e392b04d42f3fbaf64a83a79501d84a19f1d6bceddbba6a1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/MentionItemMedia.tsx",
+          "source": "src/composer/MentionItemMedia.tsx",
+          "hash": "ddc422964b00e3d3266c64e8309d64c0a3e0a2412a9fa4c3770c84fb6ac05b36"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/MentionPopover.tsx",
+          "source": "src/composer/MentionPopover.tsx",
+          "hash": "aef804c0994831ed27358d99d2ac0e8f8fc0e5829b434180a587743ddb25ec8c"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/MessageQueueDrawer.tsx",
+          "source": "src/composer/MessageQueueDrawer.tsx",
+          "hash": "0090a5161b7deffa00797b33154d5f528087f23f080354e49f901e169756ffad"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/ModelPickerParts.tsx",
+          "source": "src/composer/ModelPickerParts.tsx",
+          "hash": "cd86139398a9b237e065507502a6acba23c334ee9cf1c44a8fc027384638f35a"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/PastedTextChip.tsx",
+          "source": "src/composer/PastedTextChip.tsx",
+          "hash": "df6f6dcc464e6c30f364788150acde5e718d2b656567154dc756fd1036f04152"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/PromptComposer.tsx",
+          "source": "src/composer/PromptComposer.tsx",
+          "hash": "32adb56d1d39a539b4510835d91c8047843805471ba0d3fa000dd052b1d88d09"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/RealtimeVoiceMode.tsx",
+          "source": "src/composer/RealtimeVoiceMode.tsx",
+          "hash": "e62ff27bf7c5ad75427bb2209a3451008bb6bdcb8f51f939511f43e06a91e084"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/TiptapComposer.tsx",
+          "source": "src/composer/TiptapComposer.tsx",
+          "hash": "9bb6794dac18bfbed554a2f55f459ae39970134dc0993cccb3f5f4a26d817d6b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/VoiceButton.tsx",
+          "source": "src/composer/VoiceButton.tsx",
+          "hash": "960c879cde4427a36bbfccb93907f11935a7769bf2eafd711fd5984c102400f1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/attachment-accept.ts",
+          "source": "src/composer/attachment-accept.ts",
+          "hash": "909f7a581b40347f8c38584a043e00e5fd8a4e9a51851159b3b953048f53e4d4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/composer-notice.tsx",
+          "source": "src/composer/composer-notice.tsx",
+          "hash": "a5db3925555bba574f2b90329443451d30f428fbe2047c52b85ef3442d500713"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/context-items.ts",
+          "source": "src/composer/context-items.ts",
+          "hash": "03854eddc6ba1ea4a5c82ae7a70a8ae0c26673c9536bf3734bfb463a969eccd0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/draft-key.ts",
+          "source": "src/composer/draft-key.ts",
+          "hash": "f8194fb3da37163b5d39c89b855207b6d96f5d9f15b0be53e1a0ca17959aacd3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/extensions/FileReference.tsx",
+          "source": "src/composer/extensions/FileReference.tsx",
+          "hash": "509785ff603bd891bcd2b5bf35b7b33f76e12afd9e5461247cc5293cd069fc41"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/extensions/MentionReference.tsx",
+          "source": "src/composer/extensions/MentionReference.tsx",
+          "hash": "7bc4b4276b55d43c828a58a51bbe316ca11771f068e021d876e2e764ae38ef79"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/extensions/SkillReference.tsx",
+          "source": "src/composer/extensions/SkillReference.tsx",
+          "hash": "c1789f4343ae1112ffad6a8ad7a119037d560d05cfa1bf7c8833a3abca286ad4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/model-selection.ts",
+          "source": "src/composer/model-selection.ts",
+          "hash": "d1396c9a650c8b0a1140160ea5009270d4e7b493a03449f0cff972ca3ddd5735"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/pasted-text.ts",
+          "source": "src/composer/pasted-text.ts",
+          "hash": "f3f306bc4450ff882c89945869d937371798187c029daef218a1ab24633e5ebc"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/popover-surface.ts",
+          "source": "src/composer/popover-surface.ts",
+          "hash": "4e2c3239dce15518f5d96be7ad21d0f7968e3db89ccaa134521e4f722cfb54d3"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/prompt-attachments.ts",
+          "source": "src/composer/prompt-attachments.ts",
+          "hash": "a18ee6194a03ccc5322385f8bfb367abba059d1b4032b53d59d8bc12f5b56e50"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/realtime-voice-audio-level.ts",
+          "source": "src/composer/realtime-voice-audio-level.ts",
+          "hash": "fbbc24d3d01c42957cf301eb9ced70bd9cc17be7517aa66ba7d4253bf06183a7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/realtime-voice-transcript.ts",
+          "source": "src/composer/realtime-voice-transcript.ts",
+          "hash": "f6f8cfd9eeaeaa5b34aa1f1f05bf7947b0adbea602bb165cca9ae971891f3204"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/realtime-voice-turn-metrics.ts",
+          "source": "src/composer/realtime-voice-turn-metrics.ts",
+          "hash": "6bf4b98dd24c6305e4037138d32565244db09a73448b5c590ac6e346f1d8c54d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/runtime-adapters.tsx",
+          "source": "src/composer/runtime-adapters.tsx",
+          "hash": "3223b9b207f51068d7f18bf99a7069b0e614864c95b15d60de9ba947e7d828ad"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/types.ts",
+          "source": "src/composer/types.ts",
+          "hash": "6628bbc25d57286cc0b5aec5b07eefd8a8d03313c131d0550797c96f55646b2b"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/use-composer-panel-placement.ts",
+          "source": "src/composer/use-composer-panel-placement.ts",
+          "hash": "3593a006aa5bc639972518869a2fade1a3c60e43df185bea591e97dd2d30cbde"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/use-mention-search.ts",
+          "source": "src/composer/use-mention-search.ts",
+          "hash": "25ba9573bb5c15bd1f548f9c09f9f77f437d48cf281eef841cafcd2e4ee84d15"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/use-skills.ts",
+          "source": "src/composer/use-skills.ts",
+          "hash": "b57f1353b82227d99bcc534ce170b42df37f9c714263b29877b671344aeff1ff"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/useComposerContextPicker.ts",
+          "source": "src/composer/useComposerContextPicker.ts",
+          "hash": "ae71065956903adeb879cedb0af485b3ef8aa219a301df247e5ada3321eb9fcf"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/useRealtimeVoiceMode.tsx",
+          "source": "src/composer/useRealtimeVoiceMode.tsx",
+          "hash": "8aa1a83fe8ac1823186050404ecc794fc6c76f21df5d52a19c9b0c08c8bdf8e0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/useVoiceDictation.ts",
+          "source": "src/composer/useVoiceDictation.ts",
+          "hash": "0f854cab2459bd611c4f5e801c9e88bb1ebd9e9e355b02296460451242f854cd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/voice-chat-icon.tsx",
+          "source": "src/composer/voice-chat-icon.tsx",
+          "hash": "0a327847691d834f1c03e0f14a5628e5a32264b4a7abfa86c44ece57ef8f8496"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/composer/voice-waveform.tsx",
+          "source": "src/composer/voice-waveform.tsx",
+          "hash": "b456609a2bbf29066ae74fe9fe35b8d4ab2452365f785803054af240dba7856e"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/components.tsx",
+          "source": "src/design-system/components.tsx",
+          "hash": "226987dcc9cfe56d17c6711b8bf5a4fcc0effc7d3dde7d4d2c81071ab005c5f0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/context.tsx",
+          "source": "src/design-system/context.tsx",
+          "hash": "a909df9d22db51bc3e39c1599c4fbadbe8c1dcbda8507203e9d3df43e99599ef"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/default-adapter.tsx",
+          "source": "src/design-system/default-adapter.tsx",
+          "hash": "793dbfd32d0e8cebac137c54ae9c8f1d4b57ce0345746f5066ea9f2cc2ab593d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/definition.ts",
+          "source": "src/design-system/definition.ts",
+          "hash": "9b44922fbd6b4fca62842a2b3e0bcb3148ffccf38e64b0ab2c84b5bb25849655"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/error-boundary.tsx",
+          "source": "src/design-system/error-boundary.tsx",
+          "hash": "949e3b6e7489a2538cf9520c6c3da8d2c0b5bbc41afd5f219b7fc1d1230b6b29"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/index.ts",
+          "source": "src/design-system/index.ts",
+          "hash": "5ba0e70f41086c800ef0be044c756f4daa4e080bd4fc6ece0b7cef600601120d"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/theme.ts",
+          "source": "src/design-system/theme.ts",
+          "hash": "7a49ccd7130be3f0a1354ba27b1e2f15e1b8cb7d9d05ea79b326a4e8bd109fd7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/design-system/types.ts",
+          "source": "src/design-system/types.ts",
+          "hash": "a726feccef7fb75ce2dd824b4df30b66f2bd54183ff7d01046b1efb27cf832cd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/hooks/use-toast.ts",
+          "source": "src/hooks/use-toast.ts",
+          "hash": "7aebdb55e099d6c3bbe8b6b9bb94b35df189a4c3d86a0c3df57c474792f325b6"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/markdown-block-split.ts",
+          "source": "src/markdown-block-split.ts",
+          "hash": "9a9b629a3ecbc0ef46a6c8c3c68f405bd7d4e086423072280ad5e054f0e6fcbe"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/provider.tsx",
+          "source": "src/provider.tsx",
+          "hash": "97b88eb7f80ee2bc793ff316ecfc614dca35a802a33d3858b3a931736114b765"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/skill-upload.ts",
+          "source": "src/skill-upload.ts",
+          "hash": "13d35fbae21da143ed5f48345e8815750d4f19e515bf35fc876b94b0ef1709ee"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/streaming-markdown.ts",
+          "source": "src/streaming-markdown.ts",
+          "hash": "f1d4a06b16bb5d13559f30fa77a62ae841ba00f4084a5e84127f692958ec39cd"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/streaming-text-smoothing.ts",
+          "source": "src/streaming-text-smoothing.ts",
+          "hash": "ad7c7faee24e6d372492592b22d36c520479e4a53d5be32d9a3d918b68404827"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/table-column-glide.ts",
+          "source": "src/table-column-glide.ts",
+          "hash": "d9d613c2f0f9d560421c78606b0a6117a087b9b3f94e23c7a61ffbc59f34e7ba"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/alert.tsx",
+          "source": "src/ui/alert.tsx",
+          "hash": "d41e3908bfeba4391bdf4a46edad7232e0e014ca1f4ac46c9e095ee422dad690"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/avatar.tsx",
+          "source": "src/ui/avatar.tsx",
+          "hash": "01a2a2d010851c0fb956fd991f7bd19bb30491fddeb28c2476a8bd4b592bfe54"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/badge.tsx",
+          "source": "src/ui/badge.tsx",
+          "hash": "f5eb1ca6f52f9c68075442840390fa73197bf57e8141370ecf3aae99f3f9d470"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/button.tsx",
+          "source": "src/ui/button.tsx",
+          "hash": "8d31c07e21bb0bc6c773512e9bf3a278455e5c864b386f3b3ac445befbcb36b0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/card.tsx",
+          "source": "src/ui/card.tsx",
+          "hash": "706cc01850b866395a56d49a0402aaad62c78c51dc25faccce0ecb73e7b7ffc1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/checkbox.tsx",
+          "source": "src/ui/checkbox.tsx",
+          "hash": "b64d873f888dc09cb9176b0ef22baab7bbfab920906c6c43f1d8968cd1b5a543"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/command.tsx",
+          "source": "src/ui/command.tsx",
+          "hash": "01a18074fcf4d6d5ff2b2b5ef3115ef296b1a425f4f9de4631f71749b85614db"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/cube-loader.tsx",
+          "source": "src/ui/cube-loader.tsx",
+          "hash": "b0bda603c88272c8cdcc45e121455129c3545f5743069b514dc2e0629e7fe7f0"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/dialog.tsx",
+          "source": "src/ui/dialog.tsx",
+          "hash": "61e2143f62b4df84392d09e39b7049bf4b60369ba741657dcc74e40fa7853aa1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/dropdown-menu.tsx",
+          "source": "src/ui/dropdown-menu.tsx",
+          "hash": "338c0fc871bcb17534b1c1c6887ece0a55f3a3196d12d2875bf7784e1e89dfa1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/input.tsx",
+          "source": "src/ui/input.tsx",
+          "hash": "a2792d223d359d4e478ccd56a2b5c190898c9fe6ca9b73fbc0276c1343e87441"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/label.tsx",
+          "source": "src/ui/label.tsx",
+          "hash": "75e71b76baaa369d014ba80c9c6680be01a40c7916717163080fea906b9afffe"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/popover.tsx",
+          "source": "src/ui/popover.tsx",
+          "hash": "56a874a58309139f31a9a7de4c68f25b440192dbc848df19d6aa28caea3b7dec"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/radio-group.tsx",
+          "source": "src/ui/radio-group.tsx",
+          "hash": "69079adedd5f13d6358dbbeac3fe52add2df5159c4d117dd1d665b4da5b259e2"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/select.tsx",
+          "source": "src/ui/select.tsx",
+          "hash": "bcf9839e57fed8c1a21b0d95039d530fc08086000425835c1f4d30efeb7eb375"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/separator.tsx",
+          "source": "src/ui/separator.tsx",
+          "hash": "08437579978b80ff50b799211b9ae4c830555116fd00c6ffb31acd10f15d0f87"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/skeleton.tsx",
+          "source": "src/ui/skeleton.tsx",
+          "hash": "cb877bbfa492c5c6a5472ec7807c3429788eb87d1d76ce754413118f072e6f01"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/spinner.tsx",
+          "source": "src/ui/spinner.tsx",
+          "hash": "3242909dcd6dd75fdd39bf623d3d548acbc69ea20a5df62e6e94b5a0f3eb72d4"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/switch.tsx",
+          "source": "src/ui/switch.tsx",
+          "hash": "1ccbec1a6cbe0b490b6cbc7fe6a6ddeda4e933267554f0c1d48a0c87dbad9fc5"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/tabs.tsx",
+          "source": "src/ui/tabs.tsx",
+          "hash": "9ece2b693cb6119564b284c2411f11f1352ade742c1c257cb1d7d7d57e8f13d7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/textarea.tsx",
+          "source": "src/ui/textarea.tsx",
+          "hash": "32ba15f4544ac52a807b652ebbf8233b50978aa5142ad9a949f3b8b5b06b6dc1"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/toast.tsx",
+          "source": "src/ui/toast.tsx",
+          "hash": "93e011e02163cd38a7c9b319d8117df32d99911b09db7ecbbe8c409996a545cb"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/ui/tooltip.tsx",
+          "source": "src/ui/tooltip.tsx",
+          "hash": "c41cee1a77affb38efd4dc828dbb8f344cf738937e5b7fae4f466e1a5a9d2dd7"
+        },
+        {
+          "path": "app/components/agent-native/toolkit/utils.ts",
+          "source": "src/utils.ts",
+          "hash": "6aed5338e52de7e5150add6d69cd2204ab5a5b28193d3b3721c4c768776b30ba"
+        }
+      ],
+      "importRewrites": [
+        {
+          "path": "app/components/layout/Layout.tsx",
+          "beforeHash": "6d9132d90f702b10b76973f19be6dbd1d55afa673705237e9d5358bef2ecfd2f",
+          "afterHash": "8264b8c324ba12b5f3903e2b668a87fddb06fb464093c067b799b8258c6f8370",
+          "replacements": [
+            {
+              "from": "@agent-native/toolkit/app/settings",
+              "to": "../agent-native/toolkit/app/settings"
+            }
+          ]
+        },
+        {
+          "path": "app/routes/settings.tsx",
+          "beforeHash": "e600d1ef4e56153dd88d980ed9f92efcb11bf6a6c6d949ca2c2ee3b9191842ac",
+          "afterHash": "a9bc609344ea8ef229cadec48c4176d71497453d56e93d8b61cf58c374c2c6ab",
+          "replacements": [
+            {
+              "from": "@agent-native/toolkit/app/settings",
+              "to": "../components/agent-native/toolkit/app/settings"
+            }
+          ]
+        }
+      ],
+      "dependencyRewrite": {
+        "path": "package.json",
+        "beforeHash": "7fdb97d27856808698f466356742cec8b4dcd6ebc370448f114bbe81cdb75c91",
+        "afterHash": "73b999f30f84dab9a262b08af5eda3e43a7e20750c4809f7db10c3707ea45f9e",
+        "changes": [
+          {
+            "name": "@assistant-ui/react",
+            "before": null,
+            "after": "^0.12.19"
+          },
+          {
+            "name": "@modelcontextprotocol/ext-apps",
+            "before": null,
+            "after": "2.0.3"
+          },
+          {
+            "name": "@radix-ui/react-avatar",
+            "before": null,
+            "after": "^1.2.1"
+          },
+          {
+            "name": "@radix-ui/react-checkbox",
+            "before": null,
+            "after": "^1.3.6"
+          },
+          {
+            "name": "@radix-ui/react-dialog",
+            "before": null,
+            "after": "^1.1.19"
+          },
+          {
+            "name": "@radix-ui/react-dropdown-menu",
+            "before": null,
+            "after": "^2.1.20"
+          },
+          {
+            "name": "@radix-ui/react-label",
+            "before": null,
+            "after": "^2.1.11"
+          },
+          {
+            "name": "@radix-ui/react-popover",
+            "before": null,
+            "after": "^1.1.19"
+          },
+          {
+            "name": "@radix-ui/react-radio-group",
+            "before": null,
+            "after": "^1.4.2"
+          },
+          {
+            "name": "@radix-ui/react-select",
+            "before": null,
+            "after": "^2.3.3"
+          },
+          {
+            "name": "@radix-ui/react-separator",
+            "before": null,
+            "after": "^1.1.11"
+          },
+          {
+            "name": "@radix-ui/react-slider",
+            "before": null,
+            "after": "^1.4.2"
+          },
+          {
+            "name": "@radix-ui/react-slot",
+            "before": null,
+            "after": "^1.3.0"
+          },
+          {
+            "name": "@radix-ui/react-switch",
+            "before": null,
+            "after": "^1.3.2"
+          },
+          {
+            "name": "@radix-ui/react-tabs",
+            "before": null,
+            "after": "^1.1.16"
+          },
+          {
+            "name": "@radix-ui/react-toast",
+            "before": null,
+            "after": "^1.2.18"
+          },
+          {
+            "name": "@radix-ui/react-tooltip",
+            "before": null,
+            "after": "^1.2.12"
+          },
+          {
+            "name": "@shadcn/react",
+            "before": null,
+            "after": "^0.2.0"
+          },
+          {
+            "name": "@tiptap/core",
+            "before": null,
+            "after": "3.31.4"
+          },
+          {
+            "name": "@tiptap/extension-placeholder",
+            "before": null,
+            "after": "3.31.4"
+          },
+          {
+            "name": "@tiptap/pm",
+            "before": null,
+            "after": "3.31.4"
+          },
+          {
+            "name": "@tiptap/react",
+            "before": null,
+            "after": "3.31.4"
+          },
+          {
+            "name": "@tiptap/starter-kit",
+            "before": null,
+            "after": "3.31.4"
+          },
+          {
+            "name": "@webgpu/types",
+            "before": null,
+            "after": "0.1.74"
+          },
+          {
+            "name": "@xterm/addon-fit",
+            "before": null,
+            "after": ">=0.11"
+          },
+          {
+            "name": "@xterm/addon-web-links",
+            "before": null,
+            "after": ">=0.12"
+          },
+          {
+            "name": "@xterm/xterm",
+            "before": null,
+            "after": ">=6"
+          },
+          {
+            "name": "class-variance-authority",
+            "before": null,
+            "after": "^0.7.1"
+          },
+          {
+            "name": "clsx",
+            "before": null,
+            "after": "^2.1.1"
+          },
+          {
+            "name": "cmdk",
+            "before": null,
+            "after": "^1.1.1"
+          },
+          {
+            "name": "culori",
+            "before": null,
+            "after": "^4.0.2"
+          },
+          {
+            "name": "linkedom",
+            "before": null,
+            "after": "^0.18.13"
+          },
+          {
+            "name": "openai",
+            "before": null,
+            "after": "^7.43.0"
+          },
+          {
+            "name": "qrcode.react",
+            "before": null,
+            "after": "4.2.0"
+          },
+          {
+            "name": "react-markdown",
+            "before": null,
+            "after": "^10.1.0"
+          },
+          {
+            "name": "recharts",
+            "before": null,
+            "after": "^3.9.2"
+          },
+          {
+            "name": "remark-gfm",
+            "before": null,
+            "after": "^4.0.1"
+          },
+          {
+            "name": "shiki",
+            "before": null,
+            "after": "^4.0.2"
+          },
+          {
+            "name": "sonner",
+            "before": null,
+            "after": "^2.0.7"
+          },
+          {
+            "name": "tailwind-merge",
+            "before": null,
+            "after": "^3.5.0"
+          },
+          {
+            "name": "vgpu",
+            "before": null,
+            "after": "0.5.0"
+          }
+        ]
+      }
+    }
+  }
+}

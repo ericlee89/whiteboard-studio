@@ -1,0 +1,62 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: whiteboard-studio:local
+    init: true
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: "4317"
+      NITRO_HOST: 0.0.0.0
+      NITRO_PORT: "4317"
+      APP_URL: "${APP_URL:-}"
+      DATABASE_URL: "postgresql://whiteboard:${POSTGRES_PASSWORD:?Run docker-start.cmd or docker-start.sh first}@db:5432/whiteboard"
+      AUTH_DISABLED: "${LOCAL_SINGLE_USER:-0}"
+      # This is a trusted localhost file workbench, not a shared hosted service.
+      AGENT_NATIVE_ALLOW_LOCAL_FILES_IN_PRODUCTION: "true"
+    ports:
+      - "127.0.0.1:${APP_PORT:-4317}:4317"
+    volumes:
+      - studio-data:/app/data
+      - studio-state:/app/.agent-native
+    shm_size: 1gb
+    stop_grace_period: 45s
+    depends_on:
+      db:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  db:
+    image: postgres:16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: whiteboard
+      POSTGRES_USER: whiteboard
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Run docker-start.cmd or docker-start.sh first}"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U whiteboard -d whiteboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  studio-data:
+  studio-state:
+  postgres-data:

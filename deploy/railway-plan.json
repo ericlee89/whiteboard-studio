@@ -1,0 +1,53 @@
+{
+  "status": "PREPARED_NOT_DEPLOYED",
+  "projectName": "whiteboard-studio",
+  "environmentName": "production",
+  "publicUrl": "https://whiteboard-studio-kappa.vercel.app",
+  "services": [
+    {
+      "name": "studio-backend",
+      "source": "local source with Dockerfile",
+      "limits": { "memoryGB": 2, "vCPUs": 2 },
+      "replicas": 1,
+      "sleepApplication": false,
+      "volume": { "mountPath": "/persistent", "sizeMB": 5120 },
+      "healthcheckPath": "/studio-health",
+      "variables": {
+        "STUDIO_DEPLOYMENT_MODE": "vercel-backend",
+        "APP_URL": "https://whiteboard-studio-kappa.vercel.app",
+        "AUTH_DISABLED": "0",
+        "LOCAL_SINGLE_USER": "0",
+        "AGENT_NATIVE_ALLOW_LOCAL_FILES_IN_PRODUCTION": "true",
+        "STUDIO_STORAGE_ROOT": "/persistent",
+        "RAILWAY_RUN_UID": "0",
+        "PORT": "4317",
+        "NITRO_PORT": "4317",
+        "DATABASE_URL": "${{Postgres.DATABASE_URL}}"
+      },
+      "generateSecretsAtDeployment": ["BETTER_AUTH_SECRET", "SECRETS_ENCRYPTION_KEY", "A2A_SECRET", "STUDIO_GATEWAY_SECRET"]
+    },
+    {
+      "name": "Postgres",
+      "image": "postgres:16-bookworm",
+      "limits": { "memoryGB": 0.5, "vCPUs": 0.5 },
+      "replicas": 1,
+      "volume": { "mountPath": "/var/lib/postgresql/data", "sizeMB": 1024 },
+      "publicNetworking": false,
+      "variables": {
+        "POSTGRES_DB": "whiteboard",
+        "POSTGRES_USER": "whiteboard",
+        "PGDATA": "/var/lib/postgresql/data/pgdata",
+        "DATABASE_URL": "postgresql://${{POSTGRES_USER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}"
+      },
+      "generateSecretsAtDeployment": ["POSTGRES_PASSWORD"]
+    }
+  ],
+  "pendingActions": [
+    "Account plan must allow project creation",
+    "Review and confirm paid resource plan before committing staged changes",
+    "Generate independent secrets and store privately on both platforms",
+    "Create and verify Railway HTTPS domain on backend port 4317",
+    "Set Vercel STUDIO_BACKEND_URL and matching STUDIO_GATEWAY_SECRET",
+    "Redeploy Vercel and verify authenticated rendering end to end"
+  ]
+}

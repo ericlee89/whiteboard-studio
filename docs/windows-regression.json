@@ -1,0 +1,26 @@
+{
+  "environment": {
+    "os": "linux",
+    "node": "v24.22.1"
+  },
+  "nativeWindowsTested": false,
+  "windowsLinkBranch": "simulated junction branch passed; no native NTFS run",
+  "unitTestsPassed": 6,
+  "overlapRejected": true,
+  "cancellationThenRestart": true,
+  "savedScenes": 2,
+  "preview": "done",
+  "build": "done",
+  "playback": {
+    "currentTime": 2.932136,
+    "width": 1920,
+    "height": 1080,
+    "duration": 25.021029,
+    "error": null
+  },
+  "downloadCount": 6,
+  "decode": "passed",
+  "pageErrors": [],
+  "ttsEngine": "edge",
+  "realMimoTested": false
+}
