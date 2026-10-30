@@ -938,6 +938,7 @@ export default function Studio() {
       )}
       {genOpen && (
         <GeneratePanel
+          episodeId={draft.id}
           sceneCount={draft.scenes.length}
           onClose={() => setGenOpen(false)}
           onApply={(title, scenes) => {

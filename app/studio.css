@@ -1044,6 +1044,37 @@
   padding: 34px 0 26px;
   color: var(--s-ink-2);
 }
+.brief-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 1px solid var(--s-accent-line);
+  border-radius: var(--s-radius-sm);
+  background: var(--s-accent-soft);
+  font-size: 11.5px;
+  color: var(--s-accent-ink);
+}
+.brief-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.brief-chip em {
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--s-ink-3);
+}
+.brief-chip button {
+  display: grid;
+  place-items: center;
+  color: var(--s-ink-3);
+}
+.brief-chip button:hover {
+  color: var(--s-ink);
+}
 .gen-loading p {
   margin: 0;
   font-size: 13px;

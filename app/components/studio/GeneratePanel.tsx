@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { IconLoader2, IconSparkles } from "@tabler/icons-react";
+import {
+  IconLoader2,
+  IconSparkles,
+  IconUpload,
+  IconFileText,
+  IconX,
+} from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,10 +23,12 @@ interface Draft {
 const LENGTHS = [1, 2, 3, 5];
 
 export function GeneratePanel({
+  episodeId,
   sceneCount,
   onClose,
   onApply,
 }: {
+  episodeId: string;
   sceneCount: number;
   onClose: () => void;
   onApply: (title: string, scenes: Episode["scenes"]) => void;
@@ -28,6 +36,12 @@ export function GeneratePanel({
   const [stage, setStage] = useState<Stage>("form");
   const [brief, setBrief] = useState("");
   const [minutes, setMinutes] = useState(2);
+  const [briefFile, setBriefFile] = useState<string | null>(null);
+  const [briefInfo, setBriefInfo] = useState<{
+    name: string;
+    chars: number;
+  } | null>(null);
+  const [uploading, setUploading] = useState(false);
   const [extra, setExtra] = useState("");
   const [model, setModel] = useState(() => {
     try {
@@ -38,6 +52,39 @@ export function GeneratePanel({
   });
   const [error, setError] = useState("");
   const [draft, setDraft] = useState<Draft | null>(null);
+
+  const upload = async (file: File) => {
+    setError("");
+    setUploading(true);
+    try {
+      const res = await fetch(
+        `/studio-brief?id=${encodeURIComponent(episodeId)}&filename=${encodeURIComponent(file.name)}`,
+        {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": file.type || "application/octet-stream" },
+          body: await file.arrayBuffer(),
+        },
+      );
+      const body = (await res.json().catch(() => ({}))) as {
+        file?: string;
+        chars?: number;
+        message?: string;
+        statusMessage?: string;
+      };
+      if (!res.ok || !body.file) {
+        throw new Error(
+          body.statusMessage || body.message || `上传失败（${res.status}）`,
+        );
+      }
+      setBriefFile(body.file);
+      setBriefInfo({ name: file.name, chars: body.chars ?? 0 });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "上传失败");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const run = async () => {
     setError("");
@@ -61,6 +108,8 @@ export function GeneratePanel({
           minutes,
           extra: extra.trim() || undefined,
           model: model.trim() || undefined,
+          id: episodeId,
+          briefFile: briefFile || undefined,
         }),
       });
       const body = (await res.json().catch(() => ({}))) as {
@@ -114,6 +163,45 @@ export function GeneratePanel({
                 value={brief}
                 onChange={(e) => setBrief(e.target.value)}
               />
+            </div>
+            <div className="gen-field">
+              <label>参考资料（可不填）</label>
+              {briefInfo ? (
+                <div className="brief-chip">
+                  <IconFileText size={14} />
+                  <span className="brief-name">{briefInfo.name}</span>
+                  <em>{briefInfo.chars} 字</em>
+                  <button
+                    aria-label="移除资料"
+                    onClick={() => {
+                      setBriefFile(null);
+                      setBriefInfo(null);
+                    }}
+                  >
+                    <IconX size={13} />
+                  </button>
+                </div>
+              ) : (
+                <label
+                  className={`material-drop${uploading ? " is-busy" : ""}`}
+                >
+                  <input
+                    type="file"
+                    accept=".docx,.pptx,.xlsx,.txt,.md,.markdown"
+                    disabled={uploading}
+                    onChange={async (e) => {
+                      const f = e.target.files?.[0];
+                      e.target.value = "";
+                      if (f) await upload(f);
+                    }}
+                  />
+                  <IconUpload size={14} />
+                  {uploading ? "解析中…" : "上传 Word / PPT / txt"}
+                </label>
+              )}
+              <p className="field-hint">
+                文档会解析成文字一起交给模型，事实以资料为准。PDF 请先另存为 Word。
+              </p>
             </div>
             <div className="gen-field">
               <label>多长</label>

@@ -1,7 +1,10 @@
 import { defineAction, fail } from "@agent-native/core/action";
 import { completeText } from "@agent-native/core/server";
 import { z } from "zod";
+import fs from "node:fs";
+import path from "node:path";
 import { sceneSchema, type Episode } from "../shared/studio";
+import { ownerKey } from "../server/studio-store";
 
 const LAYOUTS = ["list", "split", "columns", "summary", "hero"] as const;
 
@@ -18,6 +21,7 @@ const SYSTEM_PROMPT = `你是白板手绘讲解视频的分镜编剧。用户给
    - columns：三个并列要素，此时 points 只写三条短的
 5. 语气像跟人聊天，口语、短句，不要书面语、排比句和"首先其次最后"。
 6. 不编造具体数字、人名、机构名。确实需要数据时用"大概""通常"这类模糊表述。
+7. 用户给了参考资料时，事实必须来自资料，不要自行补充。资料里没有的细节就略过，宁可少讲也不编。
 
 只输出 JSON，不要 markdown 代码块，不要任何解释或前后缀：
 {"title":"整期标题","scenes":[{"title":"这一幕的标题","narration":"第一拍。|第二拍。|第三拍。","points":["要点一","要点二","要点三"],"layout":"hero"}]}`;
@@ -45,8 +49,36 @@ export default defineAction({
       .describe(
         "Model name to use. Leave empty to use the model configured in settings; set it when the provider has no channel for the built-in default.",
       ),
+    id: z
+      .string()
+      .regex(/^[a-z0-9-]{1,80}$/)
+      .optional()
+      .describe("Project id, used to locate the uploaded reference file"),
+    briefFile: z
+      .string()
+      .regex(/^brief-[a-z0-9]+\.txt$/)
+      .optional()
+      .describe("Parsed reference text stored by the upload route"),
   }),
-  run: async ({ brief, minutes, extra, model }) => {
+  run: async ({ brief, minutes, extra, model, id, briefFile }, ctx) => {
+    // 上传的资料已经被解析成纯文本落盘，这里读回来当背景知识
+    let sourceText = "";
+    if (id && briefFile) {
+      try {
+        const p = path.resolve(
+          "data/episodes",
+          ownerKey(ctx?.userEmail),
+          `${id}.assets`,
+          briefFile,
+        );
+        if (fs.existsSync(p)) {
+          sourceText = fs.readFileSync(p, "utf8").slice(0, 20000);
+        }
+      } catch {
+        // 资料读不到不该挡住生成，当作没上传
+      }
+    }
+
     let text: string;
     try {
       const res = await completeText({
@@ -57,6 +89,9 @@ export default defineAction({
           `主题：${brief}`,
           `目标时长：${minutes} 分钟`,
           extra ? `补充要求：${extra}` : "",
+          sourceText
+            ? `\n参考资料（用户上传，只能依据这里的内容陈述事实，不要自行补充）：\n"""\n${sourceText}\n"""`
+            : "",
         ]
           .filter(Boolean)
           .join("\n"),
