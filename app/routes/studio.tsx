@@ -26,6 +26,9 @@ import {
   IconDots,
   IconPhoto,
   IconChevronDown,
+  IconChevronLeft,
+  IconChevronRight,
+  IconLoader2,
   IconSparkles,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
@@ -673,6 +676,18 @@ export default function Studio() {
           </Button>
         </div>
         <div className="canvas-area">
+          {status.data?.state === "running" && (
+            <div className="render-banner">
+              <IconLoader2 size={15} className="setup-spin" />
+              <span className="render-stage">
+                {status.data.stage || "正在渲染"}
+              </span>
+              <strong className="render-pct">{status.data.progress}%</strong>
+              <div className="render-track">
+                <i style={{ width: `${status.data.progress}%` }} />
+              </div>
+            </div>
+          )}
           <div className="canvas-wrap">
             {renderedVideo ? (
               <video
@@ -690,6 +705,36 @@ export default function Studio() {
             ) : (
               <Board episode={draft} index={sceneIndex} />
             )}
+            <button
+              className="canvas-nav prev"
+              aria-label="上一幕"
+              disabled={sceneIndex === 0}
+              onClick={() => {
+                setPlaying(false);
+                setParams({
+                  id,
+                  scene: String(Math.max(0, sceneIndex - 1)),
+                });
+              }}
+            >
+              <IconChevronLeft size={20} />
+            </button>
+            <button
+              className="canvas-nav next"
+              aria-label="下一幕"
+              disabled={sceneIndex >= draft.scenes.length - 1}
+              onClick={() => {
+                setPlaying(false);
+                setParams({
+                  id,
+                  scene: String(
+                    Math.min(draft.scenes.length - 1, sceneIndex + 1),
+                  ),
+                });
+              }}
+            >
+              <IconChevronRight size={20} />
+            </button>
             <button
               className="canvas-edit"
               onClick={() => setEditorOpen(true)}
