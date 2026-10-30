@@ -74,6 +74,10 @@ export default defineAction({
         path.join(dir, "episode.json"),
         JSON.stringify(p.episode),
       );
+      // 场景配图一并进快照，渲染进程才能从本期 assets 取图
+      const assetDir = path.resolve("data/episodes", owner, `${id}.assets`);
+      if (fs.existsSync(assetDir))
+        fs.cpSync(assetDir, path.join(dir, "assets"), { recursive: true });
       fs.writeFileSync(
         path.join(dir, "status.json"),
         JSON.stringify({

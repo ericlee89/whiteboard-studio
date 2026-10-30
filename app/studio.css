@@ -483,3 +483,24 @@
   background: #34442a;
   color: #d4e4c6;
 }
+.scene-image {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.scene-image-thumb {
+  width: 104px;
+  height: 66px;
+  object-fit: cover;
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  background: #fff;
+  flex-shrink: 0;
+}
+.scene-image-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}

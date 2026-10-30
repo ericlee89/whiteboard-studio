@@ -163,7 +163,8 @@ export default function Studio() {
     [dirty, setDirty] = useState(false),
     [newTitle, setNewTitle] = useState(""),
     [open, setOpen] = useState(false),
-    [playing, setPlaying] = useState(false);
+    [playing, setPlaying] = useState(false),
+    [uploading, setUploading] = useState(false);
   const cancel = useActionMutation("cancel-render");
   const save = useActionMutation("save-episode"),
     render = useActionMutation("start-render");
@@ -354,6 +355,7 @@ export default function Studio() {
                         title: newTitle.trim().slice(0, 40),
                         narration: "请在这里写下第一段旁白。",
                         points: ["你的核心观点"],
+                        image: null,
                       },
                     ],
                     sources: "",
@@ -501,6 +503,7 @@ export default function Studio() {
                       title: "新的场景",
                       narration: "在这里写下这一幕的旁白。",
                       points: ["画面要点"],
+                      image: null,
                     },
                   ],
                 });
@@ -667,6 +670,91 @@ export default function Studio() {
               rows={5}
             />
             <p className="field-hint">每行一个要点，最多 6 条。</p>
+            <label htmlFor="scene-image">画面配图</label>
+            {active.image ? (
+              <div className="scene-image">
+                <img
+                  className="scene-image-thumb"
+                  src={`/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.image.file)}`}
+                  alt="配图预览"
+                />
+                <div className="scene-image-controls">
+                  <select
+                    id="scene-image"
+                    value={active.image.fit}
+                    onChange={(e) =>
+                      edit({
+                        image: {
+                          ...active.image!,
+                          fit: e.target.value as "side" | "full",
+                        },
+                      })
+                    }
+                  >
+                    <option value="side">右侧 · 与要点并排</option>
+                    <option value="full">整屏 · 独占画面</option>
+                  </select>
+                  <Button
+                    variant="ghost"
+                    disabled={uploading}
+                    onClick={async () => {
+                      try {
+                        await fetch(
+                          `/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.image!.file)}`,
+                          { method: "DELETE", credentials: "same-origin" },
+                        );
+                      } catch {
+                        // 文件删不掉不影响从剧集里摘除引用
+                      }
+                      edit({ image: null });
+                    }}
+                  >
+                    移除
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <input
+                  id="scene-image"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  disabled={uploading || !draft.id}
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    e.target.value = "";
+                    if (!file || !draft) return;
+                    setUploading(true);
+                    try {
+                      const res = await fetch(
+                        `/studio-asset?id=${encodeURIComponent(draft.id)}`,
+                        {
+                          method: "POST",
+                          credentials: "same-origin",
+                          headers: {
+                            "Content-Type":
+                              file.type || "application/octet-stream",
+                          },
+                          body: await file.arrayBuffer(),
+                        },
+                      );
+                      if (!res.ok) throw new Error(`上传失败（${res.status}）`);
+                      const { file: name } = await res.json();
+                      edit({ image: { file: name, fit: "side" } });
+                    } catch (err) {
+                      report(err);
+                    } finally {
+                      setUploading(false);
+                    }
+                  }}
+                />
+                <p className="field-hint">
+                  {uploading
+                    ? "上传中…"
+                    : "PNG / JPG / WebP，自动转 PNG 并缩到画布宽度。先保存项目再出片。"}
+                </p>
+              </>
+            )}
             <label htmlFor="sources">资料来源</label>
             <Textarea
               id="sources"

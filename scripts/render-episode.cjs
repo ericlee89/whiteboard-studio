@@ -47,6 +47,10 @@ try {
   fs.writeFileSync(path.join(engine, "config.json"), JSON.stringify(cfg));
   const project = path.join(engine, "episodes", ep.id);
   fs.mkdirSync(project, { recursive: true });
+  // 场景配图：任务快照里的 assets/ 落到本期目录，scene-dsl 从 project/assets 取图
+  const jobAssets = path.join(jobDir, "assets");
+  if (fs.existsSync(jobAssets))
+    fs.cpSync(jobAssets, path.join(project, "assets"), { recursive: true });
   const dsl = path.join(engine, "lib/scene-dsl.js");
   const titleChars = [...ep.title.replace(/[，、：:。！!?？]/g, "")].slice(
     0,
@@ -63,10 +67,27 @@ try {
 const items=${JSON.stringify(ep.scenes)};
 const scenes=items.map((item,i)=>{
  const s=new Scene(String(i+1).padStart(2,'0')+'-scene',item.narration);
+ const img=item.image||null;
+ const full=!!img&&img.fit==='full';
+ const side=!!img&&!full;
+ const boxX=side?140:260, boxW=side?820:1400;
  const beats=item.narration.split('|');
- beats.forEach((_,j)=>{s.nextBeat();if(j===0){s.text(CX,60,item.title,{size:80,align:'center',color:C.brand});}
+ beats.forEach((_,j)=>{s.nextBeat();if(j===0){s.text(CX,60,item.title,{size:80,align:'center',color:C.brand});
+ if(img){
+  const name=img.file.replace(/\\.png$/,'');
+  const d=s.imageSize(name);
+  const maxH=full?740:660;
+  let w=full?1500:760;
+  let h=Math.round(w*d.h/d.w);
+  if(h>maxH){h=maxH;w=Math.round(h*d.w/d.h);}
+  if(full)s.image(CX,210+(740-h)/2,name,{w,h,align:'center'});
+  else s.image(1010+(850-w)/2,260+(660-h)/2,name,{w,h});
+ }
+ }
+ if(!full){
  const subset=item.points.filter((p,k)=>k%beats.length===j);
- subset.forEach((p,n)=>{const k=item.points.indexOf(p), y=250+k*105;s.rect(260,y,1400,82,{round:true,fill:k%2?C.fBlue:C.fGreen});s.text(330,y+13,p,{size:40});});
+ subset.forEach((p,n)=>{const k=item.points.indexOf(p), y=250+k*105;s.rect(boxX,y,boxW,82,{round:true,fill:k%2?C.fBlue:C.fGreen});s.text(boxX+70,y+14,p,{size:side?34:40});});
+ }
  });return s;
 });
 const cover=(s,ratio)=>s.coverLayout({ratio,title:${JSON.stringify(coverTitle)},sub:epTitle,tag:"白板讲清楚"});
