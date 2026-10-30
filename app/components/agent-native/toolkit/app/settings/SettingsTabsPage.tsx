@@ -139,6 +139,8 @@ export interface SettingsTabsPageProps {
    */
   mcpAbout?: string;
   account?: ReactNode;
+  /** 要隐藏的页签 id，只保留少数入口时用 */
+  hideTabs?: string[];
   team?: ReactNode;
   whatsNew?: ReactNode;
   extraTabs?: SettingsTabItem[];
@@ -385,6 +387,8 @@ function SettingsTabsPageContent({
   teamLabel = "Team",
   whatsNewLabel = "What's new",
   ariaLabel = "Settings sections",
+  /** 要隐藏的页签 id，给只保留少数几个入口的场景用 */
+  hideTabs = [],
   defaultTab = "general",
   className,
   navClassName,
@@ -504,7 +508,9 @@ function SettingsTabsPageContent({
       });
     }
     next.push(...linkedTabs);
-    return next;
+    return hideTabs.length
+      ? next.filter((tab) => !hideTabs.includes(tab.id))
+      : next;
   }, [
     account,
     accountLabel,
@@ -521,6 +527,7 @@ function SettingsTabsPageContent({
     whatsNewMarkdown,
     whatsNewLabel,
     t,
+    hideTabs,
   ]);
 
   const fallbackTab = tabs.some((tab) => tab.id === defaultTab)
