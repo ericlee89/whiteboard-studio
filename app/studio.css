@@ -863,6 +863,116 @@
   }
 }
 
+/* ---------- 风格与配音选择 ---------- */
+.style-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.style-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+  text-align: left;
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius);
+  transition: all 0.15s ease;
+}
+.style-card:hover {
+  border-color: var(--s-line-strong);
+}
+.style-card.is-on {
+  border-color: var(--s-accent);
+  background: var(--s-accent-soft);
+}
+.style-swatch {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 36px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+.style-dots {
+  position: absolute;
+  inset: 0;
+  background-size: 7px 7px;
+}
+.style-swatch em {
+  position: relative;
+  font-style: normal;
+  font-size: 17px;
+  line-height: 1;
+  color: #2a2a26;
+}
+.style-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.style-text strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--s-ink);
+}
+.style-text small {
+  font-size: 10.5px;
+  color: var(--s-ink-3);
+}
+.style-card > svg {
+  flex-shrink: 0;
+  color: var(--s-accent);
+}
+.engine-row {
+  display: flex;
+  gap: 6px;
+}
+.engine-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 8px 4px;
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius);
+  transition: all 0.15s ease;
+}
+.engine-chip:hover {
+  border-color: var(--s-line-strong);
+}
+.engine-chip.is-on {
+  border-color: var(--s-accent);
+  background: var(--s-accent-soft);
+}
+.engine-chip strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--s-ink);
+}
+.engine-chip small {
+  font-size: 9.5px;
+  color: var(--s-ink-3);
+}
+.duration-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 9px 11px;
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius-sm);
+  background: var(--s-surface-2);
+  font-size: 11px;
+  color: var(--s-ink-2);
+}
+
 /* ---------- 首次配置引导 ---------- */
 .setup-mask {
   position: fixed;

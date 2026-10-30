@@ -7,6 +7,8 @@
 
 @font-face {font-family:StudioHand;src:url("/fonts/Xiaolai-Regular.ttf") format("truetype");font-display:swap;}
 @font-face {font-family:StudioKai;src:url("../engine/assets/fonts/STKAITI.TTF") format("truetype");font-display:swap;}
+@font-face {font-family:StudioJiangNan;src:url("../engine/assets/fonts/PingFangJiangNanTi.ttf") format("truetype");font-display:swap;}
+@font-face {font-family:StudioXiangSi;src:url("../engine/assets/fonts/PingFangXiangSiTi.ttf") format("truetype");font-display:swap;}
 html,body,.agent-panel-root,.agent-sidebar-panel {
   font-family: var(--studio-ui-font);
 }

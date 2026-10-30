@@ -53,6 +53,81 @@ import "../studio.css";
 export function meta() {
   return [{ title: "白板工作室 · Whiteboard Studio" }];
 }
+/** 画面风格小样：纸色、点阵、字体都与引擎预设一一对应 */
+const STYLE_PRESETS = [
+  {
+    id: "kai",
+    name: "楷体",
+    note: "暖米黄 · 点阵",
+    paper: "#f7f1e3",
+    dot: "#e3d9c4",
+    dots: true,
+    font: "StudioKai",
+  },
+  {
+    id: "classic",
+    name: "手写体",
+    note: "米白 · 点阵",
+    paper: "#fffdf7",
+    dot: "#d9d4c7",
+    dots: true,
+    font: "StudioHand",
+  },
+  {
+    id: "training",
+    name: "苹方江南",
+    note: "纯白 · 投屏",
+    paper: "#ffffff",
+    dot: "#e8e8e8",
+    dots: false,
+    font: "StudioJiangNan",
+  },
+  {
+    id: "culture",
+    name: "苹方相思",
+    note: "暖米黄 · 点阵",
+    paper: "#f7f1e3",
+    dot: "#e3d9c4",
+    dots: true,
+    font: "StudioXiangSi",
+  },
+  {
+    id: "office",
+    name: "苹方江南",
+    note: "冷浅灰 · 无点阵",
+    paper: "#f3f5f7",
+    dot: "#dfe3e6",
+    dots: false,
+    font: "StudioJiangNan",
+  },
+] as const;
+
+const ENGINE_PRESETS = [
+  { id: "edge", name: "Edge", note: "免费", voice: "zh-CN-YunxiNeural" },
+  { id: "volc", name: "火山", note: "音质最好", voice: "zh_male_liufei_uranus_bigtts" },
+  { id: "mi", name: "小米", note: "九种音色", voice: "冰糖" },
+] as const;
+
+/** 已知音色；火山音色 ID 太多且随账号不同，保留手填 */
+const VOICE_PRESETS: Record<string, { id: string; name: string }[]> = {
+  edge: [
+    { id: "zh-CN-YunxiNeural", name: "云希 · 男声" },
+    { id: "zh-CN-YunjianNeural", name: "云健 · 男声" },
+    { id: "zh-CN-XiaoxiaoNeural", name: "晓晓 · 女声" },
+    { id: "zh-CN-XiaoyiNeural", name: "晓伊 · 女声" },
+  ],
+  mi: [
+    { id: "冰糖", name: "冰糖" },
+    { id: "茉莉", name: "茉莉" },
+    { id: "苏打", name: "苏打" },
+    { id: "白桦", name: "白桦" },
+    { id: "Mia", name: "Mia" },
+    { id: "Chloe", name: "Chloe" },
+    { id: "Milo", name: "Milo" },
+    { id: "Dean", name: "Dean" },
+  ],
+};
+
 function Board({
   episode,
   index,
@@ -212,6 +287,12 @@ export default function Studio() {
   const matPlan = draft ? planMaterials(draft) : [];
   const matNeeded = matPlan.filter((h) => h.level !== "none");
   const matDone = matNeeded.filter((h) => h.current);
+  const totalChars = draft
+    ? draft.scenes.reduce((a, s) => a + s.narration.length, 0)
+    : 0;
+  const estTotal = Math.round(totalChars / 4.5);
+  const estMin = Math.floor(estTotal / 60);
+  const estSec = estTotal % 60;
   const setEpisode = (e: Episode) => {
     setDraft(e);
     setDirty(true);
@@ -1018,48 +1099,99 @@ export default function Studio() {
           </div>
         ) : tab === "settings" ? (
           <div className="inspector-content">
-            <label htmlFor="style">画面风格</label>
-            <select
-              id="style"
-              value={draft.style ?? "kai"}
-              onChange={(e) =>
-                setEpisode({ ...draft, style: e.target.value as Episode["style"] })
-              }
-            >
-              <option value="kai">楷体 · 暖米黄点阵</option>
-              <option value="classic">手写体 · 米白点阵</option>
-              <option value="training">苹方江南 · 纯白投屏</option>
-              <option value="culture">苹方相思 · 暖米黄</option>
-              <option value="office">苹方江南 · 冷浅灰</option>
-            </select>
-            <label htmlFor="engine">配音引擎</label>
-            <select
-              id="engine"
-              value={draft.engine}
-              onChange={(e) => {
-                const engine = e.target.value as Episode["engine"];
-                setEpisode({
-                  ...draft,
-                  engine,
-                  voice:
-                    engine === "mi"
-                      ? "冰糖"
-                      : engine === "edge"
-                        ? "zh-CN-YunxiNeural"
-                        : "zh_male_liufei_uranus_bigtts",
-                });
-              }}
-            >
-              <option value="edge">Edge TTS · 无需密钥</option>
-              <option value="mi">小米 MiMo</option>
-              <option value="volc">火山引擎</option>
-            </select>
+            <div className="field-heading">
+              <span>画面风格</span>
+            </div>
+            <div className="style-list">
+              {STYLE_PRESETS.map((st) => {
+                const on = (draft.style ?? "kai") === st.id;
+                return (
+                  <button
+                    key={st.id}
+                    className={`style-card${on ? " is-on" : ""}`}
+                    onClick={() => setEpisode({ ...draft, style: st.id })}
+                  >
+                    <span className="style-swatch" style={{ background: st.paper }}>
+                      {st.dots && (
+                        <span
+                          className="style-dots"
+                          style={{
+                            backgroundImage: `radial-gradient(${st.dot} 1px, transparent 1px)`,
+                          }}
+                        />
+                      )}
+                      <em style={{ fontFamily: st.font }}>样</em>
+                    </span>
+                    <span className="style-text">
+                      <strong>{st.name}</strong>
+                      <small>{st.note}</small>
+                    </span>
+                    {on && <IconCheck size={14} />}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="field-heading">
+              <span>配音引擎</span>
+            </div>
+            <div className="engine-row">
+              {ENGINE_PRESETS.map((en) => {
+                const on = draft.engine === en.id;
+                return (
+                  <button
+                    key={en.id}
+                    className={`engine-chip${on ? " is-on" : ""}`}
+                    onClick={() =>
+                      setEpisode({
+                        ...draft,
+                        engine: en.id,
+                        voice: en.voice,
+                      })
+                    }
+                  >
+                    <strong>{en.name}</strong>
+                    <small>{en.note}</small>
+                  </button>
+                );
+              })}
+            </div>
+
             <label htmlFor="voice">音色</label>
-            <Input
-              id="voice"
-              value={draft.voice}
-              onChange={(e) => setEpisode({ ...draft, voice: e.target.value })}
-            />
+            {draft.engine === "volc" ? (
+              <>
+                <Input
+                  id="voice"
+                  value={draft.voice}
+                  onChange={(e) =>
+                    setEpisode({ ...draft, voice: e.target.value })
+                  }
+                />
+                <p className="field-hint">
+                  火山音色 ID 从控制台音色广场复制，2.0 音色以 _bigtts 结尾。
+                </p>
+              </>
+            ) : (
+              <select
+                id="voice"
+                value={draft.voice}
+                onChange={(e) =>
+                  setEpisode({ ...draft, voice: e.target.value })
+                }
+              >
+                {(VOICE_PRESETS[draft.engine] || []).map((v) => (
+                  <option key={v.id} value={v.id}>
+                    {v.name}
+                  </option>
+                ))}
+                {!(VOICE_PRESETS[draft.engine] || []).some(
+                  (v) => v.id === draft.voice,
+                ) && (
+                  <option value={draft.voice}>{draft.voice}（当前）</option>
+                )}
+              </select>
+            )}
+
             <label htmlFor="speed">语速 · {draft.speed.toFixed(1)}×</label>
             <input
               id="speed"
@@ -1088,10 +1220,9 @@ export default function Studio() {
               value={draft.brand}
               onChange={(e) => setEpisode({ ...draft, brand: e.target.value })}
             />
-            <div className="connection-note">
-              <IconVolume size={20} />
-              <p>Edge TTS 需要联网。小米与火山凭证从服务端环境变量读取。</p>
-              <p>AI 润色与生成请在右侧助手中连接模型。</p>
+            <div className="duration-note">
+              <IconMovie size={13} />
+              预计 {estMin} 分 {estSec} 秒 · 全片 {totalChars} 字
             </div>
           </div>
         ) : (
