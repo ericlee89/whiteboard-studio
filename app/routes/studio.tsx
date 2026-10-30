@@ -10,7 +10,6 @@ import {
   actionErrorMessage,
   writeClientAppState,
 } from "@agent-native/core/client/hooks";
-import { sendToAgentChat } from "@agent-native/core/client/agent-chat";
 import {
   IconPlayerPlay,
   IconPlus,
@@ -23,7 +22,6 @@ import {
   IconVolume,
   IconArrowRight,
   IconLayoutBoard,
-  IconFileText,
   IconRefresh,
   IconDots,
   IconPhoto,
@@ -38,6 +36,7 @@ import {
 } from "@/components/studio/PreflightPanel";
 import { GeneratePanel } from "@/components/studio/GeneratePanel";
 import { TtsPicker, type TtsChoice } from "@/components/studio/TtsPicker";
+import { SceneEditor } from "@/components/studio/SceneEditor";
 import { planMaterials } from "@/lib/material-plan";
 import {
   STYLE_PRESETS,
@@ -183,7 +182,8 @@ export default function Studio() {
     [jobOpen, setJobOpen] = useState(true),
     [check, setCheck] = useState<PreflightResult | null>(null),
     [genOpen, setGenOpen] = useState(false),
-    [ttsOpen, setTtsOpen] = useState(false);
+    [ttsOpen, setTtsOpen] = useState(false),
+    [editorOpen, setEditorOpen] = useState(false);
   const cancel = useActionMutation("cancel-render");
   const preflight = useActionMutation("preflight");
   const save = useActionMutation("save-episode"),
@@ -358,29 +358,6 @@ export default function Studio() {
     } catch (e) {
       report(e);
     }
-  }
-  async function agent(verb: string) {
-    if (!draft) return;
-    if (dirty) {
-      try {
-        await persist();
-      } catch (e) {
-        report(e);
-        return;
-      }
-    }
-    sendToAgentChat({
-      message: `请为当前白板项目${verb}。先读取 list-episodes，使用 save-episode 保存建议版本（保留当前 hash，sample 标记真实来源）。涉及新事实需给出来源。不要执行发布。`,
-      context: JSON.stringify({
-        id: draft.id,
-        title: draft.title,
-        sceneIndex: index,
-        sceneTitle: active?.title,
-      }),
-      openSidebar: true,
-      chatTarget: "local",
-      submit: true,
-    });
   }
   const header = (
     <div className="flex items-center gap-2">
@@ -591,6 +568,14 @@ export default function Studio() {
             ) : (
               <Board episode={draft} index={sceneIndex} />
             )}
+            <button
+              className="canvas-edit"
+              onClick={() => setEditorOpen(true)}
+              title="编辑这一幕的文案与素材"
+              aria-label="编辑这一幕"
+            >
+              <IconPencil size={15} />
+            </button>
           </div>
           <div className="canvas-caption">
             <IconPencil size={13} />
@@ -723,7 +708,6 @@ export default function Studio() {
           {[
             ["material", "素材"],
             ["settings", "出片"],
-            ["publish", "文案"],
           ].map(([k, v]) => (
             <button
               key={k}
@@ -743,7 +727,7 @@ export default function Studio() {
               onRemove={handleRemoveAsset}
             />
           </div>
-        ) : tab === "settings" ? (
+        ) : (
           <div className="inspector-content">
             <div className="field-heading">
               <span>画面风格</span>
@@ -799,30 +783,6 @@ export default function Studio() {
               预计 {estMin} 分 {estSec} 秒 · 全片 {totalChars} 字
             </div>
           </div>
-        ) : (
-          <div className="inspector-content">
-            <label htmlFor="publish">平台发布草稿</label>
-            <Textarea
-              id="publish"
-              rows={20}
-              value={draft.publish}
-              onChange={(e) =>
-                setEpisode({ ...draft, publish: e.target.value })
-              }
-            />
-            <Button
-              variant="outline"
-              onClick={() =>
-                agent(
-                  "起草视频号、抖音与小红书发布文案，保存到 publish 字段；保留 AIGC 标注",
-                )
-              }
-            >
-              <IconFileText size={15} />
-              起草发布文案
-            </Button>
-            <p className="field-hint">草稿仅供复制，应用不会自动发布。</p>
-          </div>
         )}
         <div className="inspector-bottom">
           <IconCheck size={14} />
@@ -830,6 +790,17 @@ export default function Studio() {
         </div>
       </aside>
       <FirstRunSetup />
+      {editorOpen && active && (
+        <SceneEditor
+          episode={draft}
+          index={index}
+          onPatch={(patch) => edit(patch)}
+          onEpisodePatch={(patch) => setEpisode({ ...draft, ...patch })}
+          onUpload={(kind, file) => handleAttachAsset(index, kind, file)}
+          onRemoveAsset={() => handleRemoveAsset(index)}
+          onClose={() => setEditorOpen(false)}
+        />
+      )}
       {genOpen && (
         <GeneratePanel
           sceneCount={draft.scenes.length}

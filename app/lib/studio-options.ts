@@ -52,8 +52,15 @@ export const STYLE_PRESETS = [
   },
 ] as const;
 
-export const ENGINE_PRESETS = [
-  { id: "edge", name: "Edge", note: "免费 · 联网即用", voice: "zh-CN-YunxiNeural" },
+export const LAYOUT_OPTIONS = [
+  { id: "list", name: "清单", note: "竖排色块" },
+  { id: "split", name: "左右对比", note: "两列加中线" },
+  { id: "columns", name: "三栏卡片", note: "最多三条" },
+  { id: "summary", name: "大字总结", note: "配波浪线" },
+  { id: "hero", name: "开场大标题", note: "超大标题" },
+] as const;
+
+export const ENGINE_PRESETS = [  { id: "edge", name: "Edge", note: "免费 · 联网即用", voice: "zh-CN-YunxiNeural" },
   { id: "volc", name: "火山引擎", note: "音质最好", voice: "zh_male_liufei_uranus_bigtts" },
   { id: "mi", name: "小米 MiMo", note: "九种音色", voice: "冰糖" },
 ] as const;
