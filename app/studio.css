@@ -973,6 +973,134 @@
   color: var(--s-ink-2);
 }
 
+/* ---------- 生成分镜 ---------- */
+.gen-card {
+  width: min(620px, 100%);
+}
+.gen-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gen-field label {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--s-ink-2);
+}
+.gen-lengths {
+  display: flex;
+  gap: 6px;
+}
+.gen-length {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 12px;
+  color: var(--s-ink-2);
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius-sm);
+  transition: all 0.15s ease;
+}
+.gen-length:hover {
+  border-color: var(--s-line-strong);
+}
+.gen-length.is-on {
+  border-color: var(--s-accent);
+  background: var(--s-accent-soft);
+  color: var(--s-accent-ink);
+  font-weight: 500;
+}
+.gen-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 34px 0 26px;
+  color: var(--s-ink-2);
+}
+.gen-loading p {
+  margin: 0;
+  font-size: 13px;
+}
+.gen-loading small {
+  font-size: 11px;
+  color: var(--s-ink-3);
+}
+.gen-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--s-radius-sm);
+  background: var(--s-accent-soft);
+  color: var(--s-accent-ink);
+  font-size: 11.5px;
+}
+.gen-scenes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 44vh;
+  overflow-y: auto;
+}
+.gen-scene {
+  padding: 11px 13px;
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius);
+  background: var(--s-surface-2);
+}
+.gen-scene-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gen-no {
+  font-family: ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--s-ink-3);
+}
+.gen-scene-head strong {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--s-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gen-scene-head em {
+  flex-shrink: 0;
+  font-style: normal;
+  font-size: 9.5px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--s-line);
+  color: var(--s-ink-3);
+}
+.gen-narration {
+  margin: 7px 0 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--s-ink-2);
+}
+.gen-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+.gen-points span {
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--s-line);
+  background: var(--s-surface);
+  color: var(--s-ink-2);
+}
+
 /* ---------- 首次配置引导 ---------- */
 .setup-mask {
   position: fixed;

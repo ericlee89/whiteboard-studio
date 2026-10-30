@@ -36,6 +36,7 @@ import {
   PreflightPanel,
   type PreflightResult,
 } from "@/components/studio/PreflightPanel";
+import { GeneratePanel } from "@/components/studio/GeneratePanel";
 import { planMaterials } from "@/lib/material-plan";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -249,7 +250,8 @@ export default function Studio() {
     [playing, setPlaying] = useState(false),
     [uploading, setUploading] = useState(false),
     [jobOpen, setJobOpen] = useState(true),
-    [check, setCheck] = useState<PreflightResult | null>(null);
+    [check, setCheck] = useState<PreflightResult | null>(null),
+    [genOpen, setGenOpen] = useState(false);
   const cancel = useActionMutation("cancel-render");
   const preflight = useActionMutation("preflight");
   const save = useActionMutation("save-episode"),
@@ -820,19 +822,13 @@ export default function Studio() {
         </div>
         {tab === "narration" ? (
           <div className="inspector-content">
-            {draft.scenes.length === 1 && (
-              <Button
-                variant="outline"
-                onClick={() =>
-                  void agent(
-                    "根据主题与资料来源，生成约两分钟的完整旁白与分镜；每幕三到四个节拍，逐幕保存到 scenes；证据不足的事实保留为待核查",
-                  )
-                }
-              >
-                <IconMovie size={15} />
-                生成整期分镜
-              </Button>
-            )}
+            <Button
+              variant="outline"
+              onClick={() => setGenOpen(true)}
+            >
+              <IconMovie size={15} />
+              生成整期分镜
+            </Button>
             <div className="field-heading">
               <span>场景 {String(sceneIndex + 1).padStart(2, "0")}</span>
               <IconPencil size={14} />
@@ -1256,6 +1252,18 @@ export default function Studio() {
         </div>
       </aside>
       <FirstRunSetup />
+      {genOpen && (
+        <GeneratePanel
+          sceneCount={draft.scenes.length}
+          onClose={() => setGenOpen(false)}
+          onApply={(title, scenes) => {
+            setEpisode({ ...draft, title, scenes });
+            setParams({ id: draft.id, scene: "0" });
+            setGenOpen(false);
+            toast.success(`已套用 ${scenes.length} 幕，记得保存`);
+          }}
+        />
+      )}
       {check && (
         <PreflightPanel
           result={check}
