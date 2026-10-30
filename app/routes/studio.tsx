@@ -26,6 +26,7 @@ import {
   IconDots,
   IconPhoto,
   IconChevronDown,
+  IconSparkles,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { MaterialPanel } from "@/components/studio/MaterialPanel";
@@ -229,6 +230,11 @@ export default function Studio() {
   const matNeeded = matPlan.filter((h) => h.level !== "none");
   const matDone = matNeeded.filter((h) => h.current);
   const archivedCount = items.filter(({ episode: e }) => e.archived).length;
+  /** 新建后还没被填过内容的项目：只有一幕，旁白还是那句占位文案 */
+  const isEmpty =
+    !!draft &&
+    draft.scenes.length === 1 &&
+    draft.scenes[0].narration === "请在这里写下第一段旁白。";
   const totalChars = draft
     ? draft.scenes.reduce((a, s) => a + s.narration.length, 0)
     : 0;
@@ -647,6 +653,14 @@ export default function Studio() {
           <span className="stage-badge">{draft.sample ? "示例" : "本地"}</span>
           <span className="stage-dim">1920 × 1080 · 30 FPS</span>
           <Button
+            variant={isEmpty ? "default" : "ghost"}
+            size="sm"
+            onClick={() => setGenOpen(true)}
+          >
+            <IconSparkles size={15} />
+            {isEmpty ? "生成分镜" : "重新生成"}
+          </Button>
+          <Button
             variant="ghost"
             size="sm"
             onClick={() => void start("preview")}
@@ -683,24 +697,39 @@ export default function Studio() {
               <IconPencil size={15} />
             </button>
           </div>
-          <div className="canvas-caption">
-            <IconPencil size={13} />
-            {renderedVideo
-              ? "实际导出成片"
-              : renderedFrame
-                ? "原引擎渲染预览"
-                : "场景结构预览 · 正式逐笔动画以引擎渲染为准"}
-            {matNeeded.length > 0 && (
-              <button
-                className="canvas-material-chip"
-                onClick={() => setTab("material")}
-                title="打开素材清单"
-              >
-                <IconPhoto size={12} />
-                素材 {matDone.length}/{matNeeded.length}
-              </button>
-            )}
-          </div>
+          {isEmpty ? (
+            <div className="empty-guide">
+              <div className="empty-guide-text">
+                <strong>这一步还没有内容</strong>
+                <p>
+                  给它一句主题，分镜、旁白和画面要点都由它来写。写完补上素材就能出片。
+                </p>
+              </div>
+              <Button size="sm" onClick={() => setGenOpen(true)}>
+                <IconSparkles size={15} />
+                生成整期分镜
+              </Button>
+            </div>
+          ) : (
+            <div className="canvas-caption">
+              <IconPencil size={13} />
+              {renderedVideo
+                ? "实际导出成片"
+                : renderedFrame
+                  ? "原引擎渲染预览"
+                  : "场景结构预览 · 正式逐笔动画以引擎渲染为准"}
+              {matNeeded.length > 0 && (
+                <button
+                  className="canvas-material-chip"
+                  onClick={() => setTab("material")}
+                  title="打开素材清单"
+                >
+                  <IconPhoto size={12} />
+                  素材 {matDone.length}/{matNeeded.length}
+                </button>
+              )}
+            </div>
+          )}
         </div>
         <div className="transport">
           <button

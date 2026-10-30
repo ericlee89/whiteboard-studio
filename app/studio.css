@@ -1203,6 +1203,34 @@
   margin-top: 0;
 }
 
+.empty-guide {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1180px;
+  margin: 14px auto 0;
+  padding: 14px 18px;
+  border: 1px solid var(--s-accent-line);
+  border-radius: var(--s-radius);
+  background: var(--s-accent-soft);
+}
+.empty-guide-text {
+  flex: 1;
+  min-width: 0;
+}
+.empty-guide-text strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--s-accent-ink);
+}
+.empty-guide-text p {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--s-ink-2);
+}
+
 /* ---------- 项目列表操作 ---------- */
 .project-row {
   position: relative;
