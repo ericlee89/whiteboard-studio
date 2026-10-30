@@ -45,6 +45,8 @@ export default function SettingsRoute() {
     <SettingsTabsPage
       account={<AccountSettingsCard />}
       extraTabs={agentSettingsTabs}
+      // 新版设置是 registry 驱动的，不认 hideTabs；只有旧版能按 id 过滤
+      redesign={false}
       hideTabs={showAll ? [] : HIDDEN_TABS}
       whatsNewMarkdown={changelog}
     />
