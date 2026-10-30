@@ -37,7 +37,13 @@ import {
   type PreflightResult,
 } from "@/components/studio/PreflightPanel";
 import { GeneratePanel } from "@/components/studio/GeneratePanel";
+import { TtsPicker, type TtsChoice } from "@/components/studio/TtsPicker";
 import { planMaterials } from "@/lib/material-plan";
+import {
+  STYLE_PRESETS,
+  ENGINE_PRESETS,
+  VOICE_PRESETS,
+} from "@/lib/studio-options";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -54,81 +60,6 @@ import "../studio.css";
 export function meta() {
   return [{ title: "白板工作室 · Whiteboard Studio" }];
 }
-/** 画面风格小样：纸色、点阵、字体都与引擎预设一一对应 */
-const STYLE_PRESETS = [
-  {
-    id: "kai",
-    name: "楷体",
-    note: "暖米黄 · 点阵",
-    paper: "#f7f1e3",
-    dot: "#e3d9c4",
-    dots: true,
-    font: "StudioKai",
-  },
-  {
-    id: "classic",
-    name: "手写体",
-    note: "米白 · 点阵",
-    paper: "#fffdf7",
-    dot: "#d9d4c7",
-    dots: true,
-    font: "StudioHand",
-  },
-  {
-    id: "training",
-    name: "苹方江南",
-    note: "纯白 · 投屏",
-    paper: "#ffffff",
-    dot: "#e8e8e8",
-    dots: false,
-    font: "StudioJiangNan",
-  },
-  {
-    id: "culture",
-    name: "苹方相思",
-    note: "暖米黄 · 点阵",
-    paper: "#f7f1e3",
-    dot: "#e3d9c4",
-    dots: true,
-    font: "StudioXiangSi",
-  },
-  {
-    id: "office",
-    name: "苹方江南",
-    note: "冷浅灰 · 无点阵",
-    paper: "#f3f5f7",
-    dot: "#dfe3e6",
-    dots: false,
-    font: "StudioJiangNan",
-  },
-] as const;
-
-const ENGINE_PRESETS = [
-  { id: "edge", name: "Edge", note: "免费", voice: "zh-CN-YunxiNeural" },
-  { id: "volc", name: "火山", note: "音质最好", voice: "zh_male_liufei_uranus_bigtts" },
-  { id: "mi", name: "小米", note: "九种音色", voice: "冰糖" },
-] as const;
-
-/** 已知音色；火山音色 ID 太多且随账号不同，保留手填 */
-const VOICE_PRESETS: Record<string, { id: string; name: string }[]> = {
-  edge: [
-    { id: "zh-CN-YunxiNeural", name: "云希 · 男声" },
-    { id: "zh-CN-YunjianNeural", name: "云健 · 男声" },
-    { id: "zh-CN-XiaoxiaoNeural", name: "晓晓 · 女声" },
-    { id: "zh-CN-XiaoyiNeural", name: "晓伊 · 女声" },
-  ],
-  mi: [
-    { id: "冰糖", name: "冰糖" },
-    { id: "茉莉", name: "茉莉" },
-    { id: "苏打", name: "苏打" },
-    { id: "白桦", name: "白桦" },
-    { id: "Mia", name: "Mia" },
-    { id: "Chloe", name: "Chloe" },
-    { id: "Milo", name: "Milo" },
-    { id: "Dean", name: "Dean" },
-  ],
-};
-
 function Board({
   episode,
   index,
@@ -243,7 +174,7 @@ export default function Studio() {
   const q = useActionQuery("list-episodes", {});
   const [draft, setDraft] = useState<Episode | null>(null),
     [hash, setHash] = useState<string | undefined>(),
-    [tab, setTab] = useState("narration"),
+    [tab, setTab] = useState("material"),
     [dirty, setDirty] = useState(false),
     [newTitle, setNewTitle] = useState(""),
     [open, setOpen] = useState(false),
@@ -251,7 +182,8 @@ export default function Studio() {
     [uploading, setUploading] = useState(false),
     [jobOpen, setJobOpen] = useState(true),
     [check, setCheck] = useState<PreflightResult | null>(null),
-    [genOpen, setGenOpen] = useState(false);
+    [genOpen, setGenOpen] = useState(false),
+    [ttsOpen, setTtsOpen] = useState(false);
   const cancel = useActionMutation("cancel-render");
   const preflight = useActionMutation("preflight");
   const save = useActionMutation("save-episode"),
@@ -370,8 +302,13 @@ export default function Studio() {
     toast.error(actionErrorMessage(e) || String(e));
   async function start(
     mode: "build" | "preview",
-    opts?: { skipCheck?: boolean },
+    opts?: { skipPicker?: boolean; skipCheck?: boolean },
   ) {
+    // 出片前先让人选配音，一次决定，后面不再打断
+    if (mode === "build" && !opts?.skipPicker) {
+      setTtsOpen(true);
+      return;
+    }
     try {
       await persist();
       // 出片前先体检，避免跑到一半才发现缺 Key、缺素材
@@ -387,6 +324,37 @@ export default function Studio() {
       await render.mutateAsync({ id: draft!.id, mode });
       toast.success(mode === "build" ? "出片任务已开始" : "预览任务已开始");
       await status.refetch();
+    } catch (e) {
+      report(e);
+    }
+  }
+
+  /** 选完配音后：先落盘（体检读的是服务端版本），再体检，最后开跑 */
+  async function startWithTts(choice: TtsChoice) {
+    setTtsOpen(false);
+    if (!draft) return;
+    const next: Episode = {
+      ...draft,
+      engine: choice.engine,
+      voice: choice.voice,
+      speed: choice.speed,
+    };
+    setEpisode(next);
+    try {
+      const saved = await save.mutateAsync({ episode: next, hash });
+      setHash(saved.hash);
+      setDirty(false);
+      const res = (await preflight.mutateAsync({
+        id: next.id,
+      })) as unknown as PreflightResult;
+      if (res?.issues?.length) {
+        setCheck(res);
+        return;
+      }
+      await render.mutateAsync({ id: next.id, mode: "build" });
+      toast.success("出片任务已开始");
+      await status.refetch();
+      await q.refetch();
     } catch (e) {
       report(e);
     }
@@ -667,59 +635,6 @@ export default function Studio() {
             {String(draft.scenes.length).padStart(2, "0")}
           </span>
         </div>
-        <div className="storyboard">
-          <div className="storyboard-head">
-            <span>分镜台本</span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setEpisode({
-                  ...draft,
-                  scenes: [
-                    ...draft.scenes,
-                    {
-                      title: "新的场景",
-                      narration: "在这里写下这一幕的旁白。",
-                      points: ["画面要点"],
-                      layout: "list",
-                      image: null,
-                      video: null,
-                    },
-                  ],
-                });
-                setParams({ id: draft.id, scene: String(draft.scenes.length) });
-              }}
-            >
-              <IconPlus size={14} />
-              添加场景
-            </Button>
-          </div>
-          <div className="scene-strip">
-            {draft.scenes.map((s, i) => (
-              <button
-                key={i}
-                className={
-                  i === sceneIndex ? "scene-card selected" : "scene-card"
-                }
-                onClick={() => {
-                  setPlaying(false);
-                  setParams({ id: draft.id, scene: String(i) });
-                }}
-              >
-                <div className="scene-image">
-                  <Board episode={draft} index={i} small />
-                  <span>{String(i + 1).padStart(2, "0")}</span>
-                </div>
-                <strong>{s.title}</strong>
-                <small>
-                  {s.narration.split("|").length} 个节拍 · {s.narration.length}{" "}
-                  字
-                </small>
-              </button>
-            ))}
-          </div>
-        </div>
         <div className={`job-panel${jobOpen ? "" : " is-collapsed"}`}>
           <div className="job-bar">
             <IconMovie size={16} />
@@ -806,9 +721,8 @@ export default function Studio() {
       <aside className="inspector">
         <div className="inspector-tabs">
           {[
-            ["narration", "旁白"],
             ["material", "素材"],
-            ["settings", "配音"],
+            ["settings", "出片"],
             ["publish", "文案"],
           ].map(([k, v]) => (
             <button
@@ -820,271 +734,7 @@ export default function Studio() {
             </button>
           ))}
         </div>
-        {tab === "narration" ? (
-          <div className="inspector-content">
-            <Button
-              variant="outline"
-              onClick={() => setGenOpen(true)}
-            >
-              <IconMovie size={15} />
-              生成整期分镜
-            </Button>
-            <div className="field-heading">
-              <span>场景 {String(sceneIndex + 1).padStart(2, "0")}</span>
-              <IconPencil size={14} />
-            </div>
-            <label htmlFor="scene-title">场景标题</label>
-            <Input
-              id="scene-title"
-              value={active.title}
-              maxLength={40}
-              onChange={(e) => edit({ title: e.target.value })}
-            />
-            <div className="field-heading">
-              <label htmlFor="narration">旁白脚本</label>
-              <span>{active.narration.length} 字</span>
-            </div>
-            <Textarea
-              id="narration"
-              value={active.narration}
-              onChange={(e) => edit({ narration: e.target.value })}
-              className="narration-input"
-            />
-            <p className="field-hint">用 | 分隔节拍，让画面跟随讲解。</p>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() =>
-                agent("润色当前场景旁白，并在聊天里说明改动供我审阅")
-              }
-            >
-              <IconPencil size={15} />
-              润色这一幕
-            </Button>
-            <label htmlFor="points">画面要点</label>
-            <Textarea
-              id="points"
-              value={active.points.join("\n")}
-              onChange={(e) =>
-                edit({ points: e.target.value.split("\n").slice(0, 6) })
-              }
-              rows={5}
-            />
-            <p className="field-hint">每行一个要点，最多 6 条。</p>
-            <label htmlFor="scene-layout">本幕版式</label>
-            <select
-              id="scene-layout"
-              value={active.layout ?? "list"}
-              onChange={(e) =>
-                edit({
-                  layout: e.target
-                    .value as Episode["scenes"][number]["layout"],
-                })
-              }
-            >
-              <option value="list">清单 · 竖排色块</option>
-              <option value="split">左右对比 · 两列加中线</option>
-              <option value="columns">三栏卡片 · 最多三条</option>
-              <option value="summary">大字总结 · 配波浪线</option>
-              <option value="hero">开场大标题</option>
-            </select>
-            <p className="field-hint">
-              配了图或视频时自动回到清单，右侧要留给素材。
-            </p>
-            <label htmlFor="scene-image">画面配图</label>
-            {active.image ? (
-              <div className="asset-box">
-                <img
-                  className="asset-thumb"
-                  src={`/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.image.file)}`}
-                  alt="配图预览"
-                />
-                <div className="asset-controls">
-                  <select
-                    id="scene-image"
-                    value={active.image.fit}
-                    onChange={(e) =>
-                      edit({
-                        image: {
-                          ...active.image!,
-                          fit: e.target.value as "side" | "full",
-                        },
-                      })
-                    }
-                  >
-                    <option value="side">右侧 · 与要点并排</option>
-                    <option value="full">整屏 · 独占画面</option>
-                  </select>
-                  <Button
-                    variant="ghost"
-                    disabled={uploading}
-                    onClick={async () => {
-                      try {
-                        await fetch(
-                          `/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.image!.file)}`,
-                          { method: "DELETE", credentials: "same-origin" },
-                        );
-                      } catch {
-                        // 文件删不掉不影响从剧集里摘除引用
-                      }
-                      edit({ image: null });
-                    }}
-                  >
-                    移除
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <input
-                  id="scene-image"
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp"
-                  disabled={uploading || !draft.id}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    e.target.value = "";
-                    if (!file || !draft) return;
-                    setUploading(true);
-                    try {
-                      const res = await fetch(
-                        `/studio-asset?id=${encodeURIComponent(draft.id)}`,
-                        {
-                          method: "POST",
-                          credentials: "same-origin",
-                          headers: {
-                            "Content-Type":
-                              file.type || "application/octet-stream",
-                          },
-                          body: await file.arrayBuffer(),
-                        },
-                      );
-                      if (!res.ok) throw new Error(`上传失败（${res.status}）`);
-                      const { file: name } = await res.json();
-                      edit({ image: { file: name, fit: "side" }, video: null });
-                    } catch (err) {
-                      report(err);
-                    } finally {
-                      setUploading(false);
-                    }
-                  }}
-                />
-                <p className="field-hint">
-                  {uploading
-                    ? "上传中…"
-                    : "PNG / JPG / WebP，自动转 PNG 并缩到画布宽度。先保存项目再出片。"}
-                </p>
-              </>
-            )}
-            <label htmlFor="scene-video">画面视频</label>
-            {active.video ? (
-              <div className="asset-box">
-                <video
-                  className="asset-thumb"
-                  src={`/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.video.file)}`}
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                />
-                <div className="asset-controls">
-                  <select
-                    id="scene-video"
-                    value={active.video.fit}
-                    onChange={(e) =>
-                      edit({
-                        video: {
-                          ...active.video!,
-                          fit: e.target.value as "side" | "full",
-                        },
-                      })
-                    }
-                  >
-                    <option value="side">右侧 · 与要点并排</option>
-                    <option value="full">整屏 · 独占画面</option>
-                  </select>
-                  <Button
-                    variant="ghost"
-                    disabled={uploading}
-                    onClick={async () => {
-                      try {
-                        await fetch(
-                          `/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.video!.file)}`,
-                          { method: "DELETE", credentials: "same-origin" },
-                        );
-                      } catch {
-                        // 文件删不掉不影响从剧集里摘除引用
-                      }
-                      edit({ video: null });
-                    }}
-                  >
-                    移除
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <input
-                  id="scene-video"
-                  type="file"
-                  accept="video/mp4,video/quicktime,video/webm"
-                  disabled={uploading || !draft.id}
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    e.target.value = "";
-                    if (!file || !draft) return;
-                    setUploading(true);
-                    try {
-                      const res = await fetch(
-                        `/studio-video?id=${encodeURIComponent(draft.id)}`,
-                        {
-                          method: "POST",
-                          credentials: "same-origin",
-                          headers: {
-                            "Content-Type":
-                              file.type || "application/octet-stream",
-                          },
-                          body: await file.arrayBuffer(),
-                        },
-                      );
-                      if (!res.ok) throw new Error(`上传失败（${res.status}）`);
-                      const { file: name } = await res.json();
-                      edit({ video: { file: name, fit: "side" }, image: null });
-                    } catch (err) {
-                      report(err);
-                    } finally {
-                      setUploading(false);
-                    }
-                  }}
-                />
-                <p className="field-hint">
-                  {uploading
-                    ? "上传并转码中…"
-                    : "mp4 / mov / webm，最长 60 秒，自动转成无声 MP4。会替换本幕配图。"}
-                </p>
-              </>
-            )}
-            <label htmlFor="sources">资料来源</label>
-            <Textarea
-              id="sources"
-              value={draft.sources}
-              onChange={(e) =>
-                setEpisode({ ...draft, sources: e.target.value })
-              }
-              rows={4}
-              placeholder="来源链接、支持的观点、核对日期"
-            />
-            <Button
-              variant="ghost"
-              onClick={() =>
-                agent("核查资料来源与叙述口径，缺少证据的地方标为待核查")
-              }
-            >
-              <IconCheck size={15} />
-              检查内容
-            </Button>
-          </div>
-        ) : tab === "material" ? (
+        {tab === "material" ? (
           <div className="inspector-content">
             <MaterialPanel
               episode={draft}
@@ -1128,78 +778,6 @@ export default function Studio() {
               })}
             </div>
 
-            <div className="field-heading">
-              <span>配音引擎</span>
-            </div>
-            <div className="engine-row">
-              {ENGINE_PRESETS.map((en) => {
-                const on = draft.engine === en.id;
-                return (
-                  <button
-                    key={en.id}
-                    className={`engine-chip${on ? " is-on" : ""}`}
-                    onClick={() =>
-                      setEpisode({
-                        ...draft,
-                        engine: en.id,
-                        voice: en.voice,
-                      })
-                    }
-                  >
-                    <strong>{en.name}</strong>
-                    <small>{en.note}</small>
-                  </button>
-                );
-              })}
-            </div>
-
-            <label htmlFor="voice">音色</label>
-            {draft.engine === "volc" ? (
-              <>
-                <Input
-                  id="voice"
-                  value={draft.voice}
-                  onChange={(e) =>
-                    setEpisode({ ...draft, voice: e.target.value })
-                  }
-                />
-                <p className="field-hint">
-                  火山音色 ID 从控制台音色广场复制，2.0 音色以 _bigtts 结尾。
-                </p>
-              </>
-            ) : (
-              <select
-                id="voice"
-                value={draft.voice}
-                onChange={(e) =>
-                  setEpisode({ ...draft, voice: e.target.value })
-                }
-              >
-                {(VOICE_PRESETS[draft.engine] || []).map((v) => (
-                  <option key={v.id} value={v.id}>
-                    {v.name}
-                  </option>
-                ))}
-                {!(VOICE_PRESETS[draft.engine] || []).some(
-                  (v) => v.id === draft.voice,
-                ) && (
-                  <option value={draft.voice}>{draft.voice}（当前）</option>
-                )}
-              </select>
-            )}
-
-            <label htmlFor="speed">语速 · {draft.speed.toFixed(1)}×</label>
-            <input
-              id="speed"
-              type="range"
-              min="0.5"
-              max="2"
-              step="0.1"
-              value={draft.speed}
-              onChange={(e) =>
-                setEpisode({ ...draft, speed: Number(e.target.value) })
-              }
-            />
             <label className="check-line">
               <input
                 type="checkbox"
@@ -1264,13 +842,24 @@ export default function Studio() {
           }}
         />
       )}
+      {ttsOpen && draft && (
+        <TtsPicker
+          current={{
+            engine: draft.engine,
+            voice: draft.voice,
+            speed: draft.speed,
+          }}
+          onClose={() => setTtsOpen(false)}
+          onConfirm={(c) => void startWithTts(c)}
+        />
+      )}
       {check && (
         <PreflightPanel
           result={check}
           onClose={() => setCheck(null)}
           onProceed={() => {
             setCheck(null);
-            void start("build", { skipCheck: true });
+            void start("build", { skipPicker: true, skipCheck: true });
           }}
           onJump={(scene) => {
             setCheck(null);

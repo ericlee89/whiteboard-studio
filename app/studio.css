@@ -192,6 +192,8 @@
 }
 .canvas-wrap {
   width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
   border-radius: 14px;
   overflow: hidden;
   background: #fff;
