@@ -27,6 +27,7 @@ import {
   IconRefresh,
   IconDots,
   IconPhoto,
+  IconChevronDown,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { MaterialPanel } from "@/components/studio/MaterialPanel";
@@ -166,7 +167,8 @@ export default function Studio() {
     [newTitle, setNewTitle] = useState(""),
     [open, setOpen] = useState(false),
     [playing, setPlaying] = useState(false),
-    [uploading, setUploading] = useState(false);
+    [uploading, setUploading] = useState(false),
+    [jobOpen, setJobOpen] = useState(true);
   const cancel = useActionMutation("cancel-render");
   const save = useActionMutation("save-episode"),
     render = useActionMutation("start-render");
@@ -482,9 +484,13 @@ export default function Studio() {
       </aside>
       <section className="stage-pane">
         <div className="stage-top">
-          <span className="stage-badge">
-            {draft.sample ? "示例" : "本地"} / 场景 {sceneIndex + 1}
-          </span>
+          <div className="stage-title">
+            <h1>{draft.title}</h1>
+            <span>
+              {draft.scenes.length} 幕 · {dirty ? "有未保存修改" : "已保存"}
+            </span>
+          </div>
+          <span className="stage-badge">{draft.sample ? "示例" : "本地"}</span>
           <span className="stage-dim">1920 × 1080 · 30 FPS</span>
           <Button
             variant="ghost"
@@ -611,61 +617,86 @@ export default function Studio() {
             ))}
           </div>
         </div>
-        <div className="job-panel">
-          <div>
-            <IconMovie size={17} />
+        <div className={`job-panel${jobOpen ? "" : " is-collapsed"}`}>
+          <div className="job-bar">
+            <IconMovie size={16} />
             <strong>{status.data?.stage || "尚未导出"}</strong>
             {status.data?.state === "running" && (
-              <span>{status.data.progress}%</span>
+              <span className="job-pct">{status.data.progress}%</span>
             )}
             {status.data?.state === "running" && (
-              <Button
-                size="sm"
-                variant="ghost"
-                disabled={cancel.isPending}
-                onClick={() =>
-                  void cancel
-                    .mutateAsync({ id: draft.id })
-                    .then(() => status.refetch())
-                    .catch(report)
-                }
-              >
-                取消任务
-              </Button>
+              <progress value={status.data.progress} max="100" />
             )}
-          </div>
-          {status.data?.state === "running" && (
-            <progress value={status.data.progress} max="100" />
-          )}
-          {status.data?.state === "failed" && (
-            <p className="job-error">
-              任务未完成。查看日志，修正配音或运行配置后重试。
-            </p>
-          )}
-          {status.data?.outdated && (
-            <p className="field-hint">
-              项目有新修改，以下为历史导出；请重新渲染。
-            </p>
-          )}
-          {(status.data?.files || []).length > 0 && (
-            <div className="download-list">
-              {status.data.files
-                .filter((f: { name: string }) =>
-                  /final.mp4|封面-|字幕.srt/.test(f.name),
-                )
-                .map((f: { name: string; url: string }) => (
-                  <a key={f.url} href={f.url} target="_blank" rel="noreferrer">
-                    <IconDownload size={13} />
-                    {f.name}
-                  </a>
-                ))}
+            <div className="job-bar-actions">
+              {status.data?.state === "running" && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={cancel.isPending}
+                  onClick={() =>
+                    void cancel
+                      .mutateAsync({ id: draft.id })
+                      .then(() => status.refetch())
+                      .catch(report)
+                  }
+                >
+                  取消任务
+                </Button>
+              )}
+              <button
+                className="job-toggle"
+                onClick={() => setJobOpen(!jobOpen)}
+                aria-expanded={jobOpen}
+              >
+                {jobOpen ? "收起" : "详情"}
+                <IconChevronDown
+                  size={14}
+                  style={{
+                    transform: jobOpen ? "rotate(180deg)" : "none",
+                    transition: "transform .2s ease",
+                  }}
+                />
+              </button>
             </div>
-          )}
-          {status.data?.log && (
-            <details>
-              <summary>渲染日志</summary>
-              <pre>{status.data.log}</pre>
-            </details>
+          </div>
+          {jobOpen && (
+            <div className="job-body">
+              {status.data?.state === "failed" && (
+                <p className="job-error">
+                  任务未完成。查看日志，修正配音或运行配置后重试。
+                </p>
+              )}
+              {status.data?.outdated && (
+                <p className="field-hint">
+                  项目有新修改，以下为历史导出；请重新渲染。
+                </p>
+              )}
+              {(status.data?.files || []).length > 0 && (
+                <div className="download-list">
+                  {status.data.files
+                    .filter((f: { name: string }) =>
+                      /final.mp4|封面-|字幕.srt/.test(f.name),
+                    )
+                    .map((f: { name: string; url: string }) => (
+                      <a
+                        key={f.url}
+                        href={f.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <IconDownload size={13} />
+                        {f.name}
+                      </a>
+                    ))}
+                </div>
+              )}
+              {status.data?.log && (
+                <details>
+                  <summary>渲染日志</summary>
+                  <pre>{status.data.log}</pre>
+                </details>
+              )}
+            </div>
           )}
         </div>
       </section>

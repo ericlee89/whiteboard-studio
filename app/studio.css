@@ -142,12 +142,32 @@
 .stage-top {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 0 28px;
-  min-height: 62px;
+  min-height: 70px;
+  border-bottom: 1px solid var(--s-line);
+  background: var(--s-surface);
 }
-.stage-top button {
-  margin-left: auto;
+.stage-title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stage-title h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--s-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.stage-title span {
+  font-size: 11px;
+  color: var(--s-ink-3);
 }
 .stage-badge {
   font-size: 10.5px;
@@ -163,8 +183,12 @@
   color: var(--s-ink-3);
 }
 .canvas-area {
-  padding: 8px 28px 0;
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 28px 0;
 }
 .canvas-wrap {
   width: 100%;
@@ -317,27 +341,56 @@
 
 /* ---------- 任务面板 ---------- */
 .job-panel {
-  padding: 18px 28px 22px;
   border-top: 1px solid var(--s-line);
   font-size: 12px;
   background: var(--s-surface);
-  flex: 1;
-  min-height: 120px;
+  flex-shrink: 0;
 }
-.job-panel > div:first-child {
+.job-bar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  height: 54px;
+  padding: 0 28px;
 }
-.job-panel strong {
+.job-bar strong {
   font-weight: 500;
+  color: var(--s-ink);
 }
-.job-panel progress {
-  display: block;
-  width: 100%;
+.job-pct {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--s-accent-ink);
+}
+.job-bar progress {
+  flex: 1;
   height: 4px;
-  margin-top: 12px;
   accent-color: var(--s-accent);
+}
+.job-bar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.job-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--s-ink-3);
+  transition: all 0.15s ease;
+}
+.job-toggle:hover {
+  background: var(--s-surface-2);
+  color: var(--s-ink-2);
+}
+.job-body {
+  padding: 2px 28px 20px;
+  max-height: 288px;
+  overflow-y: auto;
 }
 .job-error {
   color: #b3261e;
@@ -754,8 +807,11 @@
   .storyboard {
     padding: 14px 18px 18px;
   }
-  .job-panel {
-    padding: 16px 18px 20px;
+  .job-bar {
+    padding: 0 18px;
+  }
+  .job-body {
+    padding: 2px 18px 18px;
   }
   .stage-dim {
     display: none;
@@ -795,8 +851,12 @@
   .transport {
     padding: 0 12px 14px;
   }
-  .job-panel {
-    padding: 14px;
+  .job-bar {
+    padding: 0 14px;
+    height: 48px;
+  }
+  .job-body {
+    padding: 2px 14px 16px;
   }
   .scene-card {
     flex-basis: 128px;
