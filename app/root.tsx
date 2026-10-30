@@ -51,11 +51,15 @@ export const links: LinksFunction = () => [
 ];
 
 const THEME_INIT_SCRIPT = getThemeInitScript();
-const LOCALE_INIT_SCRIPT = getLocaleInitScript();
+const LOCALE_INIT_SCRIPT = getLocaleInitScript({
+  // 这个应用面向中文使用者，界面语言直接定死，不跟随浏览器也不让用户改
+  locale: "zh-CN",
+  preference: { locale: "zh-CN" },
+});
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta
