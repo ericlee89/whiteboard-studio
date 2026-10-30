@@ -19,6 +19,13 @@ export const sceneVideoSchema = z.object({
     .default("side")
     .describe("side = right column beside the points; full = occupies the canvas"),
 });
+export const sceneLayouts = [
+  "list",
+  "split",
+  "columns",
+  "summary",
+  "hero",
+] as const;
 export const sceneSchema = z.object({
   title: z.string().min(1).max(40).describe("Scene title, up to 40 characters"),
   narration: z
@@ -30,6 +37,12 @@ export const sceneSchema = z.object({
     .array(z.string().max(60))
     .max(6)
     .describe("On-screen bullet points, maximum six"),
+  layout: z
+    .enum(sceneLayouts)
+    .default("list")
+    .describe(
+      "Visual layout: list = stacked cards; split = two columns with a divider; columns = up to three cards side by side; summary = large statement lines; hero = oversized title with a row of points",
+    ),
   image: sceneImageSchema
     .nullable()
     .default(null)
@@ -107,6 +120,11 @@ export function sampleEpisode(): Episode {
           "好的讲解，不需要堆满屏幕。| 留出空间，让观众看懂每一个变化。| 现在，试着把你的第一个想法画出来吧。",
         points: ["少一点堆砌", "多一点清晰", "开始你的第一期"],
       },
-    ].map((scene) => ({ ...scene, image: null, video: null })),
+    ].map((scene) => ({
+      ...scene,
+      image: null,
+      video: null,
+      layout: "list" as const,
+    })),
   };
 }

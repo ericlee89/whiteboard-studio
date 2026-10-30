@@ -355,6 +355,7 @@ export default function Studio() {
                         title: newTitle.trim().slice(0, 40),
                         narration: "请在这里写下第一段旁白。",
                         points: ["你的核心观点"],
+                        layout: "list",
                         image: null,
                         video: null,
                       },
@@ -504,6 +505,7 @@ export default function Studio() {
                       title: "新的场景",
                       narration: "在这里写下这一幕的旁白。",
                       points: ["画面要点"],
+                      layout: "list",
                       image: null,
                       video: null,
                     },
@@ -672,6 +674,26 @@ export default function Studio() {
               rows={5}
             />
             <p className="field-hint">每行一个要点，最多 6 条。</p>
+            <label htmlFor="scene-layout">本幕版式</label>
+            <select
+              id="scene-layout"
+              value={active.layout ?? "list"}
+              onChange={(e) =>
+                edit({
+                  layout: e.target
+                    .value as Episode["scenes"][number]["layout"],
+                })
+              }
+            >
+              <option value="list">清单 · 竖排色块</option>
+              <option value="split">左右对比 · 两列加中线</option>
+              <option value="columns">三栏卡片 · 最多三条</option>
+              <option value="summary">大字总结 · 配波浪线</option>
+              <option value="hero">开场大标题</option>
+            </select>
+            <p className="field-hint">
+              配了图或视频时自动回到清单，右侧要留给素材。
+            </p>
             <label htmlFor="scene-image">画面配图</label>
             {active.image ? (
               <div className="scene-image">
