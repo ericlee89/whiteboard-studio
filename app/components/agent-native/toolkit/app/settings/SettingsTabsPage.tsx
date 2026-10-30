@@ -1022,6 +1022,12 @@ function LegacySettingsTabsPage(props: SettingsTabsPageProps) {
 }
 
 function RedesignedSettingsTabsPage(props: SettingsTabsPageProps) {
+  // 这个应用只需要「模型 + 密钥」两个入口。新版设置由 registry 生成，
+  // 无法按 id 过滤，所以这里直接走旧版渲染，过滤逻辑才真正起作用。
+  return <LegacySettingsTabsPage {...props} />;
+}
+
+function RedesignedSettingsTabsPageLegacy(props: SettingsTabsPageProps) {
   const flag = useFeatureFlagState(SETTINGS_REDESIGN_FLAG.key);
   const initialValueRef = useRef(props.value);
   // Hold the shell's geometry until the answer arrives; painting today's tabs
