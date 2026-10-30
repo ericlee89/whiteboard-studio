@@ -139,8 +139,6 @@ export interface SettingsTabsPageProps {
    */
   mcpAbout?: string;
   account?: ReactNode;
-  /** 要隐藏的页签 id，只保留少数入口时用 */
-  hideTabs?: string[];
   team?: ReactNode;
   whatsNew?: ReactNode;
   extraTabs?: SettingsTabItem[];
@@ -387,8 +385,6 @@ function SettingsTabsPageContent({
   teamLabel = "Team",
   whatsNewLabel = "What's new",
   ariaLabel = "Settings sections",
-  /** 要隐藏的页签 id，给只保留少数几个入口的场景用 */
-  hideTabs = [],
   defaultTab = "general",
   className,
   navClassName,
@@ -508,9 +504,7 @@ function SettingsTabsPageContent({
       });
     }
     next.push(...linkedTabs);
-    return hideTabs.length
-      ? next.filter((tab) => !hideTabs.includes(tab.id))
-      : next;
+    return next;
   }, [
     account,
     accountLabel,
@@ -527,7 +521,6 @@ function SettingsTabsPageContent({
     whatsNewMarkdown,
     whatsNewLabel,
     t,
-    hideTabs,
   ]);
 
   const fallbackTab = tabs.some((tab) => tab.id === defaultTab)
@@ -1022,12 +1015,6 @@ function LegacySettingsTabsPage(props: SettingsTabsPageProps) {
 }
 
 function RedesignedSettingsTabsPage(props: SettingsTabsPageProps) {
-  // 这个应用只需要「模型 + 密钥」两个入口。新版设置由 registry 生成，
-  // 无法按 id 过滤，所以这里直接走旧版渲染，过滤逻辑才真正起作用。
-  return <LegacySettingsTabsPage {...props} />;
-}
-
-function RedesignedSettingsTabsPageLegacy(props: SettingsTabsPageProps) {
   const flag = useFeatureFlagState(SETTINGS_REDESIGN_FLAG.key);
   const initialValueRef = useRef(props.value);
   // Hold the shell's geometry until the answer arrives; painting today's tabs
@@ -1035,10 +1022,7 @@ function RedesignedSettingsTabsPageLegacy(props: SettingsTabsPageProps) {
   if (flag.status === "loading") {
     return <SettingsShellSkeleton className={props.className} />;
   }
-  // 新版页签由 registry 生成，不支持按 id 过滤；需要精简时走旧版那一套
-  if (!flag.enabled || props.hideTabs?.length) {
-    return <LegacySettingsTabsPage {...props} />;
-  }
+  if (!flag.enabled) return <LegacySettingsTabsPage {...props} />;
   return (
     <Suspense fallback={<SettingsShellSkeleton className={props.className} />}>
       <SettingsShell
