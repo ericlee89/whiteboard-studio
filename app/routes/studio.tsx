@@ -32,6 +32,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { MaterialPanel } from "@/components/studio/MaterialPanel";
 import { FirstRunSetup } from "@/components/studio/FirstRunSetup";
+import {
+  PreflightPanel,
+  type PreflightResult,
+} from "@/components/studio/PreflightPanel";
 import { planMaterials } from "@/lib/material-plan";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -169,8 +173,10 @@ export default function Studio() {
     [open, setOpen] = useState(false),
     [playing, setPlaying] = useState(false),
     [uploading, setUploading] = useState(false),
-    [jobOpen, setJobOpen] = useState(true);
+    [jobOpen, setJobOpen] = useState(true),
+    [check, setCheck] = useState<PreflightResult | null>(null);
   const cancel = useActionMutation("cancel-render");
+  const preflight = useActionMutation("preflight");
   const save = useActionMutation("save-episode"),
     render = useActionMutation("start-render");
   const status = useActionQuery(
@@ -279,9 +285,22 @@ export default function Studio() {
   }
   const report = (e: unknown) =>
     toast.error(actionErrorMessage(e) || String(e));
-  async function start(mode: "build" | "preview") {
+  async function start(
+    mode: "build" | "preview",
+    opts?: { skipCheck?: boolean },
+  ) {
     try {
       await persist();
+      // 出片前先体检，避免跑到一半才发现缺 Key、缺素材
+      if (mode === "build" && !opts?.skipCheck) {
+        const res = (await preflight.mutateAsync({
+          id: draft!.id,
+        })) as unknown as PreflightResult;
+        if (res?.issues?.length) {
+          setCheck(res);
+          return;
+        }
+      }
       await render.mutateAsync({ id: draft!.id, mode });
       toast.success(mode === "build" ? "出片任务已开始" : "预览任务已开始");
       await status.refetch();
@@ -1106,6 +1125,20 @@ export default function Studio() {
         </div>
       </aside>
       <FirstRunSetup />
+      {check && (
+        <PreflightPanel
+          result={check}
+          onClose={() => setCheck(null)}
+          onProceed={() => {
+            setCheck(null);
+            void start("build", { skipCheck: true });
+          }}
+          onJump={(scene) => {
+            setCheck(null);
+            setParams({ id, scene: String(scene) });
+          }}
+        />
+      )}
     </div>
   );
 }
