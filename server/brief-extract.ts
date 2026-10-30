@@ -3,10 +3,19 @@ import JSZip from "jszip";
 /** 塞进 prompt 的字数上限，再多会挤掉生成空间 */
 const MAX_CHARS = 30000;
 
-export const SUPPORTED_BRIEF = "docx / pptx / xlsx / txt / md";
+export const SUPPORTED_BRIEF = "docx / pptx / xlsx / txt / md / html";
 
 function decodeXml(s: string) {
   return s
+    .replace(/&nbsp;/g, " ")
+    .replace(/&mdash;/g, "—")
+    .replace(/&ndash;/g, "–")
+    .replace(/&hellip;/g, "…")
+    .replace(/&ldquo;/g, "“")
+    .replace(/&rdquo;/g, "”")
+    .replace(/&lsquo;/g, "‘")
+    .replace(/&rsquo;/g, "’")
+    .replace(/&middot;/g, "·")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
@@ -51,6 +60,26 @@ export async function extractBriefText(
 
   if (["txt", "md", "markdown", "csv"].includes(ext)) {
     return buf.toString("utf8").slice(0, MAX_CHARS);
+  }
+
+  if (ext === "html" || ext === "htm") {
+    const html = buf.toString("utf8");
+    // 脚本和样式里的内容不是正文，先整段扔掉，避免把 JS 当资料喂给模型
+    let text = html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<!--[\s\S]*?-->/g, "");
+    // 块级标签结尾当换行，否则段落会粘成一行
+    text = text
+      .replace(/<\/(p|div|li|h[1-6]|tr|section|article|blockquote|td)>/gi, "\n")
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]+>/g, "");
+    text = decodeXml(text)
+      .replace(/[ \t]+/g, " ")
+      .replace(/\n[ \t]+/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+    return text.slice(0, MAX_CHARS);
   }
 
   if (ext === "docx") {

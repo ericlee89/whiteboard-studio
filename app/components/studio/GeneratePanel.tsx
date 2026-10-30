@@ -196,7 +196,7 @@ export function GeneratePanel({
                 >
                   <input
                     type="file"
-                    accept=".docx,.pptx,.xlsx,.txt,.md,.markdown"
+                    accept=".docx,.pptx,.xlsx,.txt,.md,.markdown,.html,.htm"
                     disabled={uploading}
                     onChange={async (e) => {
                       const f = e.target.files?.[0];
@@ -205,7 +205,7 @@ export function GeneratePanel({
                     }}
                   />
                   <IconUpload size={14} />
-                  {uploading ? "解析中…" : "上传 Word / PPT / txt"}
+                  {uploading ? "解析中…" : "上传 Word / PPT / 网页 / 文本"}
                 </label>
               )}
               <p className="field-hint">
