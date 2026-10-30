@@ -31,6 +31,7 @@ import {
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { MaterialPanel } from "@/components/studio/MaterialPanel";
+import { FirstRunSetup } from "@/components/studio/FirstRunSetup";
 import { planMaterials } from "@/lib/material-plan";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -1104,6 +1105,7 @@ export default function Studio() {
           {dirty ? "有未保存修改" : "项目已保存到本地"}
         </div>
       </aside>
+      <FirstRunSetup />
     </div>
   );
 }
