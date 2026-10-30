@@ -29,6 +29,8 @@ import {
   IconPhoto,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import { MaterialPanel } from "@/components/studio/MaterialPanel";
+import { planMaterials } from "@/lib/material-plan";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -198,6 +200,9 @@ export default function Studio() {
     return () => clearInterval(timer);
   }, [playing, index, draft?.scenes.length]);
   const active = draft?.scenes[index] || draft?.scenes[0];
+  const matPlan = draft ? planMaterials(draft) : [];
+  const matNeeded = matPlan.filter((h) => h.level !== "none");
+  const matDone = matNeeded.filter((h) => h.current);
   const setEpisode = (e: Episode) => {
     setDraft(e);
     setDirty(true);
@@ -207,6 +212,59 @@ export default function Studio() {
     const s = [...draft.scenes];
     s[Math.min(index, s.length - 1)] = { ...active!, ...patch };
     setEpisode({ ...draft, scenes: s });
+  };
+  // 素材面板按幕索引直接改，不依赖当前选中幕
+  const setSceneAt = (
+    at: number,
+    patch: Partial<Episode["scenes"][number]>,
+  ) => {
+    if (!draft) return;
+    const s = [...draft.scenes];
+    s[at] = { ...s[at], ...patch };
+    setEpisode({ ...draft, scenes: s });
+  };
+  const handleAttachAsset = async (
+    at: number,
+    kind: "image" | "video",
+    file: File,
+  ) => {
+    if (!draft) return;
+    try {
+      const res = await fetch(
+        `${kind === "video" ? "/studio-video" : "/studio-asset"}?id=${encodeURIComponent(draft.id)}`,
+        {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": file.type || "application/octet-stream" },
+          body: await file.arrayBuffer(),
+        },
+      );
+      if (!res.ok) throw new Error(`上传失败（${res.status}）`);
+      const { file: name } = await res.json();
+      setSceneAt(
+        at,
+        kind === "video"
+          ? { video: { file: name, fit: "side" }, image: null }
+          : { image: { file: name, fit: "side" }, video: null },
+      );
+    } catch (err) {
+      report(err);
+    }
+  };
+  const handleRemoveAsset = async (at: number) => {
+    if (!draft) return;
+    const cur = draft.scenes[at]?.video || draft.scenes[at]?.image;
+    if (cur) {
+      try {
+        await fetch(
+          `/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(cur.file)}`,
+          { method: "DELETE", credentials: "same-origin" },
+        );
+      } catch {
+        // 文件删不掉不影响从剧集里摘除引用
+      }
+    }
+    setSceneAt(at, { image: null, video: null });
   };
   async function persist() {
     if (!draft) return;
@@ -464,6 +522,16 @@ export default function Studio() {
               : renderedFrame
                 ? "原引擎渲染预览"
                 : "场景结构预览 · 正式逐笔动画以引擎渲染为准"}
+            {matNeeded.length > 0 && (
+              <button
+                className="canvas-material-chip"
+                onClick={() => setTab("material")}
+                title="打开素材清单"
+              >
+                <IconPhoto size={12} />
+                素材 {matDone.length}/{matNeeded.length}
+              </button>
+            )}
           </div>
         </div>
         <div className="transport">
@@ -605,6 +673,7 @@ export default function Studio() {
         <div className="inspector-tabs">
           {[
             ["narration", "旁白"],
+            ["material", "素材"],
             ["settings", "配音"],
             ["publish", "文案"],
           ].map(([k, v]) => (
@@ -886,6 +955,15 @@ export default function Studio() {
               <IconCheck size={15} />
               检查内容
             </Button>
+          </div>
+        ) : tab === "material" ? (
+          <div className="inspector-content">
+            <MaterialPanel
+              episode={draft}
+              busy={uploading}
+              onAttach={handleAttachAsset}
+              onRemove={handleRemoveAsset}
+            />
           </div>
         ) : tab === "settings" ? (
           <div className="inspector-content">
