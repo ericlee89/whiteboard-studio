@@ -1029,7 +1029,10 @@ function RedesignedSettingsTabsPage(props: SettingsTabsPageProps) {
   if (flag.status === "loading") {
     return <SettingsShellSkeleton className={props.className} />;
   }
-  if (!flag.enabled) return <LegacySettingsTabsPage {...props} />;
+  // 新版页签由 registry 生成，不支持按 id 过滤；需要精简时走旧版那一套
+  if (!flag.enabled || props.hideTabs?.length) {
+    return <LegacySettingsTabsPage {...props} />;
+  }
   return (
     <Suspense fallback={<SettingsShellSkeleton className={props.className} />}>
       <SettingsShell
