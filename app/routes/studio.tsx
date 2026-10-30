@@ -233,6 +233,10 @@ export default function Studio() {
   const matNeeded = matPlan.filter((h) => h.level !== "none");
   const matDone = matNeeded.filter((h) => h.current);
   const archivedCount = items.filter(({ episode: e }) => e.archived).length;
+  /** 渲染完成后成片的下载入口，放到画布上方，不用去底部翻详情 */
+  const finalFile = (
+    (status.data?.files || []) as { name: string; url: string }[]
+  ).find((f) => /final\.mp4$/.test(f.name));
   /** 新建后还没被填过内容的项目：只有一幕，旁白还是那句占位文案 */
   const isEmpty =
     !!draft &&
@@ -686,6 +690,23 @@ export default function Studio() {
               <div className="render-track">
                 <i style={{ width: `${status.data.progress}%` }} />
               </div>
+            </div>
+          )}
+          {finalFile && status.data?.state !== "running" && (
+            <div className="render-banner is-done">
+              <IconCheck size={15} />
+              <span className="render-stage">
+                成片已渲染完成
+                {status.data?.outdated ? "（项目有改动，这是上一版）" : ""}
+              </span>
+              <a
+                className="render-download"
+                href={finalFile.url}
+                download={finalFile.name}
+              >
+                <IconDownload size={14} />
+                下载成片
+              </a>
             </div>
           )}
           <div className="canvas-wrap">

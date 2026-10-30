@@ -225,6 +225,27 @@
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
+.render-banner.is-done {
+  background: var(--s-surface);
+  border-color: var(--s-accent);
+}
+.render-download {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 13px;
+  border-radius: var(--s-radius-sm);
+  background: var(--s-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.render-download:hover {
+  background: var(--s-accent-ink);
+}
 .render-track {
   flex-shrink: 0;
   width: 140px;
