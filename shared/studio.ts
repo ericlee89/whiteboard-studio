@@ -63,6 +63,13 @@ export const episodeSchema = z.object({
     .boolean()
     .default(false)
     .describe("Hidden from the project list but kept on disk"),
+  model: z
+    .string()
+    .max(120)
+    .optional()
+    .describe(
+      "Model name used for storyboard generation. Kept per project so switching projects does not silently reuse another provider's model.",
+    ),
   scenes: z.array(sceneSchema).min(1).max(90).describe("Ordered scenes"),
   engine: z.enum(["mi", "volc", "edge"]).describe("Speech provider"),
   voice: z.string().max(80).describe("Provider-specific voice id"),

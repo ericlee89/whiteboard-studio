@@ -511,6 +511,8 @@ export default function Studio() {
                     id: crypto.randomUUID(),
                     title: newTitle.trim(),
                     sample: false,
+                    // 从归档项目新建时不能把归档状态带过来
+                    archived: false,
                     scenes: [
                       {
                         title: newTitle.trim().slice(0, 40),
@@ -940,9 +942,15 @@ export default function Studio() {
         <GeneratePanel
           episodeId={draft.id}
           sceneCount={draft.scenes.length}
+          savedModel={draft.model}
           onClose={() => setGenOpen(false)}
-          onApply={(title, scenes) => {
-            setEpisode({ ...draft, title, scenes });
+          onApply={(title, scenes, usedModel) => {
+            setEpisode({
+              ...draft,
+              title,
+              scenes,
+              model: usedModel || draft.model,
+            });
             setParams({ id: draft.id, scene: "0" });
             setGenOpen(false);
             toast.success(`已套用 ${scenes.length} 幕，记得保存`);

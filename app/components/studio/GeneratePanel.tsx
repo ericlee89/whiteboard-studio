@@ -25,13 +25,20 @@ const LENGTHS = [1, 2, 3, 5];
 export function GeneratePanel({
   episodeId,
   sceneCount,
+  savedModel,
   onClose,
   onApply,
 }: {
   episodeId: string;
   sceneCount: number;
+  /** 项目里记住的模型名，优先于本地缓存 */
+  savedModel?: string;
   onClose: () => void;
-  onApply: (title: string, scenes: Episode["scenes"]) => void;
+  onApply: (
+    title: string,
+    scenes: Episode["scenes"],
+    model: string,
+  ) => void;
 }) {
   const [stage, setStage] = useState<Stage>("form");
   const [brief, setBrief] = useState("");
@@ -44,6 +51,8 @@ export function GeneratePanel({
   const [uploading, setUploading] = useState(false);
   const [extra, setExtra] = useState("");
   const [model, setModel] = useState(() => {
+    // 项目里记的优先，其次是本地缓存，都没有就交给框架默认
+    if (savedModel) return savedModel;
     try {
       return localStorage.getItem("studio.gen.model") || "";
     } catch {
@@ -302,7 +311,7 @@ export function GeneratePanel({
               </Button>
               <Button
                 onClick={() => {
-                  if (draft) onApply(draft.title, draft.scenes);
+                  if (draft) onApply(draft.title, draft.scenes, model.trim());
                 }}
               >
                 用这个分镜（替换 {sceneCount} 幕）
