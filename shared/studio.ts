@@ -9,6 +9,16 @@ export const sceneImageSchema = z.object({
     .default("side")
     .describe("side = right column beside the points; full = occupies the canvas"),
 });
+export const sceneVideoSchema = z.object({
+  file: z
+    .string()
+    .regex(/^vid-[a-z0-9]+\.mp4$/)
+    .describe("Video file name inside the project's assets folder"),
+  fit: z
+    .enum(["side", "full"])
+    .default("side")
+    .describe("side = right column beside the points; full = occupies the canvas"),
+});
 export const sceneSchema = z.object({
   title: z.string().min(1).max(40).describe("Scene title, up to 40 characters"),
   narration: z
@@ -24,6 +34,10 @@ export const sceneSchema = z.object({
     .nullable()
     .default(null)
     .describe("Optional screenshot or sticker shown in this scene"),
+  video: sceneVideoSchema
+    .nullable()
+    .default(null)
+    .describe("Optional video played beside the points; composited at encode time"),
 });
 export const episodeSchema = z.object({
   id: z
@@ -93,6 +107,6 @@ export function sampleEpisode(): Episode {
           "好的讲解，不需要堆满屏幕。| 留出空间，让观众看懂每一个变化。| 现在，试着把你的第一个想法画出来吧。",
         points: ["少一点堆砌", "多一点清晰", "开始你的第一期"],
       },
-    ].map((scene) => ({ ...scene, image: null })),
+    ].map((scene) => ({ ...scene, image: null, video: null })),
   };
 }

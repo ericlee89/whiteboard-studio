@@ -356,6 +356,7 @@ export default function Studio() {
                         narration: "请在这里写下第一段旁白。",
                         points: ["你的核心观点"],
                         image: null,
+                        video: null,
                       },
                     ],
                     sources: "",
@@ -504,6 +505,7 @@ export default function Studio() {
                       narration: "在这里写下这一幕的旁白。",
                       points: ["画面要点"],
                       image: null,
+                      video: null,
                     },
                   ],
                 });
@@ -740,7 +742,7 @@ export default function Studio() {
                       );
                       if (!res.ok) throw new Error(`上传失败（${res.status}）`);
                       const { file: name } = await res.json();
-                      edit({ image: { file: name, fit: "side" } });
+                      edit({ image: { file: name, fit: "side" }, video: null });
                     } catch (err) {
                       report(err);
                     } finally {
@@ -752,6 +754,94 @@ export default function Studio() {
                   {uploading
                     ? "上传中…"
                     : "PNG / JPG / WebP，自动转 PNG 并缩到画布宽度。先保存项目再出片。"}
+                </p>
+              </>
+            )}
+            <label htmlFor="scene-video">画面视频</label>
+            {active.video ? (
+              <div className="scene-image">
+                <video
+                  className="scene-image-thumb"
+                  src={`/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.video.file)}`}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                />
+                <div className="scene-image-controls">
+                  <select
+                    id="scene-video"
+                    value={active.video.fit}
+                    onChange={(e) =>
+                      edit({
+                        video: {
+                          ...active.video!,
+                          fit: e.target.value as "side" | "full",
+                        },
+                      })
+                    }
+                  >
+                    <option value="side">右侧 · 与要点并排</option>
+                    <option value="full">整屏 · 独占画面</option>
+                  </select>
+                  <Button
+                    variant="ghost"
+                    disabled={uploading}
+                    onClick={async () => {
+                      try {
+                        await fetch(
+                          `/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.video!.file)}`,
+                          { method: "DELETE", credentials: "same-origin" },
+                        );
+                      } catch {
+                        // 文件删不掉不影响从剧集里摘除引用
+                      }
+                      edit({ video: null });
+                    }}
+                  >
+                    移除
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <input
+                  id="scene-video"
+                  type="file"
+                  accept="video/mp4,video/quicktime,video/webm"
+                  disabled={uploading || !draft.id}
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    e.target.value = "";
+                    if (!file || !draft) return;
+                    setUploading(true);
+                    try {
+                      const res = await fetch(
+                        `/studio-video?id=${encodeURIComponent(draft.id)}`,
+                        {
+                          method: "POST",
+                          credentials: "same-origin",
+                          headers: {
+                            "Content-Type":
+                              file.type || "application/octet-stream",
+                          },
+                          body: await file.arrayBuffer(),
+                        },
+                      );
+                      if (!res.ok) throw new Error(`上传失败（${res.status}）`);
+                      const { file: name } = await res.json();
+                      edit({ video: { file: name, fit: "side" }, image: null });
+                    } catch (err) {
+                      report(err);
+                    } finally {
+                      setUploading(false);
+                    }
+                  }}
+                />
+                <p className="field-hint">
+                  {uploading
+                    ? "上传并转码中…"
+                    : "mp4 / mov / webm，最长 60 秒，自动转成无声 MP4。会替换本幕配图。"}
                 </p>
               </>
             )}

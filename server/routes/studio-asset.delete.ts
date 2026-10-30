@@ -12,7 +12,10 @@ export default defineEventHandler(async (event) => {
   const q = getQuery(event);
   const id = String(q.id || "");
   const file = String(q.file || "");
-  if (!/^[a-z0-9-]{1,80}$/.test(id) || !/^img-[a-z0-9]+\.png$/.test(file))
+  if (
+    !/^[a-z0-9-]{1,80}$/.test(id) ||
+    !/^(img-[a-z0-9]+\.png|vid-[a-z0-9]+\.mp4)$/.test(file)
+  )
     throw createError({ statusCode: 400 });
 
   const session = await getSession(event);

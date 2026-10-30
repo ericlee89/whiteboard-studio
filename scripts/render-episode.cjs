@@ -68,8 +68,10 @@ const items=${JSON.stringify(ep.scenes)};
 const scenes=items.map((item,i)=>{
  const s=new Scene(String(i+1).padStart(2,'0')+'-scene',item.narration);
  const img=item.image||null;
- const full=!!img&&img.fit==='full';
- const side=!!img&&!full;
+ const vid=item.video||null;
+ const media=img||vid;
+ const full=!!media&&media.fit==='full';
+ const side=!!media&&!full;
  const boxX=side?140:260, boxW=side?820:1400;
  const beats=item.narration.split('|');
  beats.forEach((_,j)=>{s.nextBeat();if(j===0){s.text(CX,60,item.title,{size:80,align:'center',color:C.brand});
@@ -118,8 +120,25 @@ const epTitle=${JSON.stringify(ep.title)};build(__dirname,scenes,{cover});`;
       }
     };
     const node = (...args) => run(process.execPath, args);
+    // scene-dsl 不认识视频：scenes.js 跑完产出 script.json 后，在这里把 video 元数据
+    // 按场景顺序注入。render.js 编码该段时据此叠画中画，引擎核心不用动。
+    const runScenes = async () => {
+      await node(path.join(project, "scenes.js"));
+      const scriptFile = path.join(project, "scenes", "script.json");
+      if (!fs.existsSync(scriptFile)) return;
+      const meta = JSON.parse(fs.readFileSync(scriptFile, "utf8"));
+      let touched = false;
+      meta.forEach((sc, i) => {
+        const v = ep.scenes[i] && ep.scenes[i].video;
+        if (v) {
+          sc.video = v;
+          touched = true;
+        }
+      });
+      if (touched) fs.writeFileSync(scriptFile, JSON.stringify(meta, null, 1));
+    };
     const stage = steps[i];
-    if (stage === "scenes") await node(path.join(project, "scenes.js"));
+    if (stage === "scenes") await runScenes();
     else if (stage === "tts") {
       if (ep.engine === "edge")
         await run(process.platform === "win32" ? "python" : "python3", [
@@ -130,7 +149,7 @@ const epTitle=${JSON.stringify(ep.title)};build(__dirname,scenes,{cover});`;
     } else if (stage === "mix")
       await node(path.join(engine, "lib/mix-bgm.mjs"), project);
     else {
-      if (stage !== "render") await node(path.join(project, "scenes.js"));
+      if (stage !== "render") await runScenes();
       await node(
         path.join(engine, "lib/render.js"),
         project,

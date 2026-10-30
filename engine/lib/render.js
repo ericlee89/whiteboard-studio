@@ -245,11 +245,25 @@ async function main() {
     if (!isCard && !audio) throw new Error(`缺少旁白音频 audio/${sc.name}.wav，先跑 wb tts`);
     const outMp4 = path.join(P.out, `${sc.name}.mp4`);
     const audioIn = isCard ? ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo'] : ['-i', audio];
+    // 画中画：本幕配了视频就在编码这一段时叠加。白板只画左侧文字，右侧留给视频。
+    // 视频流不带声音（上传时已转成无声 mp4），旁白不受影响。
+    const clip = sc.video && sc.video.file ? path.join(P.assets, sc.video.file) : null;
+    const hasClip = !!clip && fs.existsSync(clip);
+    const box = sc.video && sc.video.fit === 'full'
+      ? { x: 210, y: 210, w: 1500, h: 740 }
+      : { x: 1010, y: 260, w: 850, h: 660 };
+    const clipIn = hasClip ? ['-i', clip] : [];
+    // 第二路 scale 把宽高凑成偶数，yuv420p 不接受奇数尺寸
+    const clipGraph = hasClip
+      ? `[2:v]scale=${box.w}:${box.h}:force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2[vv];` +
+        `[0:v][vv]overlay=${box.x}+(${box.w}-w)/2:${box.y}+(${box.h}-h)/2:eof_action=repeat[vout];`
+      : '';
     const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
       ...audioIn,
-      '-filter_complex', `[1:a]adelay=${Math.round(LEAD * 1000)}|${Math.round(LEAD * 1000)},apad,aformat=sample_rates=48000:channel_layouts=stereo[a]`,
-      '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(FPS),
-      '-c:a', 'aac', '-b:a', '192k', '-shortest', outMp4], { stdio: ['pipe', 'inherit', 'inherit'] });
+      ...clipIn,
+      '-filter_complex', clipGraph + `[1:a]adelay=${Math.round(LEAD * 1000)}|${Math.round(LEAD * 1000)},apad,aformat=sample_rates=48000:channel_layouts=stereo[a]`,
+      '-map', hasClip ? '[vout]' : '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', String(FPS),
+      '-c:a', 'aac', '-b:a', '192k', '-shortest', ...(hasClip ? ['-t', String(total)] : []), outMp4], { stdio: ['pipe', 'inherit', 'inherit'] });
     const frames = Math.ceil(total * FPS);
     const r = await encodeFrames(pages, frames, ff, sc.name);
     console.log(`\r${sc.name}: done ${frames} frames in ${r.seconds.toFixed(0)}s  (${total.toFixed(1)}s)`);
