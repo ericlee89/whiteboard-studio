@@ -187,11 +187,15 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 10px 28px 0;
 }
 .canvas-wrap {
   position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 1180px;
   margin: 0 auto;
@@ -321,6 +325,20 @@
 }
 .whiteboard {
   display: block;
+}
+/* 图片和视频按自身比例缩放，装进可用高度里，不裁切也不拉伸 */
+img.whiteboard,
+video.whiteboard {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+/* SVG 预览靠 viewBox 保持比例，高度受限时内容自动居中留白 */
+svg.whiteboard {
+  max-width: 100%;
+  max-height: 100%;
   width: 100%;
   height: auto;
 }
