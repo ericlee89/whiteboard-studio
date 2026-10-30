@@ -38,12 +38,20 @@ export default defineAction({
     brief: z.string().min(4).max(600).describe("Topic / what the video should explain"),
     minutes: z.number().min(0.5).max(10).default(2).describe("Target length in minutes"),
     extra: z.string().max(600).optional().describe("Audience, tone or must-cover points"),
+    model: z
+      .string()
+      .max(120)
+      .optional()
+      .describe(
+        "Model name to use. Leave empty to use the model configured in settings; set it when the provider has no channel for the built-in default.",
+      ),
   }),
-  run: async ({ brief, minutes, extra }) => {
+  run: async ({ brief, minutes, extra, model }) => {
     let text: string;
     try {
       const res = await completeText({
         appId: "whiteboard-studio",
+        model: model?.trim() || undefined,
         systemPrompt: SYSTEM_PROMPT,
         input: [
           `主题：${brief}`,
@@ -58,8 +66,15 @@ export default defineAction({
       });
       text = res.text;
     } catch (e) {
+      const msg = e instanceof Error ? e.message : "未知错误";
+      // 最常见的一类失败：服务商没有框架内置默认模型的通道
+      const noChannel = /No available channel for model|model_not_found|does not exist|unknown model/i.test(
+        msg,
+      );
       return fail(
-        `模型调用失败：${e instanceof Error ? e.message : "未知错误"}。先确认设置里的模型可以正常对话。`,
+        noChannel
+          ? `服务商没有「${model?.trim() || "框架默认模型"}」这个通道。在下方「模型」一栏填上你实际可用的模型名（设置里测试通过的那个），再试一次。原始信息：${msg}`
+          : `模型调用失败：${msg}`,
         { statusCode: 502, errorCode: "MODEL_FAILED" },
       );
     }

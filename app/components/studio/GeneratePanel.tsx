@@ -29,6 +29,13 @@ export function GeneratePanel({
   const [brief, setBrief] = useState("");
   const [minutes, setMinutes] = useState(2);
   const [extra, setExtra] = useState("");
+  const [model, setModel] = useState(() => {
+    try {
+      return localStorage.getItem("studio.gen.model") || "";
+    } catch {
+      return "";
+    }
+  });
   const [error, setError] = useState("");
   const [draft, setDraft] = useState<Draft | null>(null);
 
@@ -40,6 +47,11 @@ export function GeneratePanel({
     }
     setStage("loading");
     try {
+      try {
+        localStorage.setItem("studio.gen.model", model.trim());
+      } catch {
+        // 记不住也不影响这次生成
+      }
       const res = await fetch("/_agent-native/actions/generate-episode", {
         method: "POST",
         credentials: "same-origin",
@@ -48,6 +60,7 @@ export function GeneratePanel({
           brief: brief.trim(),
           minutes,
           extra: extra.trim() || undefined,
+          model: model.trim() || undefined,
         }),
       });
       const body = (await res.json().catch(() => ({}))) as {
@@ -125,6 +138,18 @@ export function GeneratePanel({
                 value={extra}
                 onChange={(e) => setExtra(e.target.value)}
               />
+            </div>
+            <div className="gen-field">
+              <label htmlFor="gen-model">模型（可不填）</label>
+              <Input
+                id="gen-model"
+                placeholder="留空用设置里的默认模型"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+              />
+              <p className="field-hint">
+                如果报「没有可用通道」，说明默认模型名在你这个服务商不存在，在这里填上实际可用的名字。
+              </p>
             </div>
           </>
         )}
