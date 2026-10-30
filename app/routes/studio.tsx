@@ -183,9 +183,16 @@ export default function Studio() {
     [check, setCheck] = useState<PreflightResult | null>(null),
     [genOpen, setGenOpen] = useState(false),
     [ttsOpen, setTtsOpen] = useState(false),
-    [editorOpen, setEditorOpen] = useState(false);
+    [editorOpen, setEditorOpen] = useState(false),
+    [showArchived, setShowArchived] = useState(false),
+    [menuFor, setMenuFor] = useState<string | null>(null),
+    [pendingDelete, setPendingDelete] = useState<{
+      id: string;
+      title: string;
+    } | null>(null);
   const cancel = useActionMutation("cancel-render");
   const preflight = useActionMutation("preflight");
+  const deleteEp = useActionMutation("delete-episode");
   const save = useActionMutation("save-episode"),
     render = useActionMutation("start-render");
   const status = useActionQuery(
@@ -221,6 +228,7 @@ export default function Studio() {
   const matPlan = draft ? planMaterials(draft) : [];
   const matNeeded = matPlan.filter((h) => h.level !== "none");
   const matDone = matNeeded.filter((h) => h.current);
+  const archivedCount = items.filter(({ episode: e }) => e.archived).length;
   const totalChars = draft
     ? draft.scenes.reduce((a, s) => a + s.narration.length, 0)
     : 0;
@@ -300,6 +308,37 @@ export default function Studio() {
   }
   const report = (e: unknown) =>
     toast.error(actionErrorMessage(e) || String(e));
+
+  async function toggleArchive(e: Episode, hash: string) {
+    setMenuFor(null);
+    try {
+      await save.mutateAsync({ episode: { ...e, archived: !e.archived }, hash });
+      await q.refetch();
+      toast.success(e.archived ? "已取消归档" : "已归档");
+    } catch (err) {
+      report(err);
+    }
+  }
+
+  async function confirmDelete() {
+    const target = pendingDelete;
+    if (!target) return;
+    setPendingDelete(null);
+    try {
+      await deleteEp.mutateAsync({ id: target.id });
+      await q.refetch();
+      toast.success(`已删除「${target.title}」`);
+      if (target.id === id) {
+        const rest = items.filter(({ episode: e }) => e.id !== target.id);
+        const visible = rest.find(
+          ({ episode: e }) => showArchived || !e.archived,
+        );
+        if (visible) setParams({ id: visible.episode.id, scene: "0" });
+      }
+    } catch (err) {
+      report(err);
+    }
+  }
   async function start(
     mode: "build" | "preview",
     opts?: { skipPicker?: boolean; skipCheck?: boolean },
@@ -429,7 +468,15 @@ export default function Studio() {
       <aside className="project-rail">
         <div className="rail-label">
           <IconLayoutBoard size={16} />
-          我的作品<span>{items.length}</span>
+          我的作品
+          <button
+            className={`rail-toggle${showArchived ? " is-on" : ""}`}
+            onClick={() => setShowArchived(!showArchived)}
+            disabled={archivedCount === 0 && !showArchived}
+            title={showArchived ? "隐藏归档项目" : "显示归档项目"}
+          >
+            归档 {archivedCount}
+          </button>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -485,37 +532,96 @@ export default function Studio() {
             </Button>
           </DialogContent>
         </Dialog>
+        <Dialog
+          open={!!pendingDelete}
+          onOpenChange={(o) => !o && setPendingDelete(null)}
+        >
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                删除「{pendingDelete?.title}」？
+              </DialogTitle>
+            </DialogHeader>
+            <p className="field-hint">
+              项目的旁白、上传的素材和已经渲染的成片会一起删掉，这一步无法恢复。
+            </p>
+            <div className="dialog-actions">
+              <Button variant="ghost" onClick={() => setPendingDelete(null)}>
+                取消
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => void confirmDelete()}
+                disabled={deleteEp.isPending}
+              >
+                {deleteEp.isPending ? "删除中…" : "确认删除"}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
         <div className="project-list">
-          {items.map(({ episode: e }) => (
-            <button
-              key={e.id}
-              className={
-                e.id === draft.id ? "project-item active" : "project-item"
-              }
-              onClick={() => {
-                if (dirty) {
-                  toast.info("请先保存当前修改");
-                  return;
-                }
-                setPlaying(false);
-                setParams({ id: e.id, scene: "0" });
-              }}
-            >
-              <div className="project-art">
-                <IconMovie size={22} />
-                <span>{e.scenes.length} 幕</span>
+          {items
+            .filter(({ episode: e }) => showArchived || !e.archived)
+            .map(({ episode: e, hash }) => (
+              <div className="project-row" key={e.id}>
+                <button
+                  className={
+                    e.id === draft.id
+                      ? "project-item active"
+                      : "project-item"
+                  }
+                  onClick={() => {
+                    if (dirty) {
+                      toast.info("请先保存当前修改");
+                      return;
+                    }
+                    setPlaying(false);
+                    setParams({ id: e.id, scene: "0" });
+                  }}
+                >
+                  <div className="project-art">
+                    <IconMovie size={22} />
+                    <span>{e.scenes.length} 幕</span>
+                  </div>
+                  <strong>{e.title}</strong>
+                  <span>
+                    {e.archived ? "已归档 · " : e.sample ? "示例项目" : "本地项目"}{" "}
+                    ·{" "}
+                    {e.engine === "mi"
+                      ? "小米 MiMo"
+                      : e.engine === "edge"
+                        ? "Edge TTS"
+                        : "火山引擎"}
+                  </span>
+                </button>
+                <button
+                  className="project-more"
+                  aria-label="项目操作"
+                  onClick={(ev) => {
+                    ev.stopPropagation();
+                    setMenuFor(menuFor === e.id ? null : e.id);
+                  }}
+                >
+                  <IconDots size={14} />
+                </button>
+                {menuFor === e.id && (
+                  <div className="project-menu">
+                    <button onClick={() => void toggleArchive(e, hash)}>
+                      {e.archived ? "取消归档" : "归档"}
+                    </button>
+                    <button
+                      className="is-danger"
+                      onClick={() => {
+                        setMenuFor(null);
+                        setPendingDelete({ id: e.id, title: e.title });
+                      }}
+                    >
+                      删除
+                    </button>
+                  </div>
+                )}
               </div>
-              <strong>{e.title}</strong>
-              <span>
-                {e.sample ? "示例项目" : "本地项目"} ·{" "}
-                {e.engine === "mi"
-                  ? "小米 MiMo"
-                  : e.engine === "edge"
-                    ? "Edge TTS"
-                    : "火山引擎"}
-              </span>
-            </button>
-          ))}
+            ))}
         </div>
         <div className="rail-foot">
           <span className="local-dot" />

@@ -59,6 +59,10 @@ export const episodeSchema = z.object({
     .describe("Safe project id"),
   title: z.string().min(1).max(80).describe("Project title"),
   sample: z.boolean().describe("Whether synthetic sample data"),
+  archived: z
+    .boolean()
+    .default(false)
+    .describe("Hidden from the project list but kept on disk"),
   scenes: z.array(sceneSchema).min(1).max(90).describe("Ordered scenes"),
   engine: z.enum(["mi", "volc", "edge"]).describe("Speech provider"),
   voice: z.string().max(80).describe("Provider-specific voice id"),
@@ -86,6 +90,7 @@ export function sampleEpisode(): Episode {
     id: "sample-whiteboard",
     title: "把复杂的事，画简单",
     sample: true,
+    archived: false,
     engine: "edge",
     voice: "zh-CN-YunxiNeural",
     speed: 1.2,

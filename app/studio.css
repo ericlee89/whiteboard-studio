@@ -1203,6 +1203,89 @@
   margin-top: 0;
 }
 
+/* ---------- 项目列表操作 ---------- */
+.project-row {
+  position: relative;
+}
+.project-more {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--s-ink-3);
+  opacity: 0;
+  transition: all 0.15s ease;
+}
+.project-row:hover .project-more {
+  opacity: 1;
+}
+.project-more:hover {
+  background: var(--s-line);
+  color: var(--s-ink);
+}
+.project-menu {
+  position: absolute;
+  top: 36px;
+  right: 6px;
+  z-index: 30;
+  min-width: 112px;
+  padding: 5px;
+  background: var(--s-surface);
+  border: 1px solid var(--s-line);
+  border-radius: var(--s-radius);
+  box-shadow: 0 8px 24px -8px rgba(20, 20, 10, 0.26);
+  display: flex;
+  flex-direction: column;
+}
+.project-menu button {
+  text-align: left;
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: var(--s-radius-sm);
+  color: var(--s-ink);
+  transition: background 0.12s ease;
+}
+.project-menu button:hover {
+  background: var(--s-surface-2);
+}
+.project-menu button.is-danger {
+  color: #b3261e;
+}
+.project-menu button.is-danger:hover {
+  background: #fdf1ef;
+}
+.rail-toggle {
+  margin-left: auto;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--s-line);
+  color: var(--s-ink-3);
+  transition: all 0.15s ease;
+}
+.rail-toggle.is-on {
+  background: var(--s-accent-soft);
+  color: var(--s-accent-ink);
+}
+.rail-toggle:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.rail-toggle:not(:disabled):hover {
+  color: var(--s-ink-2);
+}
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
 /* ---------- 首次配置引导 ---------- */
 .setup-mask {
   position: fixed;
