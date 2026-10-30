@@ -6,12 +6,13 @@
 @source "./**/*.{ts,tsx}";
 
 @font-face {font-family:StudioHand;src:url("/fonts/Xiaolai-Regular.ttf") format("truetype");font-display:swap;}
+@font-face {font-family:StudioKai;src:url("../engine/assets/fonts/STKAITI.TTF") format("truetype");font-display:swap;}
 html,body,.agent-panel-root,.agent-sidebar-panel {
   font-family: var(--studio-ui-font);
 }
 
 :root {
-  --studio-ui-font: "Inter Variable", Inter, StudioHand, "Microsoft YaHei", sans-serif;
+  --studio-ui-font: "Inter Variable", Inter, StudioKai, "Microsoft YaHei", sans-serif;
   --font-sans: var(--studio-ui-font);
   --background: 0 0% 100%;
   --foreground: 0 0% 10%;

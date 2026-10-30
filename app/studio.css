@@ -5,7 +5,7 @@
   min-width: 0;
   overflow: hidden;
   background: hsl(var(--background));
-  font-family: Inter, StudioHand, "Microsoft YaHei", sans-serif;
+  font-family: Inter, StudioKai, "Microsoft YaHei", sans-serif;
 }
 .project-rail {
   width: 185px;
