@@ -27,7 +27,7 @@ const VOLC_ENDPOINTS = {
 // 端点选择：VOLC_TTS_ENDPOINT(完整 URL 或 plan/standard) > 按 Key 前缀判定 > standard。
 // ark- 是方舟套餐域签发的 Key，只有 plan 路径认它；其余(控制台旧版 AppId/AccessKey 或直购 Key)走 standard。
 function resolveEndpoint(apiKey) {
-  const raw = String(process.env.VOLC_TTS_ENDPOINT || "").trim(); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const raw = String(process.env.VOLC_TTS_ENDPOINT || "").trim();
   if (raw) {
     const named = VOLC_ENDPOINTS[raw.toLowerCase()];
     if (named) return { url: named, mode: raw.toLowerCase() };
@@ -53,26 +53,26 @@ function toWav(src, outWav) {
 // 从环境变量拼鉴权头与音色(新版控制台 API Key / 旧版 AppId+Token 二选一)。导出给 tts-volc.mjs 回显档位。
 export function resolveVolcConfig(voice) {
   // 默认 2.0 资源：官方 2.0 音色(*_uranus_bigtts)配 seed-tts-2.0；1.0 音色配 seed-tts-1.0；声音复刻配 volc.megatts.default。
-  const resourceId = process.env.VOLC_TTS_RESOURCE_ID || "seed-tts-2.0"; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const resourceId = process.env.VOLC_TTS_RESOURCE_ID || "seed-tts-2.0";
   const headers = {
     "Content-Type": "application/json",
     "X-Api-Resource-Id": resourceId,
     "X-Api-Connect-Id": randomUUID(),
   };
   let apiKey = "";
-  if (process.env.VOLC_TTS_API_KEY) { // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-    apiKey = process.env.VOLC_TTS_API_KEY; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (process.env.VOLC_TTS_API_KEY) {
+    apiKey = process.env.VOLC_TTS_API_KEY;
     headers["X-Api-Key"] = apiKey;
-  } else if (process.env.VOLC_TTS_APP_ID && process.env.VOLC_TTS_ACCESS_TOKEN) { // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-    headers["X-Api-App-Id"] = process.env.VOLC_TTS_APP_ID; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-    headers["X-Api-Access-Key"] = process.env.VOLC_TTS_ACCESS_TOKEN; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  } else if (process.env.VOLC_TTS_APP_ID && process.env.VOLC_TTS_ACCESS_TOKEN) {
+    headers["X-Api-App-Id"] = process.env.VOLC_TTS_APP_ID;
+    headers["X-Api-Access-Key"] = process.env.VOLC_TTS_ACCESS_TOKEN;
   } else {
     throw new Error("缺少火山凭证: 在 .env 配 VOLC_TTS_API_KEY(新版控制台) 或 VOLC_TTS_APP_ID+VOLC_TTS_ACCESS_TOKEN(旧版)");
   }
   // shotlist 的 voice 是 macOS 旧值(如 Tingting, 无下划线), 不是火山音色; 仅当像火山音色才采用。
   const speaker = voice && voice.includes("_")
     ? voice
-    : (process.env.VOLC_TTS_VOICE || "zh_male_liufei_uranus_bigtts"); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+    : (process.env.VOLC_TTS_VOICE || "zh_male_liufei_uranus_bigtts");
   const { url, mode } = resolveEndpoint(apiKey);
   return { headers, speaker, resourceId, url, mode, arkKey: /^ark-/i.test(apiKey) };
 }
@@ -155,21 +155,21 @@ export async function synthesize(text, outWav, { voice } = {}) {
   fs.mkdirSync(path.dirname(outWav), { recursive: true });
   const key = digest(ttsIdentity(text, voice));
   // 无元数据的旧 WAV 是未验证缓存，不猜测其来源。强制重配用 FORCE_TTS=1。
-  const cached = process.env.FORCE_TTS !== '1' && readAudioCache(outWav, key); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const cached = process.env.FORCE_TTS !== '1' && readAudioCache(outWav, key);
   if (cached) return cached;
   const remember = audio => { writeAudioCache(outWav, key, audio); return audio; };
   // ⚠️ 占位通道(2026-09-05 火山全账号 403 时加): TTS_ENGINE=say 用 macOS say 出临时配音, 只为验版式/时间轴,
   //   正式出片必须删掉 wav 换回火山重配。不带逐字时间戳(words=[])。
-  if (process.env.TTS_ENGINE === "say") { // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (process.env.TTS_ENGINE === "say") {
     const { execFileSync } = await import("node:child_process");
     const aiff = outWav.replace(/\.wav$/, ".aiff");
-    execFileSync("say", ["-v", process.env.SAY_VOICE || "Tingting", "-r", process.env.SAY_RATE || "200", "-o", aiff, text]); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+    execFileSync("say", ["-v", process.env.SAY_VOICE || "Tingting", "-r", process.env.SAY_RATE || "200", "-o", aiff, text]);
     execFileSync("ffmpeg", ["-nostdin", "-y", "-v", "error", "-i", aiff, "-ar", "24000", "-ac", "1", outWav]);
     fs.rmSync(aiff, { force: true });
     return remember({ path: outWav, duration: getDuration(outWav), words: [] });
   }
   // 小米 MiMo：走 chat/completions，**没有**逐字时间戳，句子级时间由 mi.mjs 用静音检测估算。
-  if (process.env.TTS_ENGINE === "mi") { // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (process.env.TTS_ENGINE === "mi") {
     const { synthesizeMi } = await import("./mi.mjs");
     return remember(await synthesizeMi(text, outWav, { voice }));
   }
@@ -183,15 +183,15 @@ export async function synthesize(text, outWav, { voice } = {}) {
   // ⚠️2026-09-29 plan 域复测: timestamp=0/subtitle=1 → 17 words; subtitle=0 → words=0。**要字幕就必须开 enable_subtitle**。
   //   官方文档 https://docs.volcengine.com/docs/DoubaoVoice/HTTPChunkedSSEUnidirectionalStreaming-V3。有了它字幕对齐不再需要 whisper ASR。
   const audioParams = { format: "mp3", sample_rate: 24000, bit_rate: 128000, enable_timestamp: true, enable_subtitle: true };
-  const speed = Number(process.env.VOLC_TTS_SPEED || 0); // [-50,100], 0=原速 // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const speed = Number(process.env.VOLC_TTS_SPEED || 0); // [-50,100], 0=原速
   if (speed) audioParams.speech_rate = speed;
-  const loudness = Number(process.env.VOLC_TTS_LOUDNESS || 0); // [-50,100], 0=原音量 // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const loudness = Number(process.env.VOLC_TTS_LOUDNESS || 0); // [-50,100], 0=原音量
   if (loudness) audioParams.loudness_rate = loudness;
 
   // 2.0 音色的自然语言风格控制(VOLC_TTS_STYLE / config tts.style, 如"低沉沙哑的深夜电台女主播"):
   // additions 必须是 JSON 序列化字符串, context_texts 只取第一条, 不计字符费。仅 *_uranus_bigtts 家族响应。
   const reqParams = { text, speaker, audio_params: audioParams };
-  const style = process.env.VOLC_TTS_STYLE || ""; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const style = process.env.VOLC_TTS_STYLE || "";
   if (style) reqParams.additions = JSON.stringify({ context_texts: [style] });
 
   const resp = await fetch(cfg.url, {
@@ -232,10 +232,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.ar
   try { process.loadEnvFile(path.resolve(import.meta.dirname, "../../.env")); } catch { /* 无 .env 忽略 */ }
   const text = process.argv[2] || "你好，我是语音合成服务。这是一段测试旁白。";
   const out = path.resolve(process.argv[3] || "tts-test.wav");
-  if (process.env.TTS_ENGINE === "mi") { // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (process.env.TTS_ENGINE === "mi") {
     const { synthesizeMi, resolveMiConfig } = await import("./mi.mjs");
     try {
-      const c = resolveMiConfig(process.env.MI_TTS_VOICE || ""); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+      const c = resolveMiConfig(process.env.MI_TTS_VOICE || "");
       console.log(`[tts] 小米 ${c.baseUrl}/chat/completions`);
       console.log(`[tts] 模型 ${c.model} · 音色 ${c.speaker}`);
       const r = await synthesizeMi(text, out, {});

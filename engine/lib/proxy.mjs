@@ -5,8 +5,8 @@ import http from "node:http";
 import https from "node:https";
 import tls from "node:tls";
 
-const PROXY = process.env.HTTPS_PROXY || process.env.https_proxy // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  || process.env.HTTP_PROXY || process.env.http_proxy || ""; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const PROXY = process.env.HTTPS_PROXY || process.env.https_proxy
+  || process.env.HTTP_PROXY || process.env.http_proxy || "";
 
 function tunnel(proxyUrl, host, port) {
   return new Promise((resolve, reject) => {

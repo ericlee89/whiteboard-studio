@@ -30,7 +30,7 @@ const CAP_STYLE = (() => {
 })();
 // 跨平台家目录：os.homedir() 优先。Windows 上 process.env.HOME 常是 Git Bash 的 MSYS 路径（/c/Users/x），
 // Node 会当成当前盘符下的 \c\Users\x → 一律以 os.homedir() 为准（与 paths.cjs / scene-dsl.js 一致）。
-const expand = (p) => { const e = p.replace(/^~/, require('os').homedir() || process.env.HOME || ''); return path.isAbsolute(e) ? e : path.join(__dirname, '..', e); }; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const expand = (p) => { const e = p.replace(/^~/, require('os').homedir() || process.env.HOME || ''); return path.isAbsolute(e) ? e : path.join(__dirname, '..', e); };
 
 // 传给页面的品牌数据：logo 读成 dataURL（可选）
 function brandPayload() {
@@ -98,10 +98,25 @@ if (CHROMIUM) console.log(`（Chromium: ${CHROMIUM}）`);
 
 // 一个 worker = 一个 Chromium + 一个页面。同一个浏览器里多开页面，截图会卡在浏览器主进程（实测 4 页也只有约 113 帧/秒），
 // 各开各的浏览器才真正并行（4 路约 180 帧/秒）
+// 风格：config.json 的 style.preset 选预设，style.override 里只改单项（如 {"paper":"#ffffff"}）。
+// 纸色/点阵/字体都在这里定，页面里 window.setStyle 负责落到 DOM。
+const STYLE = (() => {
+  const s = cfg.style || {};
+  const base = (s.presets && s.presets[s.preset]) || {};
+  const merged = { ...base, ...(s.override || {}) };
+  if (!merged.paper) merged.paper = '#fffdf7';
+  return merged;
+})();
+if (cfg.style && cfg.style.preset) {
+  const f = STYLE.fontFile ? STYLE.fontFile.replace(/\.ttf$/i, '') : '默认字体';
+  console.log(`（风格: ${cfg.style.preset} · ${f} · 纸色 ${STYLE.paper}${STYLE.dots === false ? ' · 无点阵' : ''}）`);
+}
+
 async function openPage() {
   const browser = await chromium.launch(CHROMIUM ? { executablePath: CHROMIUM } : {});
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
   await page.goto(require('url').pathToFileURL(path.join(LIB, 'render.html')).href);
+  await page.evaluate((st) => window.setStyle(st), STYLE);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(300);
   await page.evaluate((o) => window.setPen(o), { ...(cfg.render.pen || {}), color: BRAND.pen && BRAND.pen.color });
@@ -143,7 +158,7 @@ async function encodeFrames(pages, frames, ff, label) {
 // 出片后清中间产物：stills 静帧（成片出来就过期了）、out/ 里场景改名/删掉后留下的旧分段、concat 清单。
 // 留着 out/ 各场景分段与 master.mp4：单场景重渲要靠它们重拼，wb mix 调 BGM 要读 master
 function cleanWork(script) {
-  const keep = new Set(script.map((sc) => `${sc.name}.mp4`).concat(['99-brand.mp4', 'master.mp4']));
+  const keep = new Set(script.map((sc) => `${sc.name}.mp4`).concat(['99-brand.mp4', 'master.mp4', 'master-clip.mp4']));
   const gone = [];
   if (fs.existsSync(P.frames)) { gone.push(`frames/ ${fs.readdirSync(P.frames).length} 张静帧`); fs.rmSync(P.frames, { recursive: true, force: true }); }
   if (fs.existsSync(P.out)) for (const f of fs.readdirSync(P.out)) {
@@ -255,6 +270,11 @@ async function main() {
     fs.writeFileSync(list, all.map((p) => `file '${p.replace(/\\/g, '/').replace(/'/g, "'\\''")}'`).join('\n'));
     await run('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list, '-c', 'copy', path.join(P.out, 'master.mp4')]);
     console.log(`master: ${path.relative(process.cwd(), path.join(P.out, 'master.mp4'))}（无 BGM，下一步 wb mix）`);
+    // 这一期登记过外部短视频（clips.json）就顺手拼出带插片的 master，mix 会优先用它
+    try {
+      const cl = require('./clip-lib.js').buildClipMaster(P, (m) => console.log(m));
+      if (cl) console.log(`带插片的 master: ${path.relative(process.cwd(), cl)}`);
+    } catch (e) { console.log(`插片没拼上：${e.message}`); }
     if (cfg.captions.enabled) { const r = writeSrt(P.project); console.log(`字幕 ${r.count} 条 → ${path.basename(r.file)}`); }
   }
 }

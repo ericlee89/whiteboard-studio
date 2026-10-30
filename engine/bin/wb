@@ -1,5 +1,5 @@
-#!/bin/bash
-# 白板讲解视频工作台 CLI —— 每期内容在 config.json dirs.projects，中间产物与成片在 dirs.build
+# 视频工作台 CLI —— 两种形态：whiteboard（手绘白板，scenes.js）｜doc（文档型，doc.json）
+# 每期内容在 config.json dirs.projects，中间产物与成片在 dirs.build
 #   wb new "<标题>"            新建一期：<projects>/<今天日期> <标题>/scenes.js（从模板复制）
 #   wb list                    列出所有期
 #   wb scenes <期>             生成 Excalidraw 场景 + script.json + 旁白稿.md
@@ -11,8 +11,16 @@
 #   wb render <期> [scene]     渲染 → <后台>/<期>/work/out/master.mp4
 #   wb captions <期>           核对字幕：每条的时间、文本，以及高亮分段（[a·b·c] 就是色块依次跳的位置）
 #   wb mix <期> [gain]         混 BGM → <后台>/<期>/outputs/final.mp4
+#   wb clip <期> <视频> [选项]  把外部短视频接进成片：--where start|<段名>|end（默认 end）｜--mode cut|pip｜--size .32｜--corner br --from 2
+#                              --list 列出已登记插片｜--remove <序号> 移除；清单存期目录 clips.json，重跑 build 会自动带上
 #   wb cover <期>              出封面 → <期>/封面-4x3.png、封面-3x4.png、封面-9x16.png（画幅 config cover.ratios；scenes.js 里 build 第三参 cover）
 #   wb build <期>              scenes + tts + render + mix + cover 一条龙，出片后自动 clean
+#                              （期目录里有 doc.json 时自动走文档型引擎，效果同 wb doc build）
+#   wb doc new "<标题>"        建一期「文档型」视频：doc.json 当唯一手写源，Remotion 渲染
+#   wb doc check <期>          校验 doc.json（版式字段、图片在不在、旁白有没有漏）
+#   wb doc stills <期>         每个场景渲一张中点静帧
+#   wb doc build <期>          配音 + 渲染 → <后台>/<期>/outputs/final.mp4
+#   wb doc cover <期>          三张封面 4:3 / 3:4 / 9:16
 #   wb clean <期>              清中间产物：work/frames 静帧、work/out 里已不在场景表的旧分段（分段与 master 保留）
 #   wb open <期>               在 Finder 里打开期目录与后台目录
 #   <期> 可以是目录名、标题或日期的任意子串，如 wb build 薄肌
@@ -30,7 +38,9 @@ studioOf() { node -p "require('./lib/paths.cjs').projectPaths(process.argv[1]).s
 
 # 配音引擎：config.json tts.engine（volc=火山 / mi=小米 MiMo，都走 lib/tts-volc.mjs；
 # edge=本机 edge-tts 免费备胎，走 python）
-ENGINE=$(node -p "require('./lib/paths.cjs').cfg.tts.engine||'volc'")
+# 配音引擎：WB_TTS 环境变量优先（样例/试效果用 WB_TTS=edge 走免费微软通道，不消耗火山额度）
+ENGINE="${WB_TTS:-$(node -p "require('./lib/paths.cjs').cfg.tts.engine||'volc'")}"
+export TTS_ENGINE="$ENGINE"
 EDGE_PY=$(node -p "(require('./lib/paths.cjs').cfg.tts.edge||{}).python||''")
 do_tts() {
   if [ "$ENGINE" = "edge" ]; then
@@ -64,7 +74,13 @@ case "$cmd" in
     ;;
   list) node -p "require('./lib/paths.cjs').listProjects().join('\n')" ;;
   scenes) P=$(resolve "$1"); node "$P/scenes.js" ;;
-  stills) P=$(resolve "$1"); node "$P/scenes.js" >/dev/null; shift; node lib/render.js "$P" --stills "$@"; echo "静帧在 $(studioOf "$P")/work/frames/" ;;
+  stills)
+    P=$(resolve "$1")
+    if [ -f "$P/doc.json" ]; then
+      node engines/doc/cli.mjs stills "$P"
+    else
+      node "$P/scenes.js" >/dev/null; shift; node lib/render.js "$P" --stills "$@"; echo "静帧在 $(studioOf "$P")/work/frames/"
+    fi ;;
   image) P=$(resolve "$1"); shift; node lib/gen-image.mjs "$P" "$@" ;;
   logo)
     if [[ "$1" == --search=* ]]; then node lib/fetch-logo.mjs _ "$1"; exit; fi
@@ -74,19 +90,30 @@ case "$cmd" in
   render) P=$(resolve "$1"); shift; node lib/render.js "$P" "$@" ;;
   captions) P=$(resolve "$1"); node lib/captions.cjs "$P" --dump ;;
   clean) P=$(resolve "$1"); node lib/render.js "$P" --clean ;;
-  cover) P=$(resolve "$1"); node "$P/scenes.js" >/dev/null; node lib/render.js "$P" --cover ;;
+  cover)
+    P=$(resolve "$1")
+    if [ -f "$P/doc.json" ]; then node engines/doc/cli.mjs cover "$P"; else
+      node "$P/scenes.js" >/dev/null; node lib/render.js "$P" --cover
+    fi ;;
   mix) P=$(resolve "$1"); shift; node lib/mix-bgm.mjs "$P" "$@"; node "$P/scenes.js" >/dev/null ;;
+  clip) P=$(resolve "$1"); shift; node lib/clip.js "$P" "$@" ;;
+  doc) node engines/doc/cli.mjs "$@" ;;
   build)
     P=$(resolve "$1")
-    node "$P/scenes.js"
-    do_tts "$P"
-    node lib/render.js "$P"
-    node lib/mix-bgm.mjs "$P"
-    node "$P/scenes.js" >/dev/null   # 刷新旁白稿里的时长与成片链接
-    [ -f "$P/scenes/cover.json" ] && node lib/render.js "$P" --cover || echo "（没定义封面，跳过；见 wb cover）"
-    node lib/render.js "$P" --clean
-    echo "成片：$(finalOf "$P")"
+    if [ -f "$P/doc.json" ]; then
+      # 文档型形态（doc 引擎）：doc.json → 配音 → Remotion 渲染
+      node engines/doc/cli.mjs build "$P"
+    else
+      node "$P/scenes.js"
+      do_tts "$P"
+      node lib/render.js "$P"
+      node lib/mix-bgm.mjs "$P"
+      node "$P/scenes.js" >/dev/null   # 刷新旁白稿里的时长与成片链接
+      [ -f "$P/scenes/cover.json" ] && node lib/render.js "$P" --cover || echo "（没定义封面，跳过；见 wb cover）"
+      node lib/render.js "$P" --clean
+      echo "成片：$(finalOf "$P")"
+    fi
     ;;
   open) P=$(resolve "$1"); open_dir "$P"; S=$(studioOf "$P"); [ -d "$S" ] && open_dir "$S" ;;
-  *) sed -n '2,17p' "$0" ;;
+  *) sed -n '2,26p' "$0" ;;
 esac

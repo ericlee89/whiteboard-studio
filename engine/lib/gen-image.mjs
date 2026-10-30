@@ -13,8 +13,14 @@ import paths from "./paths.cjs";
 // codex CLI 的定位：Windows 上 npm 全局只提供 codex.cmd / codex.ps1 包装，Node 的 spawn 既不能直接跑 .cmd
 // （会被 EINVAL/ENOENT 拦掉），所以直接找到包内真正的入口 codex.js，用当前 node 执行，跨平台一致。
 function resolveCodex() {
-  if (process.env.CODEX_BIN) return process.env.CODEX_BIN; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  const dirs = (process.env.PATH || "").split(path.delimiter).filter(Boolean); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (process.env.CODEX_BIN) return process.env.CODEX_BIN;
+  // ChatGPT 桌面版自带的 codex 落在 ~/.codex/.sandbox-bin/codex.exe，不进 PATH，先查这里
+  const exe = process.platform === "win32" ? "codex.exe" : "codex";
+  for (const p of [
+    path.join(os.homedir(), ".codex", ".sandbox-bin", exe),
+    path.join(os.homedir(), ".codex", "bin", exe),
+  ]) if (fs.existsSync(p)) return p;
+  const dirs = (process.env.PATH || "").split(path.delimiter).filter(Boolean);
   const rels = [
     "node_modules/@openai/codex/bin/codex.js",
     "../node_modules/@openai/codex/bin/codex.js",
@@ -27,9 +33,9 @@ function resolveCodex() {
   return "codex";
 }
 const CODEX_BIN = resolveCodex();
-const CODEX_MODEL = process.env.CODEX_IMAGE_MODEL || "gpt-5.5"; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const CODEX_MODEL = process.env.CODEX_IMAGE_MODEL || "gpt-5.5";
 const GEN_DIR = path.join(os.homedir(), ".codex", "generated_images");
-const TIMEOUT_MS = Number(process.env.CODEX_IMAGE_TIMEOUT_MS || 360000); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const TIMEOUT_MS = Number(process.env.CODEX_IMAGE_TIMEOUT_MS || 360000);
 
 const STYLE =
   "Whiteboard sticker illustration in Excalidraw hand-drawn style: thick, slightly wobbly black marker outlines, " +

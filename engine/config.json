@@ -5,11 +5,11 @@
     "_note": "projects = 每期内容目录（人看、人改的：scenes.js、场景图、贴纸、旁白稿、字幕、封面、README、发布.md），可以指到 Obsidian 仓库里；build = 后台目录，每期 <期>/work/ 放中间产物（音频/逐帧/分段 mp4），<期>/outputs/final.mp4 是成片。相对路径以本仓库根目录为准，~ 表示家目录"
   },
   "tts": {
-    "engine": "mi",
+    "engine": "volc",
     "voice": "zh_male_liufei_uranus_bigtts",
     "resourceId": "seed-tts-2.0",
-    "endpoint": "plan",
-    "speed": 1.2,
+    "endpoint": "standard",
+    "speed": 1,
     "loudness": 1,
     "style": "",
     "mi": {
@@ -21,8 +21,8 @@
     },
     "edge": {
       "voice": "zh-CN-YunxiNeural",
-      "python": "C:/Users/wwwzh/.workbuddy/binaries/python/envs/default/Scripts/python.exe",
-      "rate": "",
+      "python": "C:/Users/一碗米饭/.workbuddy/binaries/python/envs/default/Scripts/python.exe",
+      "rate": "+0%",
       "volume": "+0%",
       "pitch": "+0Hz",
       "_note": "本机备胎通道（edge-tts，免费、无需付费凭证）。voice 常用：zh-CN-YunxiNeural（云希·男·讲解）、zh-CN-XiaoxiaoNeural（晓晓·女）、zh-CN-YunjianNeural（云健·男·有力）、zh-CN-YunyangNeural（云扬·男·新闻）。python 指向已装 edge_tts 的解释器。rate 留空则按 tts.speed 换算（1.2 → +20%）。改 voice/speed 会自动重配（缓存键含音色与语速），强制重配 FORCE_TTS=1。"
@@ -71,7 +71,7 @@
     "leadSeconds": 0.08,
     "tailSeconds": 0.25,
     "highlight": {
-      "enabled": true,
+      "enabled": false,
       "color": "",
       "textColor": "#fffdf7",
       "keepHalo": false,
@@ -85,31 +85,31 @@
     "_note": "烧录字幕：小赖字体、墨色 + 纸色描边，居中于底部；safeTop 以下 110px 留给字幕，场景元素别越界（wb scenes 会警告）。SRT 另存期目录 字幕.srt。highlight=跟读高亮：语音念到哪个高亮单元，就在那一段背后套一个色块、文字转反白（color 留空 = 用品牌色 brand.accent；textColor 高亮时的字色；keepHalo=true 保留纸色描边、字仍用原色，想要「半透明马克笔划过」就把 opacity 调到 0.3 左右、keepHalo 设 true；radius/padX/padY 色块圆角与四周留白）。粒度：minUnitChars 是每段最少几个字（不够就并给相邻段，免得色块一秒跳五六次），maxUnitChars 是上限（超了按比例再切；切点会避开英文单词，不把 MiMo 拦腰截断）。文字层、SRT 都不受影响，高亮只烧进画面"
   },
   "brand": {
-    "name": "海老豹666",
-    "slogan": "AI 工具实测 · 讲人话",
-    "accent": "#2f9e44",
+    "name": "轻狂书生",
+    "slogan": "",
+    "accent": "#b5432f",
     "ink": "#1e1e1e",
     "logo": "",
     "watermark": {
-      "enabled": true,
+      "enabled": false,
       "position": "top-right",
-      "opacity": 0.72,
-      "size": 36,
-      "margin": 56,
+      "opacity": 0.82,
+      "size": 42,
+      "margin": 66,
       "drawInSeconds": 1.2,
-      "sparkle": true,
+      "sparkle": false,
       "underline": true
     },
     "endCard": {
-      "enabled": true,
+      "enabled": false,
       "seconds": 5.5,
-      "cta": "点赞 · 关注 · 评论区聊聊",
+      "cta": "",
       "holdSeconds": 1.5
     },
     "pen": {
       "color": "#f5b942"
     },
-    "_note": "品牌层。name=水印/片尾的手写字（小赖字体）；accent=品牌绿（水印下划线、星号、片尾划线，DSL 里 C.brand）；logo=可选透明底 png 路径（~ 可用），给了就代替手写名；watermark.position=top-right|top-left|bottom-right|bottom-left，drawInSeconds=第一场景开头逐笔画出水印的时长（0 则直接出现）；endCard=片尾品牌卡（名字+划线+slogan+CTA，静音，BGM 继续；seconds 总长，最后 holdSeconds 静止展示）；pen.color=铅笔笔身颜色"
+    "_note": "品牌层。name=水印/片尾的手写字（小赖字体）；accent=品牌主色（水印下划线、星号、片尾划线，DSL 里 C.brand）；logo=可选 png 路径（~ 可用），给了就代替手写名（水印与片尾卡都用它）——白底或透明底都行，白底要求纸色本身是白的；watermark.position=top-right|top-left|bottom-right|bottom-left，drawInSeconds=第一场景开头逐笔画出水印的时长（0 则直接出现）；endCard=片尾品牌卡（名字+划线+slogan+CTA，静音，BGM 继续；seconds 总长，最后 holdSeconds 静止展示）；pen.color=铅笔笔身颜色"
   },
   "cover": {
     "ratios": [
@@ -117,9 +117,52 @@
       "3:4",
       "9:16"
     ],
-    "seriesTag": "白板讲清楚",
+    "seriesTag": "古诗赏析",
     "frame": true,
     "frameColor": "#1e1e1e",
     "_note": "封面：ratios 出几种画幅（4:3=1440×1080 公众号/横版，3:4=1080×1440 视频号竖版/小红书，9:16=1080×1920 抖音/快手竖版；也支持 16:9=1920×1080、1:1=1080×1080）；seriesTag=左上角系列标签默认文案（scenes.js 里 tag 可覆盖）。**别在标签里写死时长**：片子可长可短，写了「3 分钟」做长片就自相矛盾；要强调时长就在 scenes.js 的 cover 里按本期实际时长传 tag。frame=四周手绘粗边框。封面内容在 scenes.js 的 cover 函数里写，wb cover 按 ratios 出 <期>/封面-4x3.png、封面-3x4.png、封面-9x16.png。9:16 版式把标题与贴纸压在中央安全区，因为抖音封面上下会被裁掉一部分（1080×1920 实际展示约 1080×1464）"
+  },
+  "style": {
+    "preset": "culture",
+    "presets": {
+      "classic": {
+        "fontFile": "Xiaolai-Regular.ttf",
+        "paper": "#fffdf7",
+        "dots": true,
+        "dotColor": "#d9d4c7",
+        "dotGap": 40,
+        "dotRadius": 1.6
+      },
+      "training": {
+        "fontFile": "PingFangJiangNanTi.ttf",
+        "paper": "#ffffff",
+        "dots": false,
+        "dotColor": "#e8e8e8",
+        "dotGap": 40,
+        "dotRadius": 1.6,
+        "latin": "fallback"
+      },
+      "culture": {
+        "fontFile": "PingFangXiangSiTi.ttf",
+        "paper": "#f7f1e3",
+        "dots": true,
+        "dotColor": "#e3d9c4",
+        "dotGap": 40,
+        "dotRadius": 1.6
+      },
+      "office": {
+        "fontFile": "PingFangJiangNanTi.ttf",
+        "paper": "#f3f5f7",
+        "dots": false,
+        "dotColor": "#dfe3e6",
+        "dotGap": 40,
+        "dotRadius": 1.6,
+        "latin": "fallback"
+      }
+    },
+    "override": {
+      "fontFile": "STKAITI.TTF"
+    },
+    "_note": "风格层：preset 选一个预设，override 只改单项（如 {\"paper\":\"#ffffff\"} 或 {\"fontFile\":\"PingFangXiangSiTi.ttf\"}，优先级高于预设）。四个预设——classic=小赖体+米白点阵（作者原样）｜training=苹方江南体+纯白无点阵（投屏、远看清）｜culture=苹方相思体+暖米黄点阵（文化类）｜office=苹方江南体+冷浅灰无点阵（办公）。字体文件放 assets/fonts/，dotGap=点阵间距、dotRadius=点半径，dots=false 关闭点阵。纸色会同步用于字幕描边，换背景不用另调字幕。"
   }
 }

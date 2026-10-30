@@ -40,7 +40,7 @@ await page.evaluate(() => document.fonts.ready);
 // 想对比"改之前"的节奏，用 PEN_OVERRIDE 传一组旧值，例如：
 //   PEN_OVERRIDE='{"speed":1000,"overflow":0.35,"minSeconds":0.35,"gapSeconds":0.12,"charSeconds":[0.06,0.2],"fillMaxSeconds":1.2,"fillSpeed":9000}' node lib/diag-schedule.mjs <期目录>
 const PEN = { ...(cfg.render.pen || {}), color: BRAND.pen && BRAND.pen.color };
-if (process.env.PEN_OVERRIDE) Object.assign(PEN, JSON.parse(process.env.PEN_OVERRIDE)); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+if (process.env.PEN_OVERRIDE) Object.assign(PEN, JSON.parse(process.env.PEN_OVERRIDE));
 await page.evaluate((o) => window.setPen(o), PEN);
 
 const script = JSON.parse(fs.readFileSync(P.script));

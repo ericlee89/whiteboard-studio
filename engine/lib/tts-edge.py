@@ -20,15 +20,6 @@ import subprocess
 import sys
 
 import edge_tts
-from edge_tts import communicate as edge_communicate
-
-# Preserve TLS verification while trusting an operator-supplied corporate CA.
-# edge-tts uses a certifi context, which otherwise ignores SSL_CERT_FILE.
-ca_bundle = os.environ.get("SSL_CERT_FILE")
-if ca_bundle:
-    context = getattr(edge_communicate, "_SSL_CTX", None)
-    if context is not None:
-        context.load_verify_locations(cafile=ca_bundle)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)

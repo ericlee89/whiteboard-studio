@@ -10,8 +10,8 @@ import paths from "./paths.cjs";
 const { cfg } = paths;
 try { process.loadEnvFile(path.join(paths.ROOT, ".env")); } catch { /* 没有 .env 就只用环境变量 */ }
 
-const ENGINE = process.env.TTS_ENGINE || cfg.tts.engine || "volc"; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-process.env.TTS_ENGINE = ENGINE; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const ENGINE = process.env.TTS_ENGINE || cfg.tts.engine || "volc";
+process.env.TTS_ENGINE = ENGINE;
 const SPEED = Number(cfg.tts.speed || 1);
 const LOUDNESS = Number(cfg.tts.loudness || 1);
 const out = path.join(paths.BUILD_DIR, "_voice-check.wav");
@@ -30,15 +30,15 @@ if (ENGINE === "edge") {
 
 if (ENGINE === "mi") {
   const mi = cfg.tts.mi || {};
-  if (mi.baseUrl) process.env.MI_TTS_BASE_URL = String(mi.baseUrl); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  if (mi.model) process.env.MI_TTS_MODEL = String(mi.model); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  if (mi.style) process.env.MI_TTS_STYLE = String(mi.style); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  process.env.MI_TTS_SPEED = String(SPEED); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  process.env.MI_TTS_LOUDNESS = String(LOUDNESS); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (mi.baseUrl) process.env.MI_TTS_BASE_URL = String(mi.baseUrl);
+  if (mi.model) process.env.MI_TTS_MODEL = String(mi.model);
+  if (mi.style) process.env.MI_TTS_STYLE = String(mi.style);
+  process.env.MI_TTS_SPEED = String(SPEED);
+  process.env.MI_TTS_LOUDNESS = String(LOUDNESS);
 
   const { synthesize } = await import("./tts/tts.mjs");
   const { resolveMiConfig } = await import("./tts/mi.mjs");
-  const VOICE = mi.voice || process.env.MI_TTS_VOICE || ""; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const VOICE = mi.voice || process.env.MI_TTS_VOICE || "";
   let vc;
   try {
     vc = resolveMiConfig(VOICE);
@@ -53,7 +53,7 @@ if (ENGINE === "mi") {
   console.log(`时间轴   静音检测估算（小米接口不返回逐字时间戳，与火山不同）`);
   console.log(`变速     ${SPEED !== 1 ? `本地 ffmpeg atempo=${SPEED}（接口无语速参数）` : "原速"}`);
   console.log("—— 试合成一句 ——");
-  process.env.FORCE_TTS = "1";   // 自检必须真打一次接口，别吃缓存 // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  process.env.FORCE_TTS = "1";   // 自检必须真打一次接口，别吃缓存
   fs.mkdirSync(path.dirname(out), { recursive: true });
   try {
     const r = await synthesize(SAMPLE, out, { voice: VOICE });
@@ -68,14 +68,14 @@ if (ENGINE === "mi") {
   process.exit(0);
 }
 
-if (cfg.tts.resourceId) process.env.VOLC_TTS_RESOURCE_ID = cfg.tts.resourceId; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-if (cfg.tts.endpoint) process.env.VOLC_TTS_ENDPOINT = String(cfg.tts.endpoint); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-process.env.VOLC_TTS_SPEED = String(Math.max(-50, Math.min(100, Math.round((SPEED - 1) * 100)))); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-if (cfg.tts.style) process.env.VOLC_TTS_STYLE = String(cfg.tts.style); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-process.env.FORCE_TTS = "1";   // 自检必须真打一次接口，别吃缓存 // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request. // guard:allow-env-mutation — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+if (cfg.tts.resourceId) process.env.VOLC_TTS_RESOURCE_ID = cfg.tts.resourceId;
+if (cfg.tts.endpoint) process.env.VOLC_TTS_ENDPOINT = String(cfg.tts.endpoint);
+process.env.VOLC_TTS_SPEED = String(Math.max(-50, Math.min(100, Math.round((SPEED - 1) * 100))));
+if (cfg.tts.style) process.env.VOLC_TTS_STYLE = String(cfg.tts.style);
+process.env.FORCE_TTS = "1";   // 自检必须真打一次接口，别吃缓存
 
 const { synthesize, resolveVolcConfig } = await import("./tts/tts.mjs");
-const VOICE = cfg.tts.voice || process.env.VOLC_TTS_VOICE || ""; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const VOICE = cfg.tts.voice || process.env.VOLC_TTS_VOICE || "";
 let vc;
 try {
   vc = resolveVolcConfig(VOICE);
@@ -86,7 +86,7 @@ try {
 console.log(`engine   volc（火山引擎 / 豆包语音合成）`);
 console.log(`端点     ${vc.mode} 域  ${vc.url}`);
 console.log(`资源     ${vc.resourceId}`);
-console.log(`音色     ${vc.speaker} @${SPEED}x${process.env.VOLC_TTS_STYLE ? `  风格「${process.env.VOLC_TTS_STYLE}」` : ""}`); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+console.log(`音色     ${vc.speaker} @${SPEED}x${process.env.VOLC_TTS_STYLE ? `  风格「${process.env.VOLC_TTS_STYLE}」` : ""}`);
 console.log("—— 试合成一句 ——");
 
 fs.mkdirSync(path.dirname(out), { recursive: true });

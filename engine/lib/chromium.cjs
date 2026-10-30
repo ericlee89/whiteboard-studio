@@ -10,10 +10,10 @@ const path = require('path');
 
 function resolveChromium(explicit) {
   if (explicit && fs.existsSync(explicit)) return explicit;
-  if (process.env.WB_CHROMIUM && fs.existsSync(process.env.WB_CHROMIUM)) return process.env.WB_CHROMIUM; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  if (process.env.WB_CHROMIUM && fs.existsSync(process.env.WB_CHROMIUM)) return process.env.WB_CHROMIUM;
   const home = os.homedir();
   const roots = [
-    process.env.LOCALAPPDATA, // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+    process.env.LOCALAPPDATA,
     path.join(home, 'AppData', 'Local'),
     path.join(home, 'Library', 'Caches'),
     path.join(home, '.cache'),

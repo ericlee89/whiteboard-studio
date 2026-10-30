@@ -9,7 +9,10 @@ import paths from "./paths.cjs";
 const { projectPaths } = paths;
 const cfg = paths.cfg.bgm;
 const P = projectPaths(process.argv[2] || ".");
-const IN = path.join(P.out, "master.mp4");
+// 这一期登记过外部短视频时，render 会多拼一个 master-clip.mp4（插片已融合），混音优先用它。
+const IN = fs.existsSync(path.join(P.out, "master-clip.mp4"))
+  ? path.join(P.out, "master-clip.mp4")
+  : path.join(P.out, "master.mp4");
 const OUT = P.final; // 成片落在后台 outputs/，旁白稿里放文件链接
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 const GAIN = Number(process.argv[3] || cfg.gain);
@@ -27,7 +30,7 @@ function normTrack(raw) {
   return { file: paths.expand(it.file), trim: Array.isArray(it.trim) && it.trim.length === 2 ? it.trim : null, gain: Number(it.gain || 1) };
 }
 function wantedList() {
-  const raw = process.env.BGM_PLAYLIST != null ? process.env.BGM_PLAYLIST : cfg.playlist; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const raw = process.env.BGM_PLAYLIST != null ? process.env.BGM_PLAYLIST : cfg.playlist;
   if (raw == null || raw === "") return [];
   let arr = raw;
   if (typeof arr === "string") { try { arr = JSON.parse(arr); } catch { arr = [arr]; } }
@@ -38,7 +41,7 @@ const tracks = [];
 for (const t of wanted) { if (fs.existsSync(t.file)) tracks.push(t); else console.warn(`  ⚠ 配乐不存在，跳过：${t.file}`); }
 if (!tracks.length) {
   if (wanted.length) console.warn("  ⚠ bgm.playlist 里的配乐都找不到，回退到 bgm.file");
-  const single = paths.expand(process.env.BGM || cfg.file || "assets/bgm.mp3"); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const single = paths.expand(process.env.BGM || cfg.file || "assets/bgm.mp3");
   // ⚠️ cfg.trim 默认是空数组 []，而空数组是**真值** —— 直接当 trim 用会得到 atrim=undefined:NaN。
   //    只有长度恰好是 2 的数组才算有效裁剪区间。
   const trim = Array.isArray(cfg.trim) && cfg.trim.length === 2 ? cfg.trim : null;

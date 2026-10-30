@@ -42,13 +42,13 @@ export const ALIGN_VERSION = 3;
 
 // 凭证 / 端点 / 音色（config tts.mi.* 与 .env MI_TTS_* 已由 tts-volc.mjs 灌进环境变量）。导出给回显用。
 export function resolveMiConfig(voice) {
-  const apiKey = process.env.MI_TTS_API_KEY || ""; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  if (!apiKey) throw new Error("缺少小米凭证：请在应用项目根目录 .env 配置 MI_TTS_API_KEY，保存后重启应用；需使用与 MI_TTS_BASE_URL 匹配的有效 TTS 密钥");
-  const baseUrl = (process.env.MI_TTS_BASE_URL || DEFAULT_BASE).replace(/\/+$/, ""); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  const model = process.env.MI_TTS_MODEL || DEFAULT_MODEL; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const apiKey = process.env.MI_TTS_API_KEY || "";
+  if (!apiKey) throw new Error("缺少小米凭证：在 .env 配 MI_TTS_API_KEY（token-plan 的 tp- 开头 Key）");
+  const baseUrl = (process.env.MI_TTS_BASE_URL || DEFAULT_BASE).replace(/\/+$/, "");
+  const model = process.env.MI_TTS_MODEL || DEFAULT_MODEL;
   // voice 优先用显式传入的（driver 已按引擎挑好），其次环境变量，最后默认。
-  const speaker = voice || process.env.MI_TTS_VOICE || DEFAULT_VOICE; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  const style = process.env.MI_TTS_STYLE || ""; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const speaker = voice || process.env.MI_TTS_VOICE || DEFAULT_VOICE;
+  const style = process.env.MI_TTS_STYLE || "";
   return { apiKey, baseUrl, model, speaker, style };
 }
 
@@ -207,10 +207,10 @@ export function explainMiFailure(status, raw) {
     hints.push("format 只能是 wav / mp3 / pcm / pcm16（opus、aac 不支持）");
   }
   if (status === 401 || status === 403 || /api.?key|unauthorized|invalid.*token/i.test(text)) {
-    hints.push("凭证问题：核对项目根目录 .env 的 MI_TTS_API_KEY 是否与 MI_TTS_BASE_URL 匹配，以及账户是否具备该 TTS 服务权限和余量");
+    hints.push("凭证问题：核对 .env 的 MI_TTS_API_KEY（token-plan 的 tp- 开头 Key），以及它是否还有余量");
   }
   if (status === 404) {
-    hints.push(`baseUrl 或路径不对：小米只有 {baseUrl}/chat/completions 这一个入口（/audio/speech、/tts 都是 404）。当前 baseUrl=${process.env.MI_TTS_BASE_URL || DEFAULT_BASE}`); // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+    hints.push(`baseUrl 或路径不对：小米只有 {baseUrl}/chat/completions 这一个入口（/audio/speech、/tts 都是 404）。当前 baseUrl=${process.env.MI_TTS_BASE_URL || DEFAULT_BASE}`);
   }
   if (status === 429 || /rate.?limit|too many/i.test(text)) {
     hints.push("触发限流：等几秒重试，或减小并发（本仓库是逐段串行合成）");
@@ -285,8 +285,8 @@ export async function synthesizeMi(text, outWav, { voice } = {}) {
     throw new Error(`小米 TTS 响应解析失败：${raw.slice(0, 300)}`);
   }
 
-  const speed = Number(process.env.MI_TTS_SPEED || 1) || 1; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
-  const loudness = Number(process.env.MI_TTS_LOUDNESS || 1) || 1; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+  const speed = Number(process.env.MI_TTS_SPEED || 1) || 1;
+  const loudness = Number(process.env.MI_TTS_LOUDNESS || 1) || 1;
   toWav(Buffer.from(b64, "base64"), outWav, { speed, loudness });
 
   // 时间轴必须基于**后处理之后**的音频来量（atempo 改过时长），否则字幕会整体偏。

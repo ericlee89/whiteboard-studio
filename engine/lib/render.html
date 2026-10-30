@@ -6,8 +6,10 @@
   @font-face { font-family: 'Xiaolai'; src: url('../assets/fonts/Xiaolai-Regular.ttf'); }
   html, body { margin: 0; padding: 0; background: #fffdf7; width: 1920px; height: 1080px; overflow: hidden; }
   svg { display: block; }
-  text { font-family: 'Xiaolai', 'Chalkboard SE', 'PingFang SC', sans-serif; white-space: pre; }
-  #warm { font-family: 'Xiaolai'; position: absolute; opacity: 0; }
+  /* --wb-font 是风格层选中的字体；--wb-latin 只在「中英混排」模式（style.latin=fallback）下被赋值，
+     给字母数字一个中性字体，免得手写体的拉丁字形把 DICT 这类词拉宽、变形。 */
+  text { font-family: var(--wb-font, 'Xiaolai'), var(--wb-latin, 'Chalkboard SE'), 'PingFang SC', sans-serif; white-space: pre; }
+  #warm { font-family: var(--wb-font, 'Xiaolai'); position: absolute; opacity: 0; }
 </style>
 <script src="../node_modules/roughjs/bundled/rough.js"></script>
 </head>
@@ -277,6 +279,41 @@ window.setCanvas = function (w, h) {
 };
 window.setPen = function (opts) { Object.assign(PEN, opts || {}); if (opts && opts.color) document.getElementById('penBody').setAttribute('fill', opts.color); };
 
+// 风格层（config.json 的 style）：纸色 / 点阵 / 字体。必须在 document.fonts.ready 之前调用，
+// 否则首帧会用默认字体排一次字宽，字幕与画面文字会错位。
+window.setStyle = async function (st) {
+  if (!st) return;
+  const paper = st.paper || PAPER;
+  document.documentElement.style.background = paper;
+  document.body.style.background = paper;
+  const bg1 = document.getElementById('bg1'); if (bg1) bg1.setAttribute('fill', paper);
+  const bg2 = document.getElementById('bg2');
+  if (bg2) bg2.setAttribute('fill', st.dots === false ? 'none' : 'url(#dots)');
+  const pat = document.getElementById('dots');
+  const cir = pat && pat.querySelector('circle');
+  if (cir) {
+    const gap = st.dotGap || 40;
+    if (st.dotColor) cir.setAttribute('fill', st.dotColor);
+    if (st.dotGap) { pat.setAttribute('width', gap); pat.setAttribute('height', gap); cir.setAttribute('cx', gap / 2); cir.setAttribute('cy', gap / 2); }
+    cir.setAttribute('r', st.dotRadius == null ? 1.6 : st.dotRadius);
+  }
+  PAPER = paper;                                  // 字幕描边（纸色 halo）跟着背景走
+  const cap = document.getElementById('capText'); if (cap) cap.setAttribute('stroke', paper);
+  if (st.fontFile) {
+    const fam = 'WBFont';
+    // style.latin = 'fallback'：把这个字体限制在 CJK 区段，字母/数字落到 --wb-latin 上。
+    // 用在苹方江南体这类「拉丁字宽偏大」的字体上，避免 DICT 变成 D I C T。
+    const desc = st.latin === 'fallback'
+      ? { unicodeRange: 'U+2E80-9FFF, U+3000-303F, U+FF00-FFEF, U+F900-FAFF' }
+      : undefined;
+    const ff = new FontFace(fam, `url("../assets/fonts/${st.fontFile}")`, desc);
+    await ff.load();
+    document.fonts.add(ff);
+    document.documentElement.style.setProperty('--wb-font', `'${fam}'`);
+    document.documentElement.style.setProperty('--wb-latin', st.latin === 'fallback' ? "'Microsoft YaHei'" : "'Chalkboard SE'");
+  }
+};
+
 // 贴纸/Logo 解码完再截图：并行渲染时每页各自装场景，第一帧可能落在图片已露出的时刻
 window.imagesReady = () => Promise.all([...document.querySelectorAll('#layer image, #brand image')].map((im) => im.decode().catch(() => {})));
 
@@ -357,9 +394,57 @@ function setStrokeProgress(p, f) {
   return null;
 }
 
+// ── 动效原语（motion）──────────────────────────────────────────────
+// 元素带 el.motion 时：不经过笔描，直接以运动出现。笔会跳过它继续走。
+// null/undefined 时完全走旧路径，老片渲染逐帧一致。
+//   blur  —— 模糊到清晰（文字/贴纸/图形都适用）
+//   scale —— 从略大缩到位，带一次轻微过冲
+//   slide —— 从下方推上来
+const easeOutCubic = (v) => 1 - Math.pow(1 - clamp01(v), 3);
+
+function applyMotion(b, f) {
+  const mo = b.el.motion, g = b.g, el = b.el;
+  if (!g) return;
+  const e = easeOutCubic(f);
+  g.style.opacity = f <= 0 ? '0' : Math.min(1, e * 1.9).toFixed(3);
+  const cx = el.x + el.width / 2, cy = el.y + el.height / 2;
+  if (mo === 'blur') {
+    g.removeAttribute('transform');
+    g.style.filter = `blur(${((1 - e) * 14).toFixed(2)}px)`;
+  } else if (mo === 'scale') {
+    g.style.filter = '';
+    // 用 SVG transform 属性而非 CSS transform：CSS transform-box:fill-box 在这套 g 结构上不可靠，
+    // 实测会让元素整块消失。属性写法绕开 transform-origin，绕中心显式计算。
+    const k = 1 + (1 - e) * 0.6;
+    g.setAttribute('transform',
+      `translate(${cx.toFixed(1)},${cy.toFixed(1)}) scale(${k.toFixed(4)}) translate(${(-cx).toFixed(1)},${(-cy).toFixed(1)})`);
+  } else if (mo === 'slide') {
+    g.style.filter = '';
+    g.setAttribute('transform', `translate(0,${((1 - e) * 52).toFixed(1)})`);
+  } else {
+    g.style.filter = '';
+    g.removeAttribute('transform');
+  }
+}
+
 // 推进一个元素到进度 f，返回笔尖坐标（画完/没开始返回 null）
 function progressItem(b, f) {
   let tip = null;
+  // 带 motion 的元素：不走「从左往右擦」那条路径，直接把裁剪遮罩摘掉。
+  // 原因：给含 clip-path 的 <g> 加 transform 时，Chromium 会连裁剪一起变换，实测把内容全裁没。
+  // 对动效元素来说遮罩本来就多余——它靠 opacity/transform 入场，不需要逐字擦出。
+  if (b.el && b.el.motion) {
+    if (b.kind === 'text') {
+      for (const p of b.parts) if (p.text.hasAttribute('clip-path')) p.text.removeAttribute('clip-path');
+    } else if (b.kind === 'image') {
+      const im = b.g.querySelector('image');
+      if (im && im.hasAttribute('clip-path')) im.removeAttribute('clip-path');
+    } else if (b.clipRect) {
+      b.clipRect.setAttribute('width', b.el.width + 12);
+    }
+    applyMotion(b, f);
+    return null;
+  }
   if (b.kind === 'image') {
     const w = clamp01(f) * (b.el.width + 8);
     b.clipRect.setAttribute('width', w);
@@ -426,7 +511,8 @@ function travelTip(list, t) {
 const captionG = document.getElementById('caption');
 const capText = document.getElementById('capText');
 const capBox = document.getElementById('capBox');
-const INK = '#1e1e1e', PAPER = '#fffdf7';
+const INK = '#1e1e1e';
+let PAPER = '#fffdf7';
 let cues = [], HL = null, capCue = null, hlIdx = -2;
 
 window.setCaptions = function (list, style) {

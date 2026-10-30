@@ -260,9 +260,26 @@ function sceneInfos(P) {
 function writeSrt(projectDir) {
   const P = projectPaths(projectDir);
   const infos = sceneInfos(P);
+  const script = JSON.parse(fs.readFileSync(P.script));
+  // 插片偏移：整屏插入的片段会把后面所有字幕推后；画中画不占时间轴，忽略。
+  const before = new Array(infos.length).fill(0);
+  let clips = [];
+  try { clips = require('./clip-lib.js').readClips(P); } catch { clips = []; }
+  for (const c of clips) {
+    if ((c.mode || 'cut') !== 'cut') continue;
+    const d = Number(c.dur) || 0;
+    if (d <= 0) continue;
+    if (c.where === 'start') before[0] += d;
+    else if (c.where && c.where !== 'end') {
+      const i = script.findIndex((s) => s.name === c.where);
+      if (i >= 0 && i + 1 < before.length) before[i + 1] += d;
+    }
+  }
   let offset = 0, n = 0; const lines = [];
   const ts = (t) => { const ms = Math.round(t * 1000); const h = Math.floor(ms / 3600000), m = Math.floor(ms / 60000) % 60, s = Math.floor(ms / 1000) % 60; return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')},${String(ms % 1000).padStart(3, '0')}`; };
-  for (const info of infos) {
+  for (let i = 0; i < infos.length; i++) {
+    const info = infos[i];
+    offset += before[i];
     for (const c of cuesForScene(info)) lines.push(`${++n}\n${ts(offset + c.start)} --> ${ts(offset + c.end)}\n${c.text}\n`);
     offset += info.duration + LEAD + HOLD;
   }

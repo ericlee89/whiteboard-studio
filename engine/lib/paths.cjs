@@ -7,7 +7,7 @@ const path = require('path');
 
 // 跨平台家目录：Windows 上 process.env.HOME 常是 Git Bash 的 MSYS 路径（/c/Users/x），
 // Node 会当成当前盘符下的 \c\Users\x → 一律以 os.homedir() 为准。
-const HOME = os.homedir() || process.env.HOME || ''; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const HOME = os.homedir() || process.env.HOME || '';
 const ROOT = path.join(__dirname, '..');
 const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'config.json')));
 const expand = (p) => { const e = p.replace(/^~/, HOME); return path.isAbsolute(e) ? e : path.join(ROOT, e); };
@@ -47,7 +47,16 @@ function resolveProject(arg) {
 }
 
 function listProjects() {
-  return fs.readdirSync(PROJECTS_DIR).filter((d) => fs.existsSync(path.join(PROJECTS_DIR, d, 'scenes.js'))).sort();
+  // 两种形态都算：白板看 scenes.js，文档型看 doc.json
+  return fs
+    .readdirSync(PROJECTS_DIR)
+    .filter((d) => {
+      const p = path.join(PROJECTS_DIR, d);
+      return (
+        fs.existsSync(path.join(p, 'scenes.js')) || fs.existsSync(path.join(p, 'doc.json'))
+      );
+    })
+    .sort();
 }
 
 module.exports = { ROOT, cfg, PROJECTS_DIR, BUILD_DIR, projectPaths, resolveProject, listProjects, expand };

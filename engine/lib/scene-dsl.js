@@ -40,6 +40,9 @@ function base(type, x, y, w, h, o = {}) {
     groupIds: [], frameId: null, roundness: o.round ? { type: 3 } : null,
     seed: nextSeed(), version: 1, versionNonce: nextSeed(), isDeleted: false,
     boundElements: null, updated: Date.now(), link: null, locked: false,
+    // 动效原语：'blur' | 'scale' | 'slide' | null。
+    // 给了值 = 这个元素不经过笔描，直接以运动出现（笔跳过它）。null 时行为与旧版完全一致。
+    motion: o.motion || null,
   };
 }
 
@@ -67,7 +70,7 @@ class Scene {
     let tx = x;
     if (o.align === 'center') tx = x - m.width / 2;
     if (o.align === 'right') tx = x - m.width;
-    const el = base('text', tx, y, m.width, m.height, { stroke: o.color || C.ink, roughness: 0 });
+    const el = base('text', tx, y, m.width, m.height, { stroke: o.color || C.ink, roughness: 0, motion: o.motion });
     Object.assign(el, {
       text: str, originalText: str, fontSize: fs, fontFamily: o.font || 5,
       textAlign: o.align || 'left', verticalAlign: 'top', containerId: null, autoResize: true, lineHeight: 1.25,
@@ -109,7 +112,7 @@ class Scene {
     if (!w) { w = iw; h = ih; }
     if (o.align === 'center') x = x - w / 2;
     const fileId = 'img_' + name.replace(/[^a-z0-9]/gi, '_');
-    const el = base('image', x, y, w, h, { roughness: 0 });
+    const el = base('image', x, y, w, h, { roughness: 0, motion: o.motion });
     Object.assign(el, { fileId, status: 'saved', scale: [1, 1], crop: null });
     this.files[fileId] = { mimeType: 'image/png', id: fileId, dataURL: 'data:image/png;base64,' + buf.toString('base64'), created: Date.now(), name: `${name}.png` };
     return this.push(el);
@@ -165,7 +168,7 @@ class Scene {
   squiggle(x1, x2, y, o = {}) {
     const pts = [];
     for (let px = x1; px <= x2; px += 12) pts.push([px, y + Math.sin((px - x1) / 12) * 5]);
-    return this.line(pts, { stroke: o.color || C.red, strokeWidth: 3 });
+    return this.line(pts, { stroke: o.color || C.red, strokeWidth: 3, motion: o.motion });
   }
 
   // 渲染器直接用的文档（不落盘）：片尾品牌卡等虚拟场景用
@@ -179,15 +182,28 @@ class Scene {
     const col = o.color || C.fYellow;
     return this.rect(x, y, w, h, { fill: col, stroke: col, fillStyle: 'solid', roughness: o.roughness ?? 2.2, strokeWidth: 3, opacity: o.opacity ?? 90 });
   }
-  // 品牌标：星号 + 手写名 + 品牌色下划线（同水印/片尾母题）。x 为左边，size 字号；返回宽度
+  // 品牌标：logo 图（若配了 brand.logo）或 星号 + 手写名 + 品牌色下划线（同水印/片尾母题）。x 为左边，size 字号；返回宽度
+  brandMarkWidth(size = 56) {
+    const b = cfg.brand || {};
+    if (b.logo) {
+      const f = expandHome(b.logo);
+      if (fs.existsSync(f)) { const buf = fs.readFileSync(f); return Math.round(size * 1.1 * buf.readUInt32BE(16) / buf.readUInt32BE(20)); }
+    }
+    return measure(b.name || 'Your Brand', size).width;
+  }
   brandMark(x, y, size = 56, o = {}) {
     const b = cfg.brand || {}; const name = o.name || b.name || 'Your Brand'; const accent = o.accent || b.accent || C.green;
-    const w = measure(name, size).width;
-    const r = size * 0.32, sx = x - r * 0.9, sy = y + r * 0.6;
+    const logoFile = !o.name && b.logo ? expandHome(b.logo) : null;
+    const useLogo = !!(logoFile && fs.existsSync(logoFile));
+    const w = useLogo ? this.brandMarkWidth(size) : measure(name, size).width;
+    const h = useLogo ? Math.round(size * 1.1) : size * 1.25;
+    const r = size * 0.32, sx = x - (useLogo ? r * 2 : r * 0.9), sy = y + r * 0.6;
     const star = [[sx, sy - r], [sx + r * 0.28, sy - r * 0.28], [sx + r, sy], [sx + r * 0.28, sy + r * 0.28], [sx, sy + r], [sx - r * 0.28, sy + r * 0.28], [sx - r, sy], [sx - r * 0.28, sy - r * 0.28], [sx, sy - r]];
     this.line(star, { stroke: accent, fill: accent, fillStyle: 'solid', roughness: 0.8 });
-    this.text(x, y, name, { size, color: o.color || b.ink || C.ink });
-    this.line([[x, y + size * 1.3], [x + w * 0.55, y + size * 1.3 + size * 0.1], [x + w, y + size * 1.2]], { stroke: accent, strokeWidth: Math.max(4, size * 0.13), roughness: 1.3, round: true });
+    if (useLogo) this.imageFile(x, y, logoFile, { w, h });
+    else this.text(x, y, name, { size, color: o.color || b.ink || C.ink });
+    const uy = useLogo ? y + h + 8 : y + size * 1.3;
+    this.line([[x, uy], [x + w * 0.55, uy + size * 0.1], [x + w, uy - size * 0.1]], { stroke: accent, strokeWidth: Math.max(4, size * 0.13), roughness: 1.3, round: true });
     return w;
   }
   // 封面版式。opts: { ratio:'16:9'|'3:4', title:'两行\n用换行', accent: 高亮第几行(0 起，默认最后一行), sticker:'贴纸名', tag:'左上标签', sub:'副标', color: 高亮字色 }
@@ -220,11 +236,11 @@ class Scene {
       const brandY = ch - 240;
       if (o.sticker) {
         const d = this.imageSize(o.sticker), maxW = cw - 160;
-        const room = brandY - 50 - y;
+        const room = brandY - 90 - y;
         const hCap = Math.min(820, room), h = Math.min(hCap, Math.round(maxW * d.h / d.w));
         this.image(cw / 2, y + 20 + (hCap - h) / 2, o.sticker, { h, align: 'center' });
       }
-      const bw = measure(cfg.brand.name || 'Your Brand', 60).width;
+      const bw = this.brandMarkWidth(60);
       this.brandMark(cw / 2 - bw / 2, brandY, 60);
     } else if (portrait) {
       // 3:4 竖版：标签 → 标题居中 → 贴纸 → 品牌标
@@ -243,11 +259,11 @@ class Scene {
       if (o.sticker) {
         // 宽图（如 logos-vs）按高度放会横向溢出，宽度同时限在画布内
         const d = this.imageSize(o.sticker), maxW = cw - 180;
-        const room = brandY - 40 - y;
+        const room = brandY - 80 - y;
         const hCap = Math.min(640, room), h = Math.min(hCap, Math.round(maxW * d.h / d.w));
         this.image(cw / 2, y + 10 + (hCap - h) / 2, o.sticker, { h, align: 'center' });
       }
-      const bw = measure(cfg.brand.name || 'Your Brand', 52).width;
+      const bw = this.brandMarkWidth(52);
       this.brandMark(cw / 2 - bw / 2, brandY, 52);
     } else if (cw / ch < 1.6) {
       // 4:3 等偏方横版：标题通栏大字 → 副标 → 贴纸右下（尽量大，只避开会撞到的标题行）→ 品牌标左下
@@ -266,7 +282,7 @@ class Scene {
       if (o.sub) { const w = measure(o.sub, 44).width; this.text(114, y, o.sub, { size: 44, color: C.gray }); rows.push({ right: 114 + w, bottom: y + 50 }); y += 80; }
       if (o.sticker) {
         const asp = (() => { const d = this.imageSize(o.sticker); return d.w / d.h; })();
-        const bottom = ch - 70, right = cw - 100;
+        const bottom = ch - 92, right = cw - 120;
         let h = Math.round(ch * 0.55);
         for (; h > ch * 0.25; h -= 10) {
           const top = bottom - h, left = right - h * asp;
@@ -343,12 +359,12 @@ function build(projectDir, sceneList, extra = {}) {
       extra.cover(s, ratio);
       const [w, h] = coverSize(ratio);
       const m = s.save(P.scenes); covers.push({ ...m, ratio, width: w, height: h });
-      for (const f of Object.values(s.files)) fs.copyFileSync(path.join(P.assets, f.name), path.join(P.scenes, f.name));
+      for (const f of Object.values(s.files)) fs.copyFileSync(resolveAsset(P, f.name), path.join(P.scenes, f.name));
     }
     fs.writeFileSync(path.join(P.scenes, 'cover.json'), JSON.stringify(covers, null, 1));
   } else if (fs.existsSync(path.join(P.scenes, 'cover.json'))) fs.rmSync(path.join(P.scenes, 'cover.json'));
   // 贴纸 png 复制到 scenes/ 旁边，供 .excalidraw.md 的 Embedded Files 引用
-  for (const s of sceneList) for (const f of Object.values(s.files)) fs.copyFileSync(path.join(P.assets, f.name), path.join(P.scenes, f.name));
+  for (const s of sceneList) for (const f of Object.values(s.files)) fs.copyFileSync(resolveAsset(P, f.name), path.join(P.scenes, f.name));
   writeNote(P, meta);
   console.log(meta.map((s) => `${s.name}: ${s.segments.length} beats, ${s.beatOf.length} elements`).concat(covers.map((c) => `${c.name}: 封面 ${c.width}×${c.height}, ${c.beatOf.length} elements`)).join('\n'));
   return meta;
@@ -380,10 +396,14 @@ function brandEndCard(brand) {
   const s = new Scene('99-brand', '品牌卡');
   s.nextBeat();
   const accent = brand.accent || C.green, ink = brand.ink || C.ink;
-  let nameW, top = 300, bottom;
+  let nameW, top = 360, bottom;
   const logo = brand.logo && expandHome(brand.logo);
   if (logo && fs.existsSync(logo)) {
-    const el = s.imageFile(CX, 230, logo, { h: 280, align: 'center' });
+    // 宽字标（宽高比大）按高度放会横向撑满，宽度同时限在 900 以内；整块内容压在 960 字幕线以上、重心居中
+    const buf = fs.readFileSync(logo);
+    const iw = buf.readUInt32BE(16), ih = buf.readUInt32BE(20);
+    const h = Math.min(280, Math.round(900 * ih / iw));
+    const el = s.imageFile(CX, 360, logo, { h, align: 'center' });
     nameW = el.width; top = el.y; bottom = el.y + el.height;
   } else {
     const size = 150;
@@ -405,7 +425,13 @@ function brandEndCard(brand) {
   return s;
 }
 // os.homedir() 优先：Windows 上 process.env.HOME 可能是 /c/Users/x（MSYS 写法），Node 解析会错。
-const expandHome = (p) => { const e = p.replace(/^~/, require('os').homedir() || process.env.HOME || ''); return path.isAbsolute(e) ? e : path.join(__dirname, '..', e); }; // guard:allow-env-credential — Local-files desktop CLI only; runs in an isolated child process with operator-owned environment, never a hosted shared request.
+const expandHome = (p) => { const e = p.replace(/^~/, require('os').homedir() || process.env.HOME || ''); return path.isAbsolute(e) ? e : path.join(__dirname, '..', e); };
+// 图片源：期目录 assets/ 优先，其次 skill 根 assets/brand/（config.brand.logo 这类全局图，各期共用一份）
+const resolveAsset = (P, name) => {
+  const hit = [path.join(P.assets, name), path.join(__dirname, '..', 'assets', 'brand', name)].find((f) => fs.existsSync(f));
+  if (!hit) throw new Error(`找不到图片 ${name}：期 assets/ 与 assets/brand/ 都没有`);
+  return hit;
+};
 
 module.exports = { Scene, C, W, H, CX, CY, build, writeNote, brandEndCard, projectDir: null };
 // 项目 scenes.js 里 require 后先调用 use(__dirname)，image() 才知道贴纸在哪
