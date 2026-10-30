@@ -1,9 +1,14 @@
 import { defineAction, fail } from "@agent-native/core/action";
+import { readAppSecret } from "@agent-native/core";
 import { z } from "zod";
 import fs from "node:fs";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { ownerKey, loadEpisode } from "../server/studio-store";
+
+/** 与 server/plugins/tts-secrets.ts 注册的条目保持一致。 */
+const TTS_SECRET_KEYS = ["VOLC_TTS_API_KEY", "MI_TTS_API_KEY"] as const;
+
 export default defineAction({
   description:
     "Run original whiteboard engine: preview creates stills/covers; build creates narrated MP4. One active job per project.",
@@ -79,10 +84,32 @@ export default defineAction({
         }),
       );
       const log = fs.openSync(path.join(dir, "render.log"), "a");
+      // 配音凭证：密钥库优先，项目根 .env 兜底。
+      // Node 的 loadEnvFile 不覆盖已存在的变量，所以这里注入的值会压过 .env。
+      const renderEnv: NodeJS.ProcessEnv = { ...process.env };
+      if (ctx?.userEmail) {
+        for (const key of TTS_SECRET_KEYS) {
+          try {
+            const stored = await readAppSecret({
+              key,
+              scope: "user",
+              scopeId: ctx.userEmail,
+            });
+            if (stored?.value) renderEnv[key] = stored.value;
+          } catch {
+            // 读不到就让 .env 的默认值生效，不阻断出片
+          }
+        }
+      }
       const child = spawn(
         process.execPath,
         [path.resolve("scripts/render-episode.cjs"), dir, mode],
-        { cwd: process.cwd(), stdio: ["ignore", log, log], detached: true },
+        {
+          cwd: process.cwd(),
+          stdio: ["ignore", log, log],
+          detached: true,
+          env: renderEnv,
+        },
       );
       fs.closeSync(log);
       fs.writeFileSync(

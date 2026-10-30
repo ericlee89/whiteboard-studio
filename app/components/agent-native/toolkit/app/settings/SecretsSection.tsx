@@ -240,6 +240,10 @@ export function SecretsSection({ focusKey }: SecretsSectionProps) {
 }
 
 const TILE_PRIORITY = [
+  // 本应用的配音凭证排在最前：未填写时会以磁贴形式直接出现在「API 密钥」空状态，
+  // 交付给新用户时不用翻「添加密钥」手打变量名。
+  "VOLC_TTS_API_KEY",
+  "MI_TTS_API_KEY",
   "OPENAI_API_KEY",
   "ANTHROPIC_API_KEY",
   "JEV_API_KEY",

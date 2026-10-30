@@ -38,6 +38,12 @@ try {
   cfg.brand.slogan = "让每个好想法，都被讲清楚";
   cfg.captions.highlight.enabled = ep.highlight;
   cfg.render.workers = 2;
+  // 画面风格：kai 是「楷体 + 暖米黄」，用 culture 的纸色叠 override 字体实现；
+  // 其余四档走纯预设，必须清空 override，否则 override 优先级更高会把字体锁死。
+  const style = ep.style || "kai";
+  cfg.style = cfg.style || {};
+  cfg.style.preset = style === "kai" ? "culture" : style;
+  cfg.style.override = style === "kai" ? { fontFile: "STKAITI.TTF" } : {};
   fs.writeFileSync(path.join(engine, "config.json"), JSON.stringify(cfg));
   const project = path.join(engine, "episodes", ep.id);
   fs.mkdirSync(project, { recursive: true });

@@ -689,6 +689,20 @@ export default function Studio() {
           </div>
         ) : tab === "settings" ? (
           <div className="inspector-content">
+            <label htmlFor="style">画面风格</label>
+            <select
+              id="style"
+              value={draft.style ?? "kai"}
+              onChange={(e) =>
+                setEpisode({ ...draft, style: e.target.value as Episode["style"] })
+              }
+            >
+              <option value="kai">楷体 · 暖米黄点阵</option>
+              <option value="classic">手写体 · 米白点阵</option>
+              <option value="training">苹方江南 · 纯白投屏</option>
+              <option value="culture">苹方相思 · 暖米黄</option>
+              <option value="office">苹方江南 · 冷浅灰</option>
+            </select>
             <label htmlFor="engine">配音引擎</label>
             <select
               id="engine"

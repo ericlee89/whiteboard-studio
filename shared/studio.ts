@@ -23,6 +23,12 @@ export const episodeSchema = z.object({
   voice: z.string().max(80).describe("Provider-specific voice id"),
   speed: z.number().min(0.5).max(2).describe("Speech speed multiplier"),
   highlight: z.boolean().describe("Burn highlighted captions"),
+  style: z
+    .enum(["kai", "classic", "training", "culture", "office"])
+    .default("kai")
+    .describe(
+      "Visual preset. kai=kaishu on warm beige, classic=handwriting on off-white, training=clean white for projection, culture=warm classic, office=cool light gray",
+    ),
   brand: z.string().min(1).max(30).describe("Watermark text"),
   sources: z
     .string()
@@ -43,6 +49,7 @@ export function sampleEpisode(): Episode {
     voice: "zh-CN-YunxiNeural",
     speed: 1.2,
     highlight: true,
+    style: "culture",
     brand: "白板工作室",
     sources: "示例项目：内容仅用于展示工作室操作。没有引用外部新闻或统计数据。",
     publish:
