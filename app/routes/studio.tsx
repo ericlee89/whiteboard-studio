@@ -765,13 +765,13 @@ export default function Studio() {
             </p>
             <label htmlFor="scene-image">画面配图</label>
             {active.image ? (
-              <div className="scene-image">
+              <div className="asset-box">
                 <img
-                  className="scene-image-thumb"
+                  className="asset-thumb"
                   src={`/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.image.file)}`}
                   alt="配图预览"
                 />
-                <div className="scene-image-controls">
+                <div className="asset-controls">
                   <select
                     id="scene-image"
                     value={active.image.fit}
@@ -850,16 +850,16 @@ export default function Studio() {
             )}
             <label htmlFor="scene-video">画面视频</label>
             {active.video ? (
-              <div className="scene-image">
+              <div className="asset-box">
                 <video
-                  className="scene-image-thumb"
+                  className="asset-thumb"
                   src={`/studio-asset?id=${encodeURIComponent(draft.id)}&file=${encodeURIComponent(active.video.file)}`}
                   muted
                   loop
                   autoPlay
                   playsInline
                 />
-                <div className="scene-image-controls">
+                <div className="asset-controls">
                   <select
                     id="scene-video"
                     value={active.video.fit}
